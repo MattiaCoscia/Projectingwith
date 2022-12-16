@@ -124,6 +124,15 @@ public class ZooOperationController {
     return animalicodati;
     }
 
+    public Aquila getAquilaConAmpiezzaAlareMaggiore(){
+        Aquila aquilalarge=aquile.get(0);
+        for(Aquila attualeagle : aquile){
+            if(attualeagle.getLarghezza_alare()>aquilalarge.getLarghezza_alare()){
+                aquilalarge=attualeagle;}
+        }
+        return aquilalarge;
+    }
+
     public ZooOperationController() {
         this.aquile = new ArrayList<>();
         this.tigri = new ArrayList<>();
