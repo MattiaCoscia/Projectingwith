@@ -1,6 +1,7 @@
 package lezione1_dav;
 
 import lezione1_dav.controller.ZooOperationController;
+import lezione1_dav.model.AnimaliConLaCoda;
 import lezione1_dav.model.Aquila;
 import lezione1_dav.model.Leone;
 import lezione1_dav.model.Tigre;
@@ -57,8 +58,9 @@ public class Avvio {
         System.out.println("La tigre più leggera della specie è : "+tigrepiuleggera.getNome());
         Aquila aquilapiuleggera=zooOperationController.getAquilapiuleggera();
         System.out.println("L'aquila più leggera della specie è : "+aquilapiuleggera.getNome());
-
-
+        System.out.println("Animali con la coda piu lunga");
+        AnimaliConLaCoda animaliConLaCoda=zooOperationController.getAnimaliconlacodapiulunga();
+        System.out.println("L'animale con la coda più lunga è : "+animaliConLaCoda.getNome());
 
 
     }

@@ -1,9 +1,6 @@
 package lezione1_dav.controller;
 
-import lezione1_dav.model.Animale;
-import lezione1_dav.model.Aquila;
-import lezione1_dav.model.Leone;
-import lezione1_dav.model.Tigre;
+import lezione1_dav.model.*;
 
 import java.util.ArrayList;
 
@@ -12,6 +9,7 @@ public class ZooOperationController {
     ArrayList<Aquila>aquile;
     ArrayList<Tigre>tigri;
     ArrayList<Leone>leoni;
+
 
 
     public Leone getLeonepiualto(){
@@ -113,6 +111,18 @@ public class ZooOperationController {
         return aquilapiuleggera;
     }
 
+    public AnimaliConLaCoda getAnimaliconlacodapiulunga(){
+        ArrayList<AnimaliConLaCoda>animaliConLeCode=new ArrayList<>();
+        animaliConLeCode.addAll(leoni);
+        animaliConLeCode.addAll(tigri);
+        AnimaliConLaCoda animalicodati=animaliConLeCode.get(0);
+        for(AnimaliConLaCoda attualqueue: animaliConLeCode){
+            if(attualqueue.getLunghezza_coda()> animalicodati.getLunghezza_coda()){
+                animalicodati=attualqueue;
+            }
+        }
+    return animalicodati;
+    }
 
     public ZooOperationController() {
         this.aquile = new ArrayList<>();
