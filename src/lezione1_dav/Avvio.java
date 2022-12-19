@@ -15,19 +15,25 @@ public class Avvio {
         ZooOperationController zooOperationController=new ZooOperationController();
         Leone leone1=new Leone("Alibabba","sugar",19, LocalDate.now(),70.0,1.50,0.50);
         Leone leone2=new Leone("Azvegna","carne",15, LocalDate.now(),67.0,1.60,0.70);
+        Leone leone3=new Leone("Propotamo","zucca",12, LocalDate.now(),689.0,1.00,2.70);
 
-        Tigre tigre1=new Tigre("pippo","tartufo",21,LocalDate.now(),55.0,1.70,1.10);
-        Tigre tigre2=new Tigre("dada","fungo",19,LocalDate.now(),54.0,1.90,0.10);
+        Tigre tigre1=new Tigre("Pippo","tartufo",21,LocalDate.now(),55.0,1.70,1.10);
+        Tigre tigre2=new Tigre("Dada","fungo",19,LocalDate.now(),54.0,1.90,0.10);
+        Tigre tigre3=new Tigre("Wasabi","cocaina",29,LocalDate.now(),74.0,1.60,0.20);
 
-        Aquila aquila1=new Aquila("gino","umano",32,LocalDate.now(),23.0,0.70,2.10);
-        Aquila aquila2=new Aquila("egigio","verme",45,LocalDate.now(),33.0,1.00,2.20);
+        Aquila aquila1=new Aquila("Gino","umano",32,LocalDate.now(),23.0,0.70,2.10);
+        Aquila aquila2=new Aquila("Egigio","verme",45,LocalDate.now(),33.0,1.00,2.20);
+        Aquila aquila3=new Aquila("Ra","persone",25,LocalDate.now(),34.0,1.10,2.25);
 
-        zooOperationController.aggiungiAnimale(leone1);
-        zooOperationController.aggiungiAnimale(leone2);
-        zooOperationController.aggiungiAnimale(tigre1);
-        zooOperationController.aggiungiAnimale(tigre2);
-        zooOperationController.aggiungiAnimale(aquila1);
-        zooOperationController.aggiungiAnimale(aquila2);
+        zooOperationController.aggiungiLeone(leone1);
+        zooOperationController.aggiungiLeone(leone2);
+        zooOperationController.aggiungiLeone(leone3);
+        zooOperationController.aggiungiTigre(tigre1);
+        zooOperationController.aggiungiTigre(tigre2);
+        zooOperationController.aggiungiTigre(tigre3);
+        zooOperationController.aggiungiAquila(aquila1);
+        zooOperationController.aggiungiAquila(aquila2);
+        zooOperationController.aggiungiAquila(aquila3);
 
 
         System.out.println("---------------------------------Altezza maggiore-------------------------------------");

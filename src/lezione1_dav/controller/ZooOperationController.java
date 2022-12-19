@@ -3,12 +3,27 @@ package lezione1_dav.controller;
 import lezione1_dav.model.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ZooOperationController {
 
     ArrayList<Aquila>aquile;
     ArrayList<Tigre>tigri;
     ArrayList<Leone>leoni;
+
+    Scanner s=new Scanner(System.in);
+
+
+
+    //Completare inserimento tramite input utente
+    public void inserisciLeone(){
+        Leone leone = null;
+        System.out.println("Inserisci i dati del leone: ");
+        System.out.println("Nome: ");
+        leone.setNome(s.nextLine());
+
+    }
+
 
 
 
@@ -188,5 +203,14 @@ public class ZooOperationController {
         } else if (animale instanceof Aquila) {
             aquile.add((Aquila) animale);
         }
+    }
+    public void aggiungiLeone(Leone leone){
+        leoni.add(leone);
+    }
+    public void aggiungiTigre(Tigre tigre){
+        tigri.add(tigre);
+    }
+    public void aggiungiAquila(Aquila aquila){
+        aquile.add(aquila);
     }
 }
