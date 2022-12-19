@@ -13,6 +13,9 @@ public class ZooOperationController {
 
 
     public Leone getLeonepiualto(){
+        if(leoni.isEmpty()){
+            return null;
+        }
         Leone leonepiualto=leoni.get(0);
         for(Leone attualion : leoni){
             if(attualion.getAltezza()>leonepiualto.getAltezza()){
@@ -21,6 +24,9 @@ public class ZooOperationController {
         return leonepiualto;
     }
     public Tigre getTigrepiualta(){
+        if(tigri.isEmpty()){
+            return null;
+        }
         Tigre tigrepiualta=tigri.get(0);
         for(Tigre attualtiger : tigri){
             if(attualtiger.getAltezza()>tigrepiualta.getAltezza()){
@@ -30,6 +36,9 @@ public class ZooOperationController {
     }
 
     public Aquila getAquilapiualta(){
+        if(aquile.isEmpty()){
+            return null;
+        }
         Aquila aquilapiualta=aquile.get(0);
         for(Aquila attualeagle : aquile){
             if(attualeagle.getAltezza()>aquilapiualta.getAltezza()){
@@ -39,6 +48,9 @@ public class ZooOperationController {
     }
 
     public Leone getLeonepiubasso(){
+        if(leoni.isEmpty()){
+            return null;
+        }
         Leone leonepiubasso=leoni.get(0);
         for(Leone attualion : leoni){
             if(attualion.getAltezza()<leonepiubasso.getAltezza()){
@@ -47,6 +59,9 @@ public class ZooOperationController {
         return leonepiubasso;
     }
     public Tigre getTigrepiubassa(){
+        if(tigri.isEmpty()){
+            return null;
+        }
         Tigre tigrepiubassa=tigri.get(0);
         for(Tigre attualtiger : tigri){
             if(attualtiger.getAltezza()<tigrepiubassa.getAltezza()){
@@ -55,6 +70,9 @@ public class ZooOperationController {
         return tigrepiubassa;
     }
     public Aquila getAquilapiubassa(){
+        if(aquile.isEmpty()){
+            return null;
+        }
         Aquila aquilapiubassa=aquile.get(0);
         for(Aquila attualeagle : aquile){
             if(attualeagle.getAltezza()<aquilapiubassa.getAltezza()){
@@ -63,6 +81,9 @@ public class ZooOperationController {
         return aquilapiubassa;
     }
     public Leone getLeonepiupesante(){
+        if(leoni.isEmpty()){
+            return null;
+        }
         Leone leonepiupesante=leoni.get(0);
         for(Leone attualion : leoni){
             if(attualion.getPeso()>leonepiupesante.getPeso()){
@@ -71,6 +92,9 @@ public class ZooOperationController {
         return leonepiupesante;
     }
     public Tigre getTigrepiupesante(){
+        if(tigri.isEmpty()){
+            return null;
+        }
         Tigre tigrepiupesante=tigri.get(0);
         for(Tigre attualtiger : tigri){
             if(attualtiger.getPeso()>tigrepiupesante.getPeso()){
@@ -79,6 +103,9 @@ public class ZooOperationController {
         return tigrepiupesante;
     }
     public Aquila getAquilapiupesante(){
+        if(aquile.isEmpty()){
+            return null;
+        }
         Aquila aquilapiupesante=aquile.get(0);
         for(Aquila attualeagle : aquile){
             if(attualeagle.getPeso()>aquilapiupesante.getPeso()){
@@ -87,6 +114,9 @@ public class ZooOperationController {
         return aquilapiupesante;
     }
     public Leone getLeonepiuleggero(){
+        if(leoni.isEmpty()){
+            return null;
+        }
         Leone leonepiuleggero=leoni.get(0);
         for(Leone attualion : leoni){
             if(attualion.getPeso()<leonepiuleggero.getPeso()){
@@ -95,6 +125,9 @@ public class ZooOperationController {
         return leonepiuleggero;
     }
     public Tigre getTigrepiuleggera(){
+        if(tigri.isEmpty()){
+            return null;
+        }
         Tigre tigrepiuleggera=tigri.get(0);
         for(Tigre attualtiger : tigri){
             if(attualtiger.getPeso()<tigrepiuleggera.getPeso()){
@@ -103,6 +136,9 @@ public class ZooOperationController {
         return tigrepiuleggera;
     }
     public Aquila getAquilapiuleggera(){
+        if(aquile.isEmpty()){
+            return null;
+        }
         Aquila aquilapiuleggera=aquile.get(0);
         for(Aquila attualeagle : aquile){
             if(attualeagle.getPeso()<aquilapiuleggera.getPeso()){
@@ -115,6 +151,9 @@ public class ZooOperationController {
         ArrayList<AnimaliConLaCoda>animaliConLeCode=new ArrayList<>();
         animaliConLeCode.addAll(leoni);
         animaliConLeCode.addAll(tigri);
+        if(animaliConLeCode.isEmpty()){
+            return null;
+        }
         AnimaliConLaCoda animalicodati=animaliConLeCode.get(0);
         for(AnimaliConLaCoda attualqueue: animaliConLeCode){
             if(attualqueue.getLunghezza_coda()> animalicodati.getLunghezza_coda()){
@@ -125,6 +164,9 @@ public class ZooOperationController {
     }
 
     public Aquila getAquilaConAmpiezzaAlareMaggiore(){
+        if(aquile.isEmpty()){
+            return null;
+        }
         Aquila aquilalarge=aquile.get(0);
         for(Aquila attualeagle : aquile){
             if(attualeagle.getLarghezza_alare()>aquilalarge.getLarghezza_alare()){
