@@ -1,8 +1,9 @@
-package lezione1_dav.controller;
+package pawtropolis.controller;
 
-import lezione1_dav.model.*;
+import pawtropolis.model.entity.animal.category.Animal;
+import pawtropolis.model.entity.animal.category.AnimalWithTail;
+import pawtropolis.model.entity.animal.category.AnimalWithWings;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 public class ZooOperationController {

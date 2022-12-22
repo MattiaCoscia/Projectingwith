@@ -1,4 +1,6 @@
-package lezione1_dav.model;
+package pawtropolis.model.entity.animal.specie;
+
+import pawtropolis.model.entity.animal.category.AnimalWithTail;
 
 import java.time.LocalDate;
 
