@@ -2,22 +2,22 @@ package lezione1_dav.model;
 
 import java.time.LocalDate;
 
-public class AnimalWithTail extends Animal {
+public abstract class AnimalWithTail extends Animal {
 
-    private double lunghezza_coda;
+    private double tailLenght;
 
 
-    public double getLunghezza_coda() {
-        return lunghezza_coda;
+    public double getTailLenght() {
+        return tailLenght;
     }
 
-    public void setLunghezza_coda(double lunghezza_coda) {
-        this.lunghezza_coda = lunghezza_coda;
+    public void setTailLenght(double tailLenght) {
+        this.tailLenght = tailLenght;
     }
 
 
-    public AnimalWithTail(String nome, String cibo_preferito, int eta, LocalDate data_entrata, double peso, double altezza, double lunghezza_coda) {
-        super(nome, cibo_preferito, eta, data_entrata, peso, altezza);
-        this.lunghezza_coda = lunghezza_coda;
+    protected AnimalWithTail(String name, String preferedFood, int age, LocalDate dateEntry, double weight, double height, double tailLenght) {
+        super(name, preferedFood, age, dateEntry, weight, height);
+        this.tailLenght = tailLenght;
     }
 }
