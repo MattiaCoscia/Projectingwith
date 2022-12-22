@@ -10,12 +10,12 @@ public class Avvio {
         for(Room[] line:GameMapGenerator.gameMap.getRooms()){
             for(Room room:line){
                 if(room!=null){
-                    System.out.print("[]");
+                    System.out.print("["+(room.getPositionX()+1)+"|"+(room.getPositionY()+1)+"]");
                 }else{
                     System.out.print(".");
                 }
             }
-            System.out.println("\n"+"-----------------------");
+            System.out.println();
         }
     }
 }
