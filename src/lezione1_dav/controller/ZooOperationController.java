@@ -15,17 +15,6 @@ public class ZooOperationController {
 
 
 
-    //Completare inserimento tramite input utente
-    public void inserisciLeone(){
-        Leone leone = null;
-        System.out.println("Inserisci i dati del leone: ");
-        System.out.println("Nome: ");
-        leone.setNome(s.nextLine());
-
-    }
-
-
-
 
     public Leone getLeonepiualto(){
         if(leoni.isEmpty()){
