@@ -2,7 +2,7 @@ package lezione1_dav.model;
 
 import java.time.LocalDate;
 
-public class Aquila extends Animale{
+public class Aquila extends Animal {
 
         private double larghezza_alare;
 

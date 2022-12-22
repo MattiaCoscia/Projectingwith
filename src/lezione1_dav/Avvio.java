@@ -1,7 +1,7 @@
 package lezione1_dav;
 
 import lezione1_dav.controller.ZooOperationController;
-import lezione1_dav.model.AnimaliConLaCoda;
+import lezione1_dav.model.AnimalWithTail;
 import lezione1_dav.model.Aquila;
 import lezione1_dav.model.Leone;
 import lezione1_dav.model.Tigre;
@@ -65,8 +65,8 @@ public class Avvio {
         Aquila aquilapiuleggera=zooOperationController.getAquilapiuleggera();
         System.out.println("L'aquila più leggera della specie è : "+aquilapiuleggera.getNome());
         System.out.println("--------------------------------Animali con la coda piu lunga---------------------------------");
-        AnimaliConLaCoda animaliConLaCoda=zooOperationController.getAnimaliconlacodapiulunga();
-        System.out.println("L'animale con la coda più lunga è : "+animaliConLaCoda.getNome());
+        AnimalWithTail animalWithTail =zooOperationController.getAnimaliconlacodapiulunga();
+        System.out.println("L'animale con la coda più lunga è : "+ animalWithTail.getNome());
         System.out.println("---------------------------------Uccello con l'apertura alare piu ampia-------------------------");
         Aquila aquilalarge=zooOperationController.getAquilaConAmpiezzaAlareMaggiore();
         System.out.println("L'aquila con l'apertura alare più ampia è : "+aquilalarge.getNome());
