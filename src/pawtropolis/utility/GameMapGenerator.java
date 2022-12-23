@@ -3,10 +3,16 @@ package pawtropolis.utility;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameMapGenerator {
-    public static final GameMap gameMap = new GameMap(new Room[20][20]);
+    private static int dimY=20;
+    private static int dimX=20;
+    public static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
 
     public static GameMap generateMap() {
         Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), 0, 0);
@@ -34,6 +40,25 @@ public class GameMapGenerator {
                 generateRoom(x,y,gameMap.getRooms()[y][x]);
             }
         }
+
+        RenderMap.printMap(gameMap);
+        System.out.println("\n");
+        //prova per secondo riempimento mappa
+        List<Room> listRooms=new ArrayList<>();
+        for(Room[] lineRooms:gameMap.getRooms()){
+            for(Room roomInLine:lineRooms){
+                if(roomInLine!=null){
+                    listRooms.add(roomInLine);
+                }
+            }
+        }
+        if(listRooms.size() < ((dimY+dimX)/2)){
+            for(int y=line;y<gameMap.getRooms().length;y++){
+                for(int x=column;x<gameMap.getRooms()[0].length;x++){
+                    generateRoom(x,y,gameMap.getRooms()[y][x]);
+                }
+            }
+        }
         return gameMap;
     }
 
@@ -41,13 +66,11 @@ public class GameMapGenerator {
         if(gameMap.getRooms()[y][x] != null){
             int maxAdiacentRooms = (int) Math.floor(Math.random() * 5);
             maxAdiacentRooms= (x==0 && y==1 || x==1 && y==0) && (maxAdiacentRooms < 1) ? 1 : maxAdiacentRooms;
-            System.out.println("====================================================================");
             for (int i = 0; i < maxAdiacentRooms; i++) {
                 int adiacentPosition = 3 - ((int) Math.floor(Math.random() * 4));
                             //NORD = 0;
                 // OVEST = 3 ;          EAST= 1
                             // SUD = 2;
-                System.out.println("Position:"+adiacentPosition);
                 Room adiacentRoom = new Room("", new HashMap<>(), new HashMap<>(), 0, 0);
                 switch (adiacentPosition) {
                     case 0: {
