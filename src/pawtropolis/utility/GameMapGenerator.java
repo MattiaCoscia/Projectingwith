@@ -43,8 +43,6 @@ public class GameMapGenerator {
                 generateRoom(x,y,gameMap.getRooms()[y][x]);
             }
         }
-
-        RenderMap.printMap(gameMap);
         while(getMapOccupiedSize()<((dimY+dimX)/2/3)){
             enlargeMap(line,column);
         }
