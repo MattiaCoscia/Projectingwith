@@ -34,6 +34,7 @@ public class RenderMap {
                     printLineHead+=".....";
                     printLineBody+=".....";
                     printLineFoot+=".....";
+                    //ok
                 }
             }
             System.out.println(printLineHead+"\n"+printLineBody+"\n"+printLineFoot);
