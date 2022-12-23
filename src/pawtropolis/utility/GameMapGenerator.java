@@ -8,6 +8,9 @@ import java.util.HashMap;
 public class GameMapGenerator {
     public static final GameMap gameMap = new GameMap(new Room[20][20]);
 
+
+
+    //Generatore della mappa
     public static GameMap generateMap() {
         Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), 0, 0);
         Room firstRoom = new Room("First", new HashMap<>(), new HashMap<>(), 0, 0);
@@ -37,17 +40,18 @@ public class GameMapGenerator {
         return gameMap;
     }
 
+
+
+    //Generatore delle stanze
     private static void generateRoom(int x, int y,Room actualRoom) {
         if(gameMap.getRooms()[y][x] != null){
             int maxAdiacentRooms = (int) Math.floor(Math.random() * 5);
             maxAdiacentRooms= (x==0 && y==1 || x==1 && y==0) && (maxAdiacentRooms < 1) ? 1 : maxAdiacentRooms;
-            System.out.println("====================================================================");
             for (int i = 0; i < maxAdiacentRooms; i++) {
                 int adiacentPosition = 3 - ((int) Math.floor(Math.random() * 4));
                             //NORD = 0;
                 // OVEST = 3 ;          EAST= 1
                             // SUD = 2;
-                System.out.println("Position:"+adiacentPosition);
                 Room adiacentRoom = new Room("", new HashMap<>(), new HashMap<>(), 0, 0);
                 switch (adiacentPosition) {
                     case 0: {
