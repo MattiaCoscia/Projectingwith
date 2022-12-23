@@ -7,5 +7,25 @@ import pawtropolis.utility.RenderMap;
 public class Avvio {
     public static void main(String[] args) {
         RenderMap.printMap(GameMapGenerator.generateMap());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

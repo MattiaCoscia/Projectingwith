@@ -14,6 +14,9 @@ public class GameMapGenerator {
     private static int dimX=20;
     public static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
 
+
+
+    //Generatore della mappa
     public static GameMap generateMap() {
         Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), 0, 0);
         Room firstRoom = new Room("First", new HashMap<>(), new HashMap<>(), 0, 0);
@@ -62,6 +65,9 @@ public class GameMapGenerator {
         return gameMap;
     }
 
+
+
+    //Generatore delle stanze
     private static void generateRoom(int x, int y,Room actualRoom) {
         if(gameMap.getRooms()[y][x] != null){
             int maxAdiacentRooms = (int) Math.floor(Math.random() * 5);
