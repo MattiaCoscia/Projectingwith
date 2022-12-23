@@ -45,8 +45,7 @@ public class GameMapGenerator {
         }
 
         RenderMap.printMap(gameMap);
-        System.out.println("\n");
-        while(getMapOccupiedSize()<((dimY+dimX)/2)){
+        while(getMapOccupiedSize()<((dimY+dimX)/2/3)){
             enlargeMap(line,column);
         }
         return gameMap;
@@ -65,8 +64,6 @@ public class GameMapGenerator {
     }
 
     public static void enlargeMap(int line,int column){
-        RenderMap.printMap(gameMap);
-        System.out.println("\n");
         if(getMapOccupiedSize() < ((dimY+dimX)/2)){
             for(int y=line;y<gameMap.getRooms().length;y++){
                 for(int x=column;x<gameMap.getRooms()[0].length;x++){
