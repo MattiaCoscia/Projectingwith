@@ -7,32 +7,22 @@ import pawtropolis.utility.GameMapGenerator;
 public class Avvio {
     public static void main(String[] args) {
         GameMapGenerator.generateMap();
+        int x=0;
+        int y=0;
         for(Room[] line:GameMapGenerator.gameMap.getRooms()){
+            x=0;
             for(Room room:line){
                 if(room!=null){
-                    String relations="";
                     for(Room r:room.getAdiacentRooms()){
-                        int i=0;
-                        if(r!=null && r.getType().equals(RoomType.ROOM_TYPE)){
-                            switch (i){
-                                case 0:
-                                    relations+="^";
-                                case 1:
-                                    relations+=">";
-                                case 2:
-                                    relations+="v";
-                                case 3:
-                                    relations+="<";
-                            }
-                        }
-                        i++;
                     }
-                    System.out.print("["+(room.getPositionX()+1)+"|"+relations+"|"+(room.getPositionY()+1)+"]");
+                    System.out.print(" "+room.getName()+" ");
                 }else{
-                    System.out.print(".");
+                    System.out.print("|");
                 }
+                x++;
             }
-            System.out.println();
+            System.out.println("y:"+y);
+            y++;
         }
     }
 }
