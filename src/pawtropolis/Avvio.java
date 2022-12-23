@@ -8,6 +8,7 @@ public class Avvio {
         GameMapGenerator.generateMap();
         int x=0;
         int y=0;
+        System.out.println("DIRECTION MENU:   ^^^:NORTH   ==>:WEST  VVV:SOUTH  <==:EST  ");
         for(Room[] line:GameMapGenerator.gameMap.getRooms()){
             x=0;
             for(Room room:line){

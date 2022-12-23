@@ -37,7 +37,6 @@ public class GameMapGenerator {
         if(gameMap.getRooms()[y][x] != null){
             int maxAdiacentRooms = (int) Math.floor(Math.random() * 5);
             System.out.println("====================================================================");
-            System.out.println(actualRoom.getName());
             for (int i = 0; i < maxAdiacentRooms; i++) {
                 int adiacentPosition = 3 - ((int) Math.floor(Math.random() * 4));//NORD = 0; OVEST = 1 ; SUD = 2; EAST= 3
                 System.out.println("Position:"+adiacentPosition);
