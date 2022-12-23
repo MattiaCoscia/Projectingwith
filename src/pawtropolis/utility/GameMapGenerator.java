@@ -46,7 +46,13 @@ public class GameMapGenerator {
 
         RenderMap.printMap(gameMap);
         System.out.println("\n");
-        //prova per secondo riempimento mappa
+        while(getMapOccupiedSize()<((dimY+dimX)/2)){
+            enlargeMap(line,column);
+        }
+        return gameMap;
+    }
+
+    public static int getMapOccupiedSize(){
         List<Room> listRooms=new ArrayList<>();
         for(Room[] lineRooms:gameMap.getRooms()){
             for(Room roomInLine:lineRooms){
@@ -55,14 +61,19 @@ public class GameMapGenerator {
                 }
             }
         }
-        if(listRooms.size() < ((dimY+dimX)/2)){
+        return listRooms.size();
+    }
+
+    public static void enlargeMap(int line,int column){
+        RenderMap.printMap(gameMap);
+        System.out.println("\n");
+        if(getMapOccupiedSize() < ((dimY+dimX)/2)){
             for(int y=line;y<gameMap.getRooms().length;y++){
                 for(int x=column;x<gameMap.getRooms()[0].length;x++){
                     generateRoom(x,y,gameMap.getRooms()[y][x]);
                 }
             }
         }
-        return gameMap;
     }
 
 
