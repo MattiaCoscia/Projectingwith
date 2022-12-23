@@ -1,6 +1,5 @@
 package pawtropolis.utility;
 
-import pawtropolis.model.RoomType;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 
@@ -8,7 +7,6 @@ import java.util.HashMap;
 
 public class GameMapGenerator {
     public static final GameMap gameMap = new GameMap(new Room[20][20]);
-
 
     public static void generateMap() {
         Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), 0, 0);

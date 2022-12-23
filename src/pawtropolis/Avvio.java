@@ -1,6 +1,5 @@
 package pawtropolis;
 
-import pawtropolis.model.RoomType;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.GameMapGenerator;
 

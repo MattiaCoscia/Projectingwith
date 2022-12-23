@@ -1,6 +1,6 @@
 package pawtropolis.model.map;
 
-import pawtropolis.model.RoomType;
+import pawtropolis.utility.RoomType;
 import pawtropolis.model.entity.animal.category.Animal;
 import pawtropolis.model.items.Item;
 
