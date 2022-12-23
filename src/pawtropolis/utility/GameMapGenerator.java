@@ -7,7 +7,7 @@ import pawtropolis.model.map.Room;
 import java.util.HashMap;
 
 public class GameMapGenerator {
-    public static final GameMap gameMap=new GameMap(new Room[20][20]);
+    public static final GameMap gameMap=new GameMap(new Room[5][5]);
 
 
     public static void generateMap(){
