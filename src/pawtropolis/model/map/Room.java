@@ -23,13 +23,13 @@ public class Room {
         this.type=RoomType.VOID_TYPE;
     }
 
-    public Room(String name, Map<String, List<Item>> items, Map<Class<? extends Animal>, List<Animal>> animals, int positionX, int positionY) {
+    public Room(String name, Map<String, List<Item>> items, Map<Class<? extends Animal>, List<Animal>> animals, int positionX, int positionY, RoomType roomType) {
         this.name = name;
         this.items = items;
         this.animals = animals;
         this.positionX=positionX;
         this.positionY=positionY;
-        this.type=RoomType.ROOM_TYPE;
+        this.type=roomType;
     }
 
     public void setName(String name) {
