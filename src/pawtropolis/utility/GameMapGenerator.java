@@ -131,7 +131,6 @@ public class GameMapGenerator {
 
 		boolean proximityY = room.getPositionY() >= (startingY - proximityYtoEntry)
 				&& room.getPositionY() <= (startingY + proximityYtoEntry);
-		System.out.println(room.getName()+" X: "+proximityX+" "+proximityXtoEntry+" Y: "+proximityY+" "+proximityYtoEntry);
 		if(proximityX && proximityY) {
 			return true;
 		}else {
