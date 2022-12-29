@@ -12,8 +12,8 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class GameMapGenerator {
-    private static int dimY = 10;
-    private static int dimX = 10;
+    private static int dimY = 20;
+    private static int dimX = 20;
     public static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
     private static final Queue<Room> queueRoomsPositions= new LinkedList<Room>();
 
@@ -84,7 +84,6 @@ public class GameMapGenerator {
                 case 0: {
                     adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
                     adiacentRoom.setPositionX(actualRoom.getPositionX());
-                    adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
                     actualRoom.setSingleRoom(0, adiacentRoom);
                     adiacentRoom.setSingleRoom(2, actualRoom);
                     gameMap.getRooms()[actualRoom.getPositionY() - 1][actualRoom.getPositionX()] = adiacentRoom;
@@ -93,7 +92,6 @@ public class GameMapGenerator {
                 case 1: {
                     adiacentRoom.setPositionY(actualRoom.getPositionY());
                     adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
-                    adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
                     actualRoom.setSingleRoom(1, adiacentRoom);
                     adiacentRoom.setSingleRoom(3, actualRoom);
                     gameMap.getRooms()[actualRoom.getPositionY()][actualRoom.getPositionX() + 1] = adiacentRoom;
@@ -102,7 +100,6 @@ public class GameMapGenerator {
                 case 2: {
                     adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
                     adiacentRoom.setPositionX(actualRoom.getPositionX());
-                    adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
                     actualRoom.setSingleRoom(2, adiacentRoom);
                     adiacentRoom.setSingleRoom(0, actualRoom);
                     gameMap.getRooms()[actualRoom.getPositionY() + 1][actualRoom.getPositionX()] = adiacentRoom;
@@ -111,13 +108,13 @@ public class GameMapGenerator {
                 case 3: {
                     adiacentRoom.setPositionY(actualRoom.getPositionY());
                     adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
-                    adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
                     actualRoom.setSingleRoom(3, adiacentRoom);
                     adiacentRoom.setSingleRoom(1, actualRoom);
                     gameMap.getRooms()[actualRoom.getPositionY()][actualRoom.getPositionX() - 1] = adiacentRoom;
                     break;
                 }
             }
+            adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
             queueRoomsPositions.add(adiacentRoom);
         }
     }

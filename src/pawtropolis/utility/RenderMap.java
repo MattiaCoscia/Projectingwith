@@ -15,15 +15,15 @@ public class RenderMap {
                 // OVEST = 3 ; EAST= 1
                     // SUD = 2;
                 if(room!=null){
-                    String nord=room.getAdiacentRooms()[0] != null ? "|   |" : "=====";
-                    String sud=room.getAdiacentRooms()[2] != null ? "|   |" : "=====";
+                    String nord=room.getAdiacentRooms()[0] != null ? "|= =|" : "=====";
+                    String sud=room.getAdiacentRooms()[2] != null ? "|= =|" : "=====";
                     String estOvest="";
                     if(room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null){
-                        estOvest="<   >";
+                        estOvest="-   -";
                     }else if(room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] == null){
-                        estOvest="<   |";
+                        estOvest="-   |";
                     }else if(room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] != null){
-                        estOvest="|   >";
+                        estOvest="|   -";
                     }else if(room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] == null){
                         estOvest="|   |";
                     }
