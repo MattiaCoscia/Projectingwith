@@ -20,8 +20,8 @@ public class GameMapGenerator {
 
     //Generatore della mappa
     public static GameMap generateMap() {
-    	int startingX=(int)Math.floor((dimX + 1) * Math.random());
-    	int startingY=(int)Math.floor((dimY + 1) * Math.random());
+    	int startingX=(int)Math.floor(dimX * Math.random());
+    	int startingY=(int)Math.floor(dimY * Math.random());
         Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), startingX, startingY, RoomType.ROOM_TYPE);
         gameMap.getRooms()[startingY][startingX] = entryRoom;
         queueRoomsPositions.add(entryRoom);
