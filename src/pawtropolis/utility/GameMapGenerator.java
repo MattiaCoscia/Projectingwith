@@ -124,8 +124,11 @@ public class GameMapGenerator {
 	}
 	
 	public static boolean isNearEntry(Room room, int startingX, int startingY) {
-		boolean proximityX= room.getPositionX() > (startingX - proximityXtoEntry) && room.getPositionX() < (startingX + proximityXtoEntry);
-		boolean proximityY=room.getPositionY() > (startingY - proximityYtoEntry) && room.getPositionY() < (startingY + proximityYtoEntry);
+		boolean proximityX= room.getPositionX() > (startingX - proximityXtoEntry) 
+				&& room.getPositionX() < (startingX + proximityXtoEntry);
+		
+		boolean proximityY=room.getPositionY() > (startingY - proximityYtoEntry) 
+				&& room.getPositionY() < (startingY + proximityYtoEntry);
 		return (proximityX && proximityY);
 	}
 
