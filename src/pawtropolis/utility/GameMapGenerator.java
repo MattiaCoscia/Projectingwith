@@ -12,8 +12,8 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 public class GameMapGenerator {
-    private static int dimY = 50;
-    private static int dimX = 100;
+    private static int dimY = 10;
+    private static int dimX = 10;
     public static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
     private static final Queue<Room> queueRoomsPositions= new LinkedList<Room>();
 
@@ -57,8 +57,14 @@ public class GameMapGenerator {
         if (actualRoom != null) {
             List<Integer> availablePosition = availableAdiacentPosition(actualRoom.getPositionX(), actualRoom.getPositionY());
             int maxAdiacentRooms = (int) Math.floor(Math.random() * (availablePosition.size() + 1));
-            if (actualRoom.getPositionX() == 0 && actualRoom.getPositionY() == 0 && maxAdiacentRooms < 1) {
+            if (
+            		(actualRoom.getPositionX() >= 0 && actualRoom.getPositionX() < ((int)Math.floor(dimX/3)))&& 
+            		(actualRoom.getPositionY() >= 0 && actualRoom.getPositionY() < ((int)Math.floor(dimY/3)))&&
+            		(availablePosition.size() > 0 && maxAdiacentRooms < 1)
+            	) {
+            	
                 maxAdiacentRooms = 1;
+                
             } else if (availablePosition.size() > 2 && maxAdiacentRooms < 1) {
                 maxAdiacentRooms = availablePosition.size();
             }
