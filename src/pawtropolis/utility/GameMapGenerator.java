@@ -14,14 +14,16 @@ import java.util.stream.Collectors;
 public class GameMapGenerator {
     private static int dimY = 20;
     private static int dimX = 20;
-    public static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
+    private static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
     private static final Queue<Room> queueRoomsPositions= new LinkedList<Room>();
 
 
     //Generatore della mappa
     public static GameMap generateMap() {
-        Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), 0, 0, RoomType.ROOM_TYPE);
-        gameMap.getRooms()[0][0] = entryRoom;
+    	int startingX=(int)Math.floor((dimX + 1) * Math.random());
+    	int startingY=(int)Math.floor((dimY + 1) * Math.random());
+        Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), startingX, startingY, RoomType.ROOM_TYPE);
+        gameMap.getRooms()[startingY][startingX] = entryRoom;
         queueRoomsPositions.add(entryRoom);
         //NORD = 0
         // OVEST = 3      EAST= 1
