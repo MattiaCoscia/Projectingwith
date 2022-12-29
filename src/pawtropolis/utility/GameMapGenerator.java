@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GameMapGenerator {
-	private static int dimY = 4;
-	private static int dimX = 4;
+	private static int dimY = 5;
+	private static int dimX = 5;
 	private static int proximityXtoEntry = (int) Math.floor(dimX / 3);
 	private static int proximityYtoEntry = (int) Math.floor(dimY / 3);
 	private static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
@@ -68,7 +68,6 @@ public class GameMapGenerator {
 			
 			if (isNearEntry(actualRoom, startingX, startingY)) {
 				maxAdiacentRooms = availablePosition.size();
-				
 			} else if ((availablePosition.size() > 2 && maxAdiacentRooms < 1)
 					|| (actualRoom.getName().equals("Entry") && maxAdiacentRooms < 1)) {
 				
@@ -127,12 +126,17 @@ public class GameMapGenerator {
 	}
 
 	public static boolean isNearEntry(Room room, int startingX, int startingY) {
-		boolean proximityX = room.getPositionX() > (startingX - proximityXtoEntry)
-				&& room.getPositionX() < (startingX + proximityXtoEntry);
+		boolean proximityX = room.getPositionX() >= (startingX - proximityXtoEntry)
+				&& room.getPositionX() <= (startingX + proximityXtoEntry);
 
-		boolean proximityY = room.getPositionY() > (startingY - proximityYtoEntry)
-				&& room.getPositionY() < (startingY + proximityYtoEntry);
-		return (proximityX && proximityY);
+		boolean proximityY = room.getPositionY() >= (startingY - proximityYtoEntry)
+				&& room.getPositionY() <= (startingY + proximityYtoEntry);
+		System.out.println(room.getName()+" X: "+proximityX+" "+proximityXtoEntry+" Y: "+proximityY+" "+proximityYtoEntry);
+		if(proximityX && proximityY) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	public static int getMapOccupiedSize() {
