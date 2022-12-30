@@ -13,5 +13,6 @@ public class Avvio {
         //RenderMap.printMap(map, player);
     	AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration();
     	RenderMap.printMap(numberGenerator.AdiacentNumberGeneration(new GameMap(new Room[10][10])),player);
+		//ok
     }
 }
