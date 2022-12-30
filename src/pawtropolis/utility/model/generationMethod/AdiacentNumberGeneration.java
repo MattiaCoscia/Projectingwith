@@ -149,6 +149,12 @@ public class AdiacentNumberGeneration {
 						room.setSingleRoom(countRoom, r);
 						r.setSingleRoom(2, room);
 					}
+					 else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
+								&& roomHasNoEqualNeighbor(room, map)) {
+							r = adiacentRoom;
+							room.setSingleRoom(countRoom, r);
+							r.setSingleRoom(2, room);
+					}
 				}
 				break;
 			}
@@ -160,6 +166,12 @@ public class AdiacentNumberGeneration {
 						room.setSingleRoom(countRoom, r);
 						r.setSingleRoom(3, room);
 					}
+					 else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
+								&& roomHasNoEqualNeighbor(room, map)) {
+							r = adiacentRoom;
+							room.setSingleRoom(countRoom, r);
+							r.setSingleRoom(3, room);
+					}
 				}
 				break;
 			}
@@ -170,8 +182,11 @@ public class AdiacentNumberGeneration {
 						r = adiacentRoom;
 						room.setSingleRoom(countRoom, r);
 						r.setSingleRoom(0, room);
-					} else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))) {
-
+					} else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
+							&& roomHasNoEqualNeighbor(room, map)) {
+						r = adiacentRoom;
+						room.setSingleRoom(countRoom, r);
+						r.setSingleRoom(0, room);
 					}
 				}
 				break;
@@ -183,6 +198,12 @@ public class AdiacentNumberGeneration {
 						r = adiacentRoom;
 						room.setSingleRoom(countRoom, r);
 						r.setSingleRoom(1, room);
+					}
+					 else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
+								&& roomHasNoEqualNeighbor(room, map)) {
+							r = adiacentRoom;
+							room.setSingleRoom(countRoom, r);
+							r.setSingleRoom(1, room);
 					}
 				}
 				break;
@@ -205,7 +226,7 @@ public class AdiacentNumberGeneration {
 				}
 			}
 		}
-		return countEqualNeighbor == 0;
+		return countEqualNeighbor <= 2;
 	}
 
 	public List<Integer> availableAdiacentPositions(int x, int y) {
