@@ -1,53 +1,15 @@
 package pawtropolis.model.entity;
 
-import pawtropolis.model.map.Room;
+public class Player extends Entity{
 
-public class Player {
-
-    private static final Player player = new Player();
-    private String name;
-    private double lifePoints;
-    private int positionX;
-    private int positionY;
-    private Player(){}
-
-    public static Player getInstance(String name){
-        player.name=name;
-        player.lifePoints=20.0;
-        player.positionX=0;
-        player.positionY=0;
-        return player;
+    private static final Player player = new Player("",0,0,0);
+    
+    private Player(String name, double lifePoints, int positionX, int positionY){
+    	super(name,lifePoints,positionX,positionY);
     }
-
-    public void setName(String name) {
-        player.name = name;
-    }
-
-    public void setLifePoints(double lifePoints) {
-        player.lifePoints = lifePoints;
-    }
-
-    public void setPositionX(int positionX) {
-        player.positionX = positionX;
-    }
-
-    public void setPositionY(int positionY) {
-        player.positionY = positionY;
-    }
-
-    public String getName() {
-        return player.name;
-    }
-
-    public double getLifePoints() {
-        return player.lifePoints;
-    }
-
-    public int getPositionX() {
-        return player.positionX;
-    }
-
-    public int getPositionY() {
-        return player.positionY;
-    }
+    
+	public static Player getInstance(String name) {
+		player.setName(name);
+		return player;
+	}
 }

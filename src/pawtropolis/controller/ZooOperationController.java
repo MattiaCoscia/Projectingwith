@@ -1,10 +1,10 @@
 package pawtropolis.controller;
 
-import pawtropolis.model.entity.animal.category.Animal;
-import pawtropolis.model.entity.animal.category.AnimalWithTail;
-import pawtropolis.model.entity.animal.category.AnimalWithWings;
-
 import java.util.*;
+
+import pawtropolis.model.entity.npc.animal.category.Animal;
+import pawtropolis.model.entity.npc.animal.category.AnimalWithTail;
+import pawtropolis.model.entity.npc.animal.category.AnimalWithWings;
 
 public class ZooOperationController {
 

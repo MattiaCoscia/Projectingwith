@@ -1,23 +1,18 @@
 package pawtropolis.utility;
 
-import pawtropolis.model.map.GameMap;
-import pawtropolis.model.map.Room;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Queue;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import pawtropolis.model.map.GameMap;
+import pawtropolis.model.map.Room;
 
 public class GameMapGenerator {
-	private static int dimY = 5;
-	private static int dimX = 5;
+	private static int dimY = 10;
+	private static int dimX = 10;
 	private static int proximityXtoEntry = (int) Math.floor(dimX / 3);
 	private static int proximityYtoEntry = (int) Math.floor(dimY / 3);
 	private static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
@@ -66,7 +61,7 @@ public class GameMapGenerator {
 			List<Integer> availablePosition = availableAdiacentPosition(actualRoom.getPositionX(),actualRoom.getPositionY());
 			int maxAdiacentRooms = (int) Math.floor(Math.random() * (availablePosition.size() + 1));
 			
-			if (isNearEntry(actualRoom, startingX, startingY)) {
+			if (isNearEntry(actualRoom, startingX, startingY) && maxAdiacentRooms < 1) {
 				maxAdiacentRooms = availablePosition.size();
 			} else if ((availablePosition.size() > 2 && maxAdiacentRooms < 1)
 					|| (actualRoom.getName().equals("Entry") && maxAdiacentRooms < 1)) {

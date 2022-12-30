@@ -1,7 +1,7 @@
 package pawtropolis.model.map;
 
 import pawtropolis.utility.RoomType;
-import pawtropolis.model.entity.animal.category.Animal;
+import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.model.items.Item;
 
 import java.util.HashMap;

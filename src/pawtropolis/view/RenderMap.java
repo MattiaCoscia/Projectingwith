@@ -1,4 +1,4 @@
-package pawtropolis.utility;
+package pawtropolis.view;
 
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
