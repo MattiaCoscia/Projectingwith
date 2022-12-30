@@ -1,9 +1,7 @@
 package pawtropolis.utility.model.generationMethod;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
@@ -132,6 +130,7 @@ public class AdiacentNumberGeneration {
 
     public void checkAdiacentRoomAndAssign(Room room, GameMap map) {
         if(room != null){
+            List<Integer> positions= Arrays.asList(0,1,2,3);
             boolean PossiblePositionNord = ((room.getPositionY() - 1) >= 0);
             boolean PossiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
             boolean PossiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
@@ -139,8 +138,10 @@ public class AdiacentNumberGeneration {
             int actualRoomX = room.getPositionX();
             int actualRoomY = room.getPositionY();
             Room adiacentRoom = null;
-            int countRoom = 0;
             for (Room r : room.getAdiacentRooms()) {
+                int listPosition = (int) Math.floor(Math.random() * positions.size());
+                int countRoom = positions.get(listPosition).intValue();
+                positions = positions.stream().filter(n-> n.intValue() != countRoom).collect(Collectors.toList());
                 switch (countRoom) {
                     case 0: {
                         if (PossiblePositionNord) {
@@ -207,7 +208,6 @@ public class AdiacentNumberGeneration {
                         break;
                     }
                 }
-                countRoom++;
             }
         }
     }
