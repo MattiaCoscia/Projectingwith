@@ -57,7 +57,7 @@ public class RenderMap {
 				// NORD = 0;
 				// OVEST = 3 ; EAST= 1
 				// SUD = 2;
-				if (room != null) {
+				if (room != null && visibleRooms.stream().anyMatch(r->r.equals(room.getPositionY() + ";"+ room.getPositionX()))) {
 					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 					String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
 					String estOvest = "";

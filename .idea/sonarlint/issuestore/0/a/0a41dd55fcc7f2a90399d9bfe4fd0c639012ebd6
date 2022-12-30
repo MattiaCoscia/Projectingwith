@@ -1,0 +1,55 @@
+
+t
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(×îÔêøÿÿÿÿ
+f	java:S117@"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÙŸø¼
+k	java:S117A"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß®À†ýÿÿÿÿ
+f	java:S117B"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×³ÎÉ
+k	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰¬»åûÿÿÿÿ
+X
+java:S2184"BCast one of the operands of this division operation to a "double".(¾éÐØ
+]
+java:S2184"BCast one of the operands of this division operation to a "double".(Ù«óöüÿÿÿÿ
+^
+java:S2184‰"BCast one of the operands of this division operation to a "double".(ˆèæ‘ûÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(öëŠÈ
+<
+java:S2185"&Remove this silly call to "Math.floor"(¾éÐØ
+A
+java:S2185"&Remove this silly call to "Math.floor"(Ù«óöüÿÿÿÿ
+?
+java:S2140#")Use "java.util.Random.nextInt()" instead.(©Ûÿ¹
+D
+java:S2140$")Use "java.util.Random.nextInt()" instead.(¡¡Ï£øÿÿÿÿ
+Y
+java:S1155+">Use isEmpty() to check whether the collection is empty or not.(ÄŒ‘Ëùÿÿÿÿ
+D
+java:S21405")Use "java.util.Random.nextInt()" instead.(®¤•Äýÿÿÿÿ
+a
+java:S18719"LThis branch's code block is the same as the block for the branch on line 55.(úÄ£Y
+D
+java:S2140V")Use "java.util.Random.nextInt()" instead.(·–Ý’üÿÿÿÿ
+V	java:S125X"<This block of commented-out lines of code should be removed.(—ÏªÀþÿÿÿÿ
+7	java:S131]""Add a default case to this switch.(ÀÁÍÐ
+S
+java:S1612‚"=Replace this lambda with method reference 'Objects::nonNull'.( ¿þl
+B
+java:S2185‰"&Remove this silly call to "Math.floor"(ˆèæ‘ûÿÿÿÿ
+@
+java:S2140Œ")Use "java.util.Random.nextInt()" instead.(Úñø¶
+i
+java:S6204‘"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹
+d	java:S100™"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼çûî
+]
+java:S1126©"AReplace this if-then-else statement by a single return statement.(Óµéòùÿÿÿÿ
+X
+java:S1126»"AReplace this if-then-else statement by a single return statement.(®¶©€
+i
+java:S6204È"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹
+T
+java:S1612Ç"=Replace this lambda with method reference 'Objects::nonNull'.(Í­¹¿
+C
+java:S1128".Remove this unused import 'java.util.HashSet'.(Ê‚êX
+E
+java:S1128"*Remove this unused import 'java.util.Set'.(ö²„¤þÿÿÿÿ
+D
+java:S1068"/Remove this unused "farestRooms" private field.(½ïL
