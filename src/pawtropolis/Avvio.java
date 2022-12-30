@@ -1,6 +1,6 @@
 package pawtropolis;
 
-import pawtropolis.utility.GameMapGenerator;
+import pawtropolis.controller.GameMapGenerator;
 import pawtropolis.view.RenderMap;
 
 public class Avvio {

@@ -1,4 +1,4 @@
-package pawtropolis.utility;
+package pawtropolis.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ import java.util.Queue;
 
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.RoomType;
 
 public class GameMapGenerator {
 	private static int dimY = 10;
