@@ -24,7 +24,7 @@ public class GameMapGenerator {
 		int startingX = (int) Math.floor(dimX * Math.random());
 		int startingY = (int) Math.floor(dimY * Math.random());
 		Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), startingX, startingY, RoomType.ROOM_TYPE);
-		gameMap.getRooms()[startingY][startingX] = entryRoom;
+		gameMap.setRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
 		// NORD = 0
 		// OVEST = 3 EAST= 1
@@ -87,7 +87,6 @@ public class GameMapGenerator {
 				adiacentRoom.setPositionX(actualRoom.getPositionX());
 				actualRoom.setSingleRoom(0, adiacentRoom);
 				adiacentRoom.setSingleRoom(2, actualRoom);
-				gameMap.getRooms()[actualRoom.getPositionY() - 1][actualRoom.getPositionX()] = adiacentRoom;
 				break;
 			}
 			case 1: {
@@ -95,7 +94,6 @@ public class GameMapGenerator {
 				adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
 				actualRoom.setSingleRoom(1, adiacentRoom);
 				adiacentRoom.setSingleRoom(3, actualRoom);
-				gameMap.getRooms()[actualRoom.getPositionY()][actualRoom.getPositionX() + 1] = adiacentRoom;
 				break;
 			}
 			case 2: {
@@ -103,7 +101,6 @@ public class GameMapGenerator {
 				adiacentRoom.setPositionX(actualRoom.getPositionX());
 				actualRoom.setSingleRoom(2, adiacentRoom);
 				adiacentRoom.setSingleRoom(0, actualRoom);
-				gameMap.getRooms()[actualRoom.getPositionY() + 1][actualRoom.getPositionX()] = adiacentRoom;
 				break;
 			}
 			case 3: {
@@ -111,10 +108,10 @@ public class GameMapGenerator {
 				adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
 				actualRoom.setSingleRoom(3, adiacentRoom);
 				adiacentRoom.setSingleRoom(1, actualRoom);
-				gameMap.getRooms()[actualRoom.getPositionY()][actualRoom.getPositionX() - 1] = adiacentRoom;
 				break;
 			}
 			}
+			gameMap.setRoom(adiacentRoom);
 			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
 			queueRoomsPositions.add(adiacentRoom);
 		}
