@@ -17,35 +17,36 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-public class RandomChainDisposition extends GenerationMethod {
+public class RandomChainDisposition{
 
-	private int proximityX = (int) Math.floor(getMap().getRooms()[0].length / 3);
-	private int proximityY = (int) Math.floor(getMap().getRooms().length / 3);
+	private int proximityX = 0;
+	private int proximityY = 0;
 	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
 	private final Map<Room, Integer> farestRooms = new HashMap<>();
+	private GameMap map=null;
 
 	public RandomChainDisposition(GameMap map) {
-		super(map);
+		this.map=map;
+		proximityX = (int) Math.floor(this.map.getRooms()[0].length / 3);
+		proximityY = (int) Math.floor(this.map.getRooms().length / 3);
 	}
 
-	@Override
 	public GameMap generateMap(Player player) {
-		int startingX = (int) Math.floor(getMap().getRooms()[0].length * Math.random());
-		int startingY = (int) Math.floor(getMap().getRooms().length * Math.random());
+		int startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
+		int startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
 		Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
-		getMap().setRoom(entryRoom);
+		this.map.setRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
 		while (queueRoomsPositions.size() > 0) {
 			regulateMapPopulationRooms(queueRoomsPositions.poll(), startingX, startingY);
 		}
 		assignCorridor(sortRoomsByChainPosition());
-		return getMap();
+		return this.map;
 	}
 
-	@Override
 	protected void regulateMapPopulationRooms(Room actualRoom, int startingX, int startingY) {
 		List<Integer> availablePositions = availableAdiacentPositions(actualRoom.getPositionX(),
 				actualRoom.getPositionY());
@@ -59,29 +60,27 @@ public class RandomChainDisposition extends GenerationMethod {
 		chooseAndAssignAdiacentRooms(actualRoom, maxAdiacentRooms, availablePositions);
 	}
 
-	@Override
 	public List<Integer> availableAdiacentPositions(int x, int y) {
 		boolean PossiblePositionNord = ((y - 1) >= 0);
-		boolean PossiblePositionSud = ((y + 1) < getMap().getRooms().length);
-		boolean PossiblePositionEast = ((x + 1) < getMap().getRooms()[0].length);
+		boolean PossiblePositionSud = ((y + 1) < this.map.getRooms().length);
+		boolean PossiblePositionEast = ((x + 1) < this.map.getRooms()[0].length);
 		boolean PossiblePositionOvest = ((x - 1) >= 0);
 		List<Integer> availablePositions = new ArrayList<>();
-		if (PossiblePositionNord && (getMap().getRooms()[y - 1][x] == null)) {
+		if (PossiblePositionNord && (this.map.getRooms()[y - 1][x] == null)) {
 			availablePositions.add(0);
 		}
-		if (PossiblePositionEast && (getMap().getRooms()[y][x + 1] == null)) {
+		if (PossiblePositionEast && (this.map.getRooms()[y][x + 1] == null)) {
 			availablePositions.add(1);
 		}
-		if (PossiblePositionSud && (getMap().getRooms()[y + 1][x] == null)) {
+		if (PossiblePositionSud && (this.map.getRooms()[y + 1][x] == null)) {
 			availablePositions.add(2);
 		}
-		if (PossiblePositionOvest && (getMap().getRooms()[y][x - 1] == null)) {
+		if (PossiblePositionOvest && (this.map.getRooms()[y][x - 1] == null)) {
 			availablePositions.add(3);
 		}
 		return availablePositions;
 	}
 
-	@Override
 	public void chooseAndAssignAdiacentRooms(Room actualRoom, int maxAdiacentRooms, List<Integer> availablePositions) {
 		for (int i = 0; i < maxAdiacentRooms; i++) {
 			int randomValuePosition = ((int) Math.floor(Math.random() * availablePositions.size()));
@@ -121,14 +120,14 @@ public class RandomChainDisposition extends GenerationMethod {
 				break;
 			}
 			}
-			getMap().setRoom(adiacentRoom);
+			this.map.setRoom(adiacentRoom);
 			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
 			queueRoomsPositions.add(adiacentRoom);
 		}
 	}
 
 	private List<Room> sortRoomsByChainPosition() {
-		List<Room> collection = Arrays.stream(getMap().getRooms()).flatMap(Arrays::stream).filter(r -> r != null)
+		List<Room> collection = Arrays.stream(this.map.getRooms()).flatMap(Arrays::stream).filter(r -> r != null)
 				.collect(Collectors.toList());
 		collection.sort((r1, r2) -> Integer.compare(-r1.getChainPosition(), -r2.getChainPosition()));
 		return collection;
@@ -161,7 +160,6 @@ public class RandomChainDisposition extends GenerationMethod {
 		}
 	}
 
-	@Override
 	public boolean isNearEntry(Room room, int startingX, int startingY) {
 		boolean proximityXToEntry = room.getPositionX() >= (startingX - proximityX)
 				&& room.getPositionX() <= (startingX + proximityX);
@@ -174,11 +172,10 @@ public class RandomChainDisposition extends GenerationMethod {
 			return false;
 		}
 	}
-	
-	@Override
+
 	public boolean isOnTheBorder(Room room) {
-		int maxX = getMap().getRooms()[0].length - 1;
-		int maxY = getMap().getRooms().length - 1;
+		int maxX = this.map.getRooms()[0].length - 1;
+		int maxY = this.map.getRooms().length - 1;
 		BiPredicate<Integer, Integer> nordEst = (x, y) -> (x <= (0 + proximityX) && x >= 0)
 				&& (y <= (0 + proximityY) && y >= 0);
 		BiPredicate<Integer, Integer> nordOvest = (x, y) -> (x <= maxX && x >= (maxX - proximityX))
@@ -194,6 +191,14 @@ public class RandomChainDisposition extends GenerationMethod {
 			return true;
 		}
 		return false;
+	}
+	
+	
+	public int getMapOccupiedSize() {
+		List<Room> listRooms = Arrays.stream(map.getRooms())  //'array' is two-dimensional
+			    .flatMap(Arrays::stream).filter(r->r!=null)
+			    .collect(Collectors.toList());
+		return listRooms.size();
 	}
 
 }
