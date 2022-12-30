@@ -3,6 +3,7 @@ package pawtropolis.utility.model.generationMethod;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -12,9 +13,9 @@ public class AdiacentNumberGeneration {
     private int[][] numberMap = null;
     private final Queue<String> queueNumberPositions = new LinkedList<>();
 
-    public GameMap AdiacentNumberGeneration(GameMap map) {
+    public GameMap AdiacentNumberGeneration(GameMap map, Player player) {
         this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
-        populateIntegerMap();
+        populateIntegerMap(player);
         while (queueNumberPositions.size() > 0) {
             String[] yx = queueNumberPositions.poll().split(";");
             int x = Integer.parseInt(yx[1]);
@@ -86,10 +87,14 @@ public class AdiacentNumberGeneration {
         }
     }
 
-    private void populateIntegerMap() {
+    private void populateIntegerMap(Player player) {
         for (int i = 0; i < 4; i++) {
             int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
             int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
+            if(i == 0){
+                player.setPositionX(randomX);
+                player.setPositionY(randomY);
+            }
             numberMap[randomY][randomX] = 1;
             queueNumberPositions.add(randomY + ";" + randomX + ";");
         }
