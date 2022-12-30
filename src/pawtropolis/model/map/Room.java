@@ -15,21 +15,24 @@ public class Room {
     private Map<String, List<Item>> items=new HashMap<>();
     private Map<Class<? extends Animal>,List<Animal>> animals=new HashMap<>();
     private Room[] adiacentRooms=new Room[4];
+    private int chainPosition;
 
     private int positionX;
     private int positionY;
 
     public Room(){
-        this.type=RoomType.VOID_TYPE;
+        this.type=RoomType.ROOM_TYPE;
     }
 
-    public Room(String name, Map<String, List<Item>> items, Map<Class<? extends Animal>, List<Animal>> animals, int positionX, int positionY, RoomType roomType) {
+    public Room(String name, Map<String, List<Item>> items, Map<Class<? extends Animal>, List<Animal>> animals, int positionX, int positionY
+    		, RoomType roomType, int chainPosition) {
         this.name = name;
         this.items = items;
         this.animals = animals;
         this.positionX=positionX;
         this.positionY=positionY;
         this.type=roomType;
+        this.chainPosition=chainPosition;
     }
 
     public void setName(String name) {
@@ -52,8 +55,6 @@ public class Room {
         this.adiacentRooms = rooms;
     }
 
-    public Room getSingleRoom(int pos){return this.adiacentRooms[pos];}
-
     public Room setSingleRoom(int pos,Room room){
         this.adiacentRooms[pos]=room;
         return room;
@@ -66,6 +67,11 @@ public class Room {
     public void setPositionY(int positionY) {
         this.positionY = positionY;
     }
+    
+
+	public void setChainPosition(int chainPosition) {
+		this.chainPosition = chainPosition;
+	}
 
     public String getName() {
         return name;
@@ -82,6 +88,8 @@ public class Room {
     public Room[] getAdiacentRooms() {
         return adiacentRooms;
     }
+    
+    public Room getSingleRoom(int pos){return this.adiacentRooms[pos];}
 
     public RoomType getType() {
         return type;
@@ -94,4 +102,9 @@ public class Room {
     public int getPositionY() {
         return positionY;
     }
+
+	public int getChainPosition() {
+		return chainPosition;
+	}
+    
 }
