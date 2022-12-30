@@ -15,9 +15,11 @@ public class RenderMap {
 	private static void putVisibleRoom(Room room, List<Integer> directions) {
 		for (Integer i : directions) {
 			if (room.getAdiacentRooms()[i] != null) {
+				List<Integer> list=new ArrayList<>();
+				list.add(i);
 				visibleRooms.add(
 						room.getAdiacentRooms()[i].getPositionY() + ";" + room.getAdiacentRooms()[i].getPositionX());
-				putVisibleRoom(room.getAdiacentRooms()[i], List.of(i));
+				putVisibleRoom(room.getAdiacentRooms()[i], list);
 			}
 		}
 	}
