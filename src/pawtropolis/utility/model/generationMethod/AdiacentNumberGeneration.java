@@ -46,43 +46,45 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		// OVEST = 3 ; EAST= 1
 		// SUD = 2;
 		for (int adiacentPosition : availablePositions) {
-			switch (adiacentPosition) {
-			case 0: {
-				if ((areaValue(x, y - 1) % 2) == 0) {
-					numberMap[y - 1][x] = (actualValue == 1) ? 2 : 1;
-				} else {
-					numberMap[y - 1][x] = (actualValue == 1) ? 1 : 2;
+			if(Math.random() * 10 > 4) {
+				switch (adiacentPosition) {
+				case 0: {
+					if ((areaValue(x, y - 1) % 2) == 0) {
+						numberMap[y - 1][x] = (actualValue == 1) ? 2 : 1;
+					} else {
+						numberMap[y - 1][x] = (actualValue == 1) ? 1 : 2;
+					}
+					queueNumberPositions.add((y - 1) + ";" + x + ";");
+					break;
 				}
-				queueNumberPositions.add((y - 1) + ";" + x + ";");
-				break;
-			}
-			case 1: {
-				if ((areaValue(x + 1, y) % 2) == 0) {
-					numberMap[y][x + 1] = (actualValue == 1) ? 2 : 1;
-				} else {
-					numberMap[y][x + 1] = (actualValue == 1) ? 1 : 2;
+				case 1: {
+					if ((areaValue(x + 1, y) % 2) == 0) {
+						numberMap[y][x + 1] = (actualValue == 1) ? 2 : 1;
+					} else {
+						numberMap[y][x + 1] = (actualValue == 1) ? 1 : 2;
+					}
+					queueNumberPositions.add(y + ";" + (x + 1) + ";");
+					break;
 				}
-				queueNumberPositions.add(y + ";" + (x + 1) + ";");
-				break;
-			}
-			case 2: {
-				if ((areaValue(x, y + 1) % 2) == 0) {
-					numberMap[y + 1][x] = (actualValue == 1) ? 2 : 1;
-				} else {
-					numberMap[y + 1][x] = (actualValue == 1) ? 1 : 2;
+				case 2: {
+					if ((areaValue(x, y + 1) % 2) == 0) {
+						numberMap[y + 1][x] = (actualValue == 1) ? 2 : 1;
+					} else {
+						numberMap[y + 1][x] = (actualValue == 1) ? 1 : 2;
+					}
+					queueNumberPositions.add((y + 1) + ";" + x + ";");
+					break;
 				}
-				queueNumberPositions.add((y + 1) + ";" + x + ";");
-				break;
-			}
-			case 3: {
-				if ((areaValue(x - 1, y) % 2) == 0) {
-					numberMap[y][x - 1] = (actualValue == 1) ? 2 : 1;
-				} else {
-					numberMap[y][x - 1] = (actualValue == 1) ? 1 : 2;
+				case 3: {
+					if ((areaValue(x - 1, y) % 2) == 0) {
+						numberMap[y][x - 1] = (actualValue == 1) ? 2 : 1;
+					} else {
+						numberMap[y][x - 1] = (actualValue == 1) ? 1 : 2;
+					}
+					queueNumberPositions.add(y + ";" + (x - 1) + ";");
+					break;
 				}
-				queueNumberPositions.add(y + ";" + (x - 1) + ";");
-				break;
-			}
+				}
 			}
 		}
 	}
@@ -133,6 +135,20 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		}
 		return count;
 	}
+	
+	private int nullArea(int x, int y) {
+			int count = 0;
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					if ((y + i >= 0 && y + i < numberMap.length) && (x + j >= 0 && x + j < numberMap[0].length)) {
+						if(numberMap[y + i][x + j]==0) {
+							count++;
+						}
+					}
+				}
+			}
+			return count;
+	}
 
 	public void chooseAndAssignAdiacentRooms(Room room) {
 		if (room != null) {
@@ -149,77 +165,83 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			int actualRoomY = room.getPositionY();
 			Room adiacentRoom = null;
 			for (Room r : room.getAdiacentRooms()) {
-				int listPosition = (int) Math.floor(Math.random() * positions.size());
-				int countRoom = positions.remove(listPosition);
-				switch (countRoom) {
-				case 0: {
-					if (PossiblePositionNord) {
-						adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
-						if (adiacentRoom != null) {
-							if (room.getType().equals(adiacentRoom.getType())) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(2, room);
-							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(2, room);
+				if (r == null) {
+					int listPosition = (int) Math.floor(Math.random() * positions.size());
+					int countRoom = positions.remove(listPosition);
+					switch (countRoom) {
+					case 0: {
+						if (PossiblePositionNord) {
+							adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
+							if (adiacentRoom != null) {
+								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(2, room);
+								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+										|| nullArea(actualRoomX, actualRoomY) >= 1) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(2, room);
+								}
 							}
 						}
+						break;
 					}
-					break;
-				}
-				case 1: {
-					if (PossiblePositionEast) {
-						adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
-						if (adiacentRoom != null) {
-							if (room.getType().equals(adiacentRoom.getType())) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(3, room);
-							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(3, room);
+					case 1: {
+						if (PossiblePositionEast) {
+							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
+							if (adiacentRoom != null) {
+								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(3, room);
+								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+										|| nullArea(actualRoomX, actualRoomY) >= 1) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(3, room);
+								}
 							}
 						}
+						break;
 					}
-					break;
-				}
-				case 2: {
-					if (PossiblePositionSud) {
-						adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
-						if (adiacentRoom != null) {
-							if (room.getType().equals(adiacentRoom.getType())) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(0, room);
-							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(0, room);
+					case 2: {
+						if (PossiblePositionSud) {
+							adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
+							if (adiacentRoom != null) {
+								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(0, room);
+								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+										|| nullArea(actualRoomX, actualRoomY) >= 1) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(0, room);
+								}
 							}
 						}
+						break;
 					}
-					break;
-				}
-				case 3: {
-					if (PossiblePositionOvest) {
-						adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
-						if (adiacentRoom != null) {
-							if (room.getType().equals(adiacentRoom.getType())) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(1, room);
-							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
-								r = adiacentRoom;
-								room.setSingleRoom(countRoom, r);
-								r.setSingleRoom(1, room);
+					case 3: {
+						if (PossiblePositionOvest) {
+							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
+							if (adiacentRoom != null) {
+								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(1, room);
+								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+										|| nullArea(actualRoomX, actualRoomY) >= 1) {
+									r = adiacentRoom;
+									room.setSingleRoom(countRoom, r);
+									r.setSingleRoom(1, room);
+								}
 							}
 						}
+						break;
 					}
-					break;
-				}
+					}
 				}
 			}
 		}
