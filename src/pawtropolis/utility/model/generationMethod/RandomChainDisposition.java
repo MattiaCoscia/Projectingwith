@@ -15,7 +15,7 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-public class RandomChainDisposition{
+public class RandomChainDisposition extends GenerationMethod{
 
 	private int proximityX = 0;
 	private int proximityY = 0;
@@ -23,7 +23,6 @@ public class RandomChainDisposition{
 	private int startingX=0;
 	private int startingY=0;
 	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
-	private final Map<Room, Integer> farestRooms = new HashMap<>();
 	private GameMap map=null;
 
 	public RandomChainDisposition(GameMap map) {
@@ -32,8 +31,9 @@ public class RandomChainDisposition{
 		proximityY = (int) Math.floor(this.map.getRooms().length / 3);
 	}
 
+	@Override
 	public GameMap generateMap(Player player) {
-		popuplateMapWithStartingRoom(player);
+		populateMapWithStartingRoom(player);
 		while (queueRoomsPositions.size() > 0) {
 			Room roomInQueue=queueRoomsPositions.poll();
 			regulateMapPopulationRooms(roomInQueue);
@@ -42,7 +42,7 @@ public class RandomChainDisposition{
 		return this.map;
 	}
 
-	private void popuplateMapWithStartingRoom(Player player){
+	private void populateMapWithStartingRoom(Player player){
 		startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
 		startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
 		player.setPositionX(startingX);

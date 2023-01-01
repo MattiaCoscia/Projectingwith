@@ -7,17 +7,19 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-public class AdiacentNumberGeneration {
+public class AdiacentNumberGeneration extends GenerationMethod{
 
 	private int[][] numberMap = null;
 	private GameMap map = null;
 	private final Queue<String> queueNumberPositions = new LinkedList<>();
+	private final List<Room> checkedRooms=new ArrayList<>();
 
 	public AdiacentNumberGeneration(GameMap map) {
 		this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
 		this.map = map;
 	}
 
+	@Override
 	public GameMap generateMap(Player player) {
 		populateIntegerMapWithFirstsRooms(player);
 		while (queueNumberPositions.size() > 0) {
@@ -92,14 +94,15 @@ public class AdiacentNumberGeneration {
 	}
 
 	private void populateIntegerMapWithFirstsRooms(Player player) {
+		int randomStartingPoint=(int) Math.floor((Math.random() * 5));
 		for (int i = 0; i < 4; i++) {
 			int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
 			int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
-			if (i == 0) {
+			if (i == randomStartingPoint) {
 				player.setPositionX(randomX);
 				player.setPositionY(randomY);
 			}
-			numberMap[randomY][randomX] = 1;
+			numberMap[randomY][randomX] = (int)Math.ceil(Math.random()*2);
 			queueNumberPositions.add(randomY + ";" + randomX + ";");
 		}
 	}
@@ -163,7 +166,7 @@ public class AdiacentNumberGeneration {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(2, room);
-							} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) < 1) {
+							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(2, room);
@@ -180,7 +183,7 @@ public class AdiacentNumberGeneration {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(3, room);
-							} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) < 1) {
+							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(3, room);
@@ -197,7 +200,7 @@ public class AdiacentNumberGeneration {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(0, room);
-							} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) < 1) {
+							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(0, room);
@@ -214,7 +217,7 @@ public class AdiacentNumberGeneration {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(1, room);
-							} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) < 1) {
+							} else if (noConnectionToDifferentTypeRecursion(room) < 1) {
 								r = adiacentRoom;
 								room.setSingleRoom(countRoom, r);
 								r.setSingleRoom(1, room);
@@ -228,15 +231,13 @@ public class AdiacentNumberGeneration {
 		}
 	}
 
-	private int noConnectionToDifferentTypeRecursion(Room room,List<Room> alreadyChecked) {
-		List<Room> checkedRooms=new ArrayList<>();
-		checkedRooms.addAll(alreadyChecked);
+	private int noConnectionToDifferentTypeRecursion(Room room) {
 		int neighbourWithForeignNeighbour = 0;
 		for(Room r:room.getAdiacentRooms()) {
 			if(r!=null) {
 				if(r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2->r2.equals(r)))) {
 					checkedRooms.add(r);
-					return neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r,checkedRooms);
+					return neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r);
 				}else if(!(r.getType().equals(room.getType()))) {
 					neighbourWithForeignNeighbour++;
 				}

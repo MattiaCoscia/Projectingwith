@@ -6,7 +6,7 @@ import pawtropolis.model.map.Room;
 import pawtropolis.utility.model.generationMethod.AdiacentNumberGeneration;
 import pawtropolis.utility.model.generationMethod.RandomChainDisposition;
 
-public class GameMapGenerator {
+public class GameMapGeneratorController {
 	private static int dimY = 10;
 	private static int dimX = 10;
 	private final static GameMap gameMap = new GameMap(new Room[dimY][dimX]);
