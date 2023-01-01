@@ -7,12 +7,12 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-public class AdiacentNumberGeneration extends GenerationMethod{
+public class AdiacentNumberGeneration extends GenerationMethod {
 
 	private int[][] numberMap = null;
 	private GameMap map = null;
 	private final Queue<String> queueNumberPositions = new LinkedList<>();
-	private final List<Room> checkedRooms=new ArrayList<>();
+	private final List<Room> checkedRooms = new ArrayList<>();
 
 	public AdiacentNumberGeneration(GameMap map) {
 		this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
@@ -31,7 +31,9 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 		convertIntegerMapToGameMap();
 		for (Room[] y : map.getRooms()) {
 			for (Room r : y) {
-				chooseAndAssignAdiacentRooms(r);
+				if (r != null) {
+					chooseAndAssignAdiacentRooms(r);
+				}
 			}
 		}
 		return map;
@@ -46,9 +48,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 		for (int adiacentPosition : availablePositions) {
 			switch (adiacentPosition) {
 			case 0: {
-				if (areaValue(x, y - 1) > 8) {
-					numberMap[y - 1][x] = 0;
-				} else if ((areaValue(x, y - 1) % 2) == 0) {
+				if ((areaValue(x, y - 1) % 2) == 0) {
 					numberMap[y - 1][x] = (actualValue == 1) ? 2 : 1;
 				} else {
 					numberMap[y - 1][x] = (actualValue == 1) ? 1 : 2;
@@ -57,9 +57,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 				break;
 			}
 			case 1: {
-				if (areaValue(x + 1, y) > 10) {
-					numberMap[y][x + 1] = 0;
-				} else if ((areaValue(x + 1, y) % 2) == 0) {
+				if ((areaValue(x + 1, y) % 2) == 0) {
 					numberMap[y][x + 1] = (actualValue == 1) ? 2 : 1;
 				} else {
 					numberMap[y][x + 1] = (actualValue == 1) ? 1 : 2;
@@ -68,9 +66,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 				break;
 			}
 			case 2: {
-				if (areaValue(x, y + 1) > 10) {
-					numberMap[y + 1][x] = 0;
-				} else if ((areaValue(x, y + 1) % 2) == 0) {
+				if ((areaValue(x, y + 1) % 2) == 0) {
 					numberMap[y + 1][x] = (actualValue == 1) ? 2 : 1;
 				} else {
 					numberMap[y + 1][x] = (actualValue == 1) ? 1 : 2;
@@ -79,9 +75,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 				break;
 			}
 			case 3: {
-				if (areaValue(x - 1, y) > 10) {
-					numberMap[y][x - 1] = 0;
-				} else if ((areaValue(x - 1, y) % 2) == 0) {
+				if ((areaValue(x - 1, y) % 2) == 0) {
 					numberMap[y][x - 1] = (actualValue == 1) ? 2 : 1;
 				} else {
 					numberMap[y][x - 1] = (actualValue == 1) ? 1 : 2;
@@ -94,7 +88,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 	}
 
 	private void populateIntegerMapWithFirstsRooms(Player player) {
-		int randomStartingPoint=(int) Math.floor((Math.random() * 5));
+		int randomStartingPoint = (int) Math.floor((Math.random() * 5));
 		for (int i = 0; i < 4; i++) {
 			int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
 			int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
@@ -102,7 +96,7 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 				player.setPositionX(randomX);
 				player.setPositionY(randomY);
 			}
-			numberMap[randomY][randomX] = (int)Math.ceil(Math.random()*2);
+			numberMap[randomY][randomX] = (int) Math.ceil(Math.random() * 2);
 			queueNumberPositions.add(randomY + ";" + randomX + ";");
 		}
 	}
@@ -233,17 +227,17 @@ public class AdiacentNumberGeneration extends GenerationMethod{
 
 	private int noConnectionToDifferentTypeRecursion(Room room) {
 		int neighbourWithForeignNeighbour = 0;
-		for(Room r:room.getAdiacentRooms()) {
-			if(r!=null) {
-				if(r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2->r2.equals(r)))) {
+		for (Room r : room.getAdiacentRooms()) {
+			if (r != null) {
+				if (r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(r)))) {
 					checkedRooms.add(r);
 					return neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r);
-				}else if(!(r.getType().equals(room.getType()))) {
+				} else if (!(r.getType().equals(room.getType()))) {
 					neighbourWithForeignNeighbour++;
 				}
 			}
 		}
-		
+
 		return neighbourWithForeignNeighbour;
 	}
 
