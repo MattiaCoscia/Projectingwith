@@ -3,12 +3,10 @@ package pawtropolis.utility.model.generationMethod;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
@@ -21,6 +19,9 @@ public class RandomChainDisposition{
 
 	private int proximityX = 0;
 	private int proximityY = 0;
+
+	private int startingX=0;
+	private int startingY=0;
 	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
 	private final Map<Room, Integer> farestRooms = new HashMap<>();
 	private GameMap map=null;
@@ -32,27 +33,32 @@ public class RandomChainDisposition{
 	}
 
 	public GameMap generateMap(Player player) {
-		int startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
-		int startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
+		popuplateMapWithStartingRoom(player);
+		while (queueRoomsPositions.size() > 0) {
+			Room roomInQueue=queueRoomsPositions.poll();
+			regulateMapPopulationRooms(roomInQueue);
+		}
+		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
+		return this.map;
+	}
+
+	private void popuplateMapWithStartingRoom(Player player){
+		startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
+		startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
 		Room entryRoom = new Room("Entry", new HashMap<>(), new HashMap<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
 		this.map.setRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
-		while (queueRoomsPositions.size() > 0) {
-			regulateMapPopulationRooms(queueRoomsPositions.poll(), startingX, startingY);
-		}
-		assignCorridor(sortRoomsByChainPosition());
-		return this.map;
 	}
 
-	protected void regulateMapPopulationRooms(Room actualRoom, int startingX, int startingY) {
+	protected void regulateMapPopulationRooms(Room actualRoom) {
 		List<Integer> availablePositions = availableAdiacentPositions(actualRoom.getPositionX(),
 				actualRoom.getPositionY());
 		int maxAdiacentRooms = (int) Math.floor(Math.random() * (availablePositions.size() + 1));
 
-		if (isNearEntry(actualRoom, startingX, startingY) && maxAdiacentRooms < 1) {
+		if (isNearEntry(actualRoom) && maxAdiacentRooms < 1) {
 			maxAdiacentRooms = availablePositions.size();
 		} else if ((availablePositions.size() > 2 && maxAdiacentRooms < 1)) {
 			maxAdiacentRooms = availablePositions.size();
@@ -133,7 +139,7 @@ public class RandomChainDisposition{
 		return collection;
 	}
 
-	private void assignCorridor(List<Room> sortedRooms) {
+	private void chooseWhichRoomsAreCorridorEnd(List<Room> sortedRooms) {
 		int halfList = (int) Math.floor(sortedRooms.size() / 2);
 		Room farestRoom = sortedRooms.get(0);
 		Room halfDistanceRoom = sortedRooms.get(halfList);
@@ -145,22 +151,22 @@ public class RandomChainDisposition{
 				.collect(Collectors.toList());
 		sortedRooms.forEach(r -> {
 			if (isOnTheBorder(r)) {
-				RecursionChainOfRoomsToCorridor(r);
+				recursionToFormCorridorFromEndRoomToStartingRoom(r);
 			}
 		});
 	}
 
-	private void RecursionChainOfRoomsToCorridor(Room r) {
+	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room r) {
 		r.setType(RoomType.CORRIDOR_TYPE);
 		for (Room room : r.getAdiacentRooms()) {
 			if (room != null && (!room.getType().equals(RoomType.CORRIDOR_TYPE))
 					&& room.getChainPosition() == r.getChainPosition() - 1) {
-				RecursionChainOfRoomsToCorridor(room);
+				recursionToFormCorridorFromEndRoomToStartingRoom(room);
 			}
 		}
 	}
 
-	public boolean isNearEntry(Room room, int startingX, int startingY) {
+	public boolean isNearEntry(Room room) {
 		boolean proximityXToEntry = room.getPositionX() >= (startingX - proximityX)
 				&& room.getPositionX() <= (startingX + proximityX);
 

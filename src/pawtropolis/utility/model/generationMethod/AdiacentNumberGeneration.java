@@ -14,13 +14,13 @@ public class AdiacentNumberGeneration {
     private GameMap map=null;
     private final Queue<String> queueNumberPositions = new LinkedList<>();
 
-    public AdiacentNumberGeneration(GameMap map, Player player) {
+    public AdiacentNumberGeneration(GameMap map) {
         this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
         this.map=map;
-        populateIntegerMap(player);
     }
 
-    public GameMap generateMap(){
+    public GameMap generateMap(Player player){
+        populateIntegerMapWithFirstsRooms(player);
         while (queueNumberPositions.size() > 0) {
             String[] yx = queueNumberPositions.poll().split(";");
             int x = Integer.parseInt(yx[1]);
@@ -30,7 +30,7 @@ public class AdiacentNumberGeneration {
         convertIntegerMapToGameMap();
         for (Room[] y : map.getRooms()) {
             for (Room r : y) {
-                checkAdiacentRoomAndAssign(r);
+                chooseAndAssignAdiacentRooms(r);
             }
         }
         return map;
@@ -92,7 +92,7 @@ public class AdiacentNumberGeneration {
         }
     }
 
-    private void populateIntegerMap(Player player) {
+    private void populateIntegerMapWithFirstsRooms(Player player) {
         for (int i = 0; i < 4; i++) {
             int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
             int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
@@ -138,7 +138,7 @@ public class AdiacentNumberGeneration {
         return count;
     }
 
-    public void checkAdiacentRoomAndAssign(Room room) {
+    public void chooseAndAssignAdiacentRooms(Room room) {
         if(room != null){
             List<Integer> positions= Arrays.asList(0,1,2,3);
             boolean PossiblePositionNord = ((room.getPositionY() - 1) >= 0);
@@ -161,7 +161,7 @@ public class AdiacentNumberGeneration {
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(2, room);
                             } else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
-                                    && roomHasNoEqualNeighbor(room)) {
+                                    && roomHasNoEqualOrFewNeighbors(room)) {
                                 r = adiacentRoom;
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(2, room);
@@ -177,7 +177,7 @@ public class AdiacentNumberGeneration {
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(3, room);
                             } else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
-                                    && roomHasNoEqualNeighbor(room)) {
+                                    && roomHasNoEqualOrFewNeighbors(room)) {
                                 r = adiacentRoom;
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(3, room);
@@ -193,7 +193,7 @@ public class AdiacentNumberGeneration {
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(0, room);
                             } else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
-                                    && roomHasNoEqualNeighbor(room)) {
+                                    && roomHasNoEqualOrFewNeighbors(room)) {
                                 r = adiacentRoom;
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(0, room);
@@ -209,7 +209,7 @@ public class AdiacentNumberGeneration {
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(1, room);
                             } else if (adiacentRoom != null && !(room.getType().equals(adiacentRoom.getType()))
-                                    && roomHasNoEqualNeighbor(room)) {
+                                    && roomHasNoEqualOrFewNeighbors(room)) {
                                 r = adiacentRoom;
                                 room.setSingleRoom(countRoom, r);
                                 r.setSingleRoom(1, room);
@@ -222,7 +222,7 @@ public class AdiacentNumberGeneration {
         }
     }
 
-    private boolean roomHasNoEqualNeighbor(Room room) {
+    private boolean roomHasNoEqualOrFewNeighbors(Room room) {
         int countEqualNeighbor = 0;
         int countAdiacentAssignedNeighbout = 0;
         for (int i = -1; i <= 1; i++) {

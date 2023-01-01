@@ -12,8 +12,8 @@ public class Avvio {
     	Player player=Player.getInstance("giovanni");
     	//GameMap map= GameMapGenerator.run(player);
         //RenderMap.printMap(map, player);
-    	AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration(new GameMap(new Room[10][10]),player);
-    	RenderMap.printMap(numberGenerator.generateMap(),player);
+    	AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration(new GameMap(new Room[10][10]));
+    	RenderMap.printMap(numberGenerator.generateMap(player),player);
 		//o
     }
 }
