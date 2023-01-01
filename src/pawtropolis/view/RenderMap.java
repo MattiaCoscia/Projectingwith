@@ -39,7 +39,7 @@ public class RenderMap {
 	}
 
 	public static void printMap(GameMap map, Player player) {
-		visibleRooms.add(player.getPositionY() + ";"+ player.getPositionX());
+		/*visibleRooms.add(player.getPositionY() + ";"+ player.getPositionX());
 		List<Integer> directions = new ArrayList<>();
 		int count = 0;
 		for (Room r : map.getRooms()[player.getPositionY()][player.getPositionX()].getAdiacentRooms()) {
@@ -48,7 +48,7 @@ public class RenderMap {
 			}
 			count++;
 		}
-		putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()], directions);
+		putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()], directions);*/
 		for (Room[] line : map.getRooms()) {
 			String printLineHead = "";
 			String printLineBody = "";
@@ -57,7 +57,7 @@ public class RenderMap {
 				// NORD = 0;
 				// OVEST = 3 ; EAST= 1
 				// SUD = 2;
-				if (room != null && visibleRooms.stream().anyMatch(r->r.equals(room.getPositionY() + ";"+ room.getPositionX()))) {
+				if (room != null /*&& visibleRooms.stream().anyMatch(r->r.equals(room.getPositionY() + ";"+ room.getPositionX()))*/) {
 					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 					String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
 					String estOvest = "";
