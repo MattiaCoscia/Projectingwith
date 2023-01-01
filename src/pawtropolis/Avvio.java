@@ -10,10 +10,8 @@ import pawtropolis.view.RenderMap;
 public class Avvio {
     public static void main(String[] args) {
     	Player player=Player.getInstance("giovanni");
-    	//GameMap map= GameMapGenerator.run(player);
-        //RenderMap.printMap(map, player);
-    	AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration(new GameMap(new Room[10][10]));
-    	RenderMap.printMap(numberGenerator.generateMap(player),player);
+    	GameMap map= GameMapGenerator.run2(player);
+    	RenderMap.printMap(map,player);
 		//o
     }
 }
