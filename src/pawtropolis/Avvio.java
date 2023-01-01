@@ -3,8 +3,6 @@ package pawtropolis;
 import pawtropolis.controller.GameMapGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
-import pawtropolis.model.map.Room;
-import pawtropolis.utility.model.generationMethod.AdiacentNumberGeneration;
 import pawtropolis.view.RenderMap;
 
 public class Avvio {
