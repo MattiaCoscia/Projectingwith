@@ -8,7 +8,7 @@ import pawtropolis.view.RenderMap;
 public class Avvio {
     public static void main(String[] args) {
     	Player player=Player.getInstance("giovanni");
-    	GameMap map= GameMapGeneratorController.run2(player);
+    	GameMap map= GameMapGeneratorController.run(player);
     	RenderMap.printMap(map,player);
 		//o
     }

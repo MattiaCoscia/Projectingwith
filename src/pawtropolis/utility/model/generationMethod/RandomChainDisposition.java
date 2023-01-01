@@ -15,18 +15,18 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-public class RandomChainDisposition extends GenerationMethod{
+public class RandomChainDisposition extends GenerationMethod {
 
 	private int proximityX = 0;
 	private int proximityY = 0;
 
-	private int startingX=0;
-	private int startingY=0;
+	private int startingX = 0;
+	private int startingY = 0;
 	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
-	private GameMap map=null;
+	private GameMap map = null;
 
 	public RandomChainDisposition(GameMap map) {
-		this.map=map;
+		this.map = map;
 		proximityX = (int) Math.floor(this.map.getRooms()[0].length / 3);
 		proximityY = (int) Math.floor(this.map.getRooms().length / 3);
 	}
@@ -35,14 +35,14 @@ public class RandomChainDisposition extends GenerationMethod{
 	public GameMap generateMap(Player player) {
 		populateMapWithStartingRoom(player);
 		while (queueRoomsPositions.size() > 0) {
-			Room roomInQueue=queueRoomsPositions.poll();
+			Room roomInQueue = queueRoomsPositions.poll();
 			regulateMapPopulationRooms(roomInQueue);
 		}
 		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
 		return this.map;
 	}
 
-	private void populateMapWithStartingRoom(Player player){
+	private void populateMapWithStartingRoom(Player player) {
 		startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
 		startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
 		player.setPositionX(startingX);
@@ -151,17 +151,17 @@ public class RandomChainDisposition extends GenerationMethod{
 				.collect(Collectors.toList());
 		sortedRooms.forEach(r -> {
 			if (isOnTheBorder(r)) {
-				recursionToFormCorridorFromEndRoomToStartingRoom(r);
+				recursionToFormCorridorFromEndRoomToStartingRoom(r, halfDistanceRoom.getChainPosition());
 			}
 		});
 	}
 
-	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room r) {
+	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room r, int halfLenght) {
 		r.setType(RoomType.CORRIDOR_TYPE);
 		for (Room room : r.getAdiacentRooms()) {
 			if (room != null && (!room.getType().equals(RoomType.CORRIDOR_TYPE))
 					&& room.getChainPosition() == r.getChainPosition() - 1) {
-				recursionToFormCorridorFromEndRoomToStartingRoom(room);
+				recursionToFormCorridorFromEndRoomToStartingRoom(room, halfLenght);
 			}
 		}
 	}
@@ -198,12 +198,10 @@ public class RandomChainDisposition extends GenerationMethod{
 		}
 		return false;
 	}
-	
-	
+
 	public int getMapOccupiedSize() {
-		List<Room> listRooms = Arrays.stream(map.getRooms())  //'array' is two-dimensional
-			    .flatMap(Arrays::stream).filter(r->r!=null)
-			    .collect(Collectors.toList());
+		List<Room> listRooms = Arrays.stream(map.getRooms()) // 'array' is two-dimensional
+				.flatMap(Arrays::stream).filter(r -> r != null).collect(Collectors.toList());
 		return listRooms.size();
 	}
 
