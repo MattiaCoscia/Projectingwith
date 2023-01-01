@@ -11,13 +11,3 @@ X
 (src/pawtropolis/model/entity/Player.java,1\b\1b85d68afd367ea6e76688abd051aafe9a4596f3
 U
 %src/pawtropolis/utility/RoomType.java,3\5\351fad80b4c23378f473cf4d6732c569dcb65a89
-S
-#src/pawtropolis/model/map/Room.java,d\9\d91810e73a2183fdbdaae433f01e820c2d4e9f5f
-z
-Jsrc/pawtropolis/utility/model/generationMethod/RandomChainDisposition.java,0\a\0a41dd55fcc7f2a90399d9bfe4fd0c639012ebd6
-S
-#src/pawtropolis/view/RenderMap.java,f\2\f2a309963ef1dab7f6e19bdce47593226eeefcff
-J
-src/pawtropolis/Avvio.java,3\f\3fe55ae9fb7d4db383c50c3940f2a1ef83679098
-|
-Lsrc/pawtropolis/utility/model/generationMethod/AdiacentNumberGeneration.java,c\c\cc5c046b8ae2979ca77cb9a9081af0b68565d3a3
