@@ -12,7 +12,6 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 	private int[][] numberMap = null;
 	private GameMap map = null;
 	private final Queue<String> queueNumberPositions = new LinkedList<>();
-	private final List<Room> checkedRooms = new ArrayList<>();
 
 	public AdiacentNumberGeneration(GameMap map) {
 		this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
@@ -46,7 +45,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		// OVEST = 3 ; EAST= 1
 		// SUD = 2;
 		for (int adiacentPosition : availablePositions) {
-			if(Math.random() * 10 > 4) {
+			if (areaValue(x, y) <= 7) {
 				switch (adiacentPosition) {
 				case 0: {
 					if ((areaValue(x, y - 1) % 2) == 0) {
@@ -90,17 +89,12 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 	}
 
 	private void populateIntegerMapWithFirstsRooms(Player player) {
-		int randomStartingPoint = (int) Math.floor((Math.random() * 5));
-		for (int i = 0; i < 4; i++) {
-			int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
-			int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
-			if (i == randomStartingPoint) {
-				player.setPositionX(randomX);
-				player.setPositionY(randomY);
-			}
-			numberMap[randomY][randomX] = (int) Math.ceil(Math.random() * 2);
-			queueNumberPositions.add(randomY + ";" + randomX + ";");
-		}
+		int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
+		int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
+		player.setPositionX(randomX);
+		player.setPositionY(randomY);
+		numberMap[randomY][randomX] = (int) Math.ceil(Math.random() * 2);
+		queueNumberPositions.add(randomY + ";" + randomX + ";");
 	}
 
 	private GameMap convertIntegerMapToGameMap() {
@@ -135,19 +129,19 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		}
 		return count;
 	}
-	
+
 	private int nullArea(int x, int y) {
-			int count = 0;
-			for (int i = -1; i <= 1; i++) {
-				for (int j = -1; j <= 1; j++) {
-					if ((y + i >= 0 && y + i < numberMap.length) && (x + j >= 0 && x + j < numberMap[0].length)) {
-						if(numberMap[y + i][x + j]==0) {
-							count++;
-						}
+		int count = 0;
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				if ((y + i >= 0 && y + i < numberMap.length) && (x + j >= 0 && x + j < numberMap[0].length)) {
+					if (numberMap[y + i][x + j] == 0) {
+						count++;
 					}
 				}
 			}
-			return count;
+		}
+		return count;
 	}
 
 	public void chooseAndAssignAdiacentRooms(Room room) {
@@ -177,7 +171,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
 									r.setSingleRoom(2, room);
-								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+								} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1) {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
@@ -195,7 +189,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
 									r.setSingleRoom(3, room);
-								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+								} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1) {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
@@ -213,7 +207,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
 									r.setSingleRoom(0, room);
-								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+								} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1) {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
@@ -231,7 +225,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
 									r.setSingleRoom(1, room);
-								} else if (noConnectionToDifferentTypeRecursion(room) < 1
+								} else if (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1) {
 									r = adiacentRoom;
 									room.setSingleRoom(countRoom, r);
@@ -247,13 +241,15 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		}
 	}
 
-	private int noConnectionToDifferentTypeRecursion(Room room) {
+	private int noConnectionToDifferentTypeRecursion(Room room, List<Room> alreadyChecked) {
 		int neighbourWithForeignNeighbour = 0;
+		List<Room> checkedRooms = new ArrayList<>();
+		checkedRooms.addAll(alreadyChecked);
 		for (Room r : room.getAdiacentRooms()) {
 			if (r != null) {
 				if (r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(r)))) {
 					checkedRooms.add(r);
-					return neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r);
+					return neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r, checkedRooms);
 				} else if (!(r.getType().equals(room.getType()))) {
 					neighbourWithForeignNeighbour++;
 				}
