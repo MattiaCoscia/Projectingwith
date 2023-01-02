@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
+import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
@@ -92,5 +93,11 @@ public class RenderMap {
 			items+=s +" x"+actualRoom.getItems().get(s).size()+" | ";
 		}
 		System.out.println((items));
+		System.out.println("Npcs in this room:");
+		String npcs = "";
+		for (Entity s : actualRoom.getEntities()) {
+			npcs += s.getName() + " | ";
+		}
+		System.out.println(npcs);
 	}
 }

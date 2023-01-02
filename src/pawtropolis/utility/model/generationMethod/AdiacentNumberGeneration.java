@@ -106,12 +106,13 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			for (Room x : y) {
 				int room = numberMap[countY][countX];
 				if (room == 1) {
-					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new HashMap<>(), countX,
+					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new ArrayList<>(), countX,
 							countY, RoomType.CORRIDOR_TYPE, room);
 				} else if (room == 2) {
-					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new HashMap<>(), countX,
+					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new ArrayList<>(), countX,
 							countY, RoomType.ROOM_TYPE, room);
 					addItemsToRoom(items,map.getRooms()[countY][countX]);
+					addNpcsToRoom(map.getRooms()[countY][countX]);
 				}
 				countX++;
 			}

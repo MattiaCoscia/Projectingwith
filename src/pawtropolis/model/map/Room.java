@@ -1,9 +1,10 @@
 package pawtropolis.model.map;
 
+import pawtropolis.model.entity.Entity;
 import pawtropolis.utility.RoomType;
-import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.model.items.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class Room {
 
     private RoomType type;
     private Map<String, List<Item>> items=new HashMap<>();
-    private Map<Class<? extends Animal>,List<Animal>> animals=new HashMap<>();
+    private List<Entity> npcs=new ArrayList<>();
     private Room[] adiacentRooms=new Room[4];
     private int chainPosition;
 
@@ -24,11 +25,11 @@ public class Room {
         this.type=RoomType.ROOM_TYPE;
     }
 
-    public Room(String name, Map<String, List<Item>> items, Map<Class<? extends Animal>, List<Animal>> animals, int positionX, int positionY
+    public Room(String name, Map<String, List<Item>> items, List<Entity> npcs, int positionX, int positionY
     		, RoomType roomType, int chainPosition) {
         this.name = name;
         this.items = items;
-        this.animals = animals;
+        this.npcs = npcs;
         this.positionX=positionX;
         this.positionY=positionY;
         this.type=roomType;
@@ -47,8 +48,8 @@ public class Room {
         this.items = items;
     }
 
-    public void setAnimals(Map<Class<? extends Animal>, List<Animal>> animals) {
-        this.animals = animals;
+    public void setEntities(List<Entity> npcs) {
+        this.npcs = npcs;
     }
 
     public void setAdiacentRooms(Room[] rooms) {
@@ -81,8 +82,8 @@ public class Room {
         return items;
     }
 
-    public Map<Class<? extends Animal>, List<Animal>> getAnimals() {
-        return animals;
+    public List<Entity> getEntities() {
+        return npcs;
     }
 
     public Room[] getAdiacentRooms() {
