@@ -11,6 +11,7 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -32,13 +33,20 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	@Override
-	public GameMap generateMap(Player player) {
+	public GameMap generateMap(Player player, List<Item> items) {
 		populateMapWithStartingRoom(player);
 		while (queueRoomsPositions.size() > 0) {
 			Room roomInQueue = queueRoomsPositions.poll();
 			regulateMapPopulationRooms(roomInQueue);
 		}
 		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
+		for(Room[] y:map.getRooms()){
+			for(Room x:y){
+				if(x.getType().equals(RoomType.ROOM_TYPE)){
+					addItemsToRoom(items,x);
+				}
+			}
+		}
 		return this.map;
 	}
 

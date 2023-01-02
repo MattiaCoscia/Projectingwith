@@ -3,6 +3,7 @@ package pawtropolis.utility.model.generationMethod;
 import java.util.*;
 
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -19,7 +20,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 	}
 
 	@Override
-	public GameMap generateMap(Player player) {
+	public GameMap generateMap(Player player, List<Item> items) {
 		populateIntegerMapWithStartingRoom(player);
 		while (queueNumberPositions.size() > 0) {
 			String[] yx = queueNumberPositions.poll().split(";");
@@ -27,7 +28,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			int y = Integer.parseInt(yx[0]);
 			chooseAndAssignRooms(x, y, availableAdiacentPositions(x, y));
 		}
-		convertIntegerMapToGameMap();
+		convertIntegerMapToGameMap(items);
 		for (Room[] y : map.getRooms()) {
 			for (Room r : y) {
 				if (r != null) {
@@ -97,7 +98,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 		queueNumberPositions.add(randomY + ";" + randomX + ";");
 	}
 
-	private GameMap convertIntegerMapToGameMap() {
+	private GameMap convertIntegerMapToGameMap(List<Item> items) {
 		int countY = 0;
 		int countX = 0;
 		for (Room[] y : map.getRooms()) {
@@ -105,11 +106,12 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			for (Room x : y) {
 				int room = numberMap[countY][countX];
 				if (room == 1) {
-					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, null, null, countX,
+					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new HashMap<>(), countX,
 							countY, RoomType.CORRIDOR_TYPE, room);
 				} else if (room == 2) {
-					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, null, null, countX,
+					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new HashMap<>(), countX,
 							countY, RoomType.ROOM_TYPE, room);
+					addItemsToRoom(items,map.getRooms()[countY][countX]);
 				}
 				countX++;
 			}

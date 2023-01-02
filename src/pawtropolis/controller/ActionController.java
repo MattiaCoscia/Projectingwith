@@ -15,13 +15,13 @@ public class ActionController {
             case "go":{
                 go(action[1], player, map);
             }
-            case "take":{
-                take(action[1],player,map);
+            case "get":{
+                get(action[1],player,map);
             }
         }
     }
 
-    public void take(String s, Player player, GameMap map) {
+    public void get(String s, Player player, GameMap map) {
         Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
         List<Item> itemsOftype=actualRoom.getItems().get(s);
         Item item=itemsOftype != null ? actualRoom.getItems().get(s).get(0) : null;
@@ -30,8 +30,8 @@ public class ActionController {
                 player.getBag().getItems().computeIfAbsent(s,k->new ArrayList<>()).add(item);
                 actualRoom.getItems().get(s).remove(0);
                 System.out.println(item.getName()+" has been put in the bag");
-                if(itemsOftype.size() == 0){
-                    actualRoom.getItems().remove(itemsOftype);
+                if(itemsOftype.size() < 1){
+                    actualRoom.getItems().remove(s,itemsOftype);
                 }
             }
         }

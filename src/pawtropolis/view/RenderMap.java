@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sun.javafx.scene.traversal.Direction;
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -83,7 +84,11 @@ public class RenderMap {
 
 			System.out.println(printLineHead + "\n" + printLineBody + "\n" + printLineFoot);
 		}
-		Room startingRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
-		System.out.println("Actual Room "+startingRoom.getName());
+		Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
+		System.out.println("Actual Room "+actualRoom.getName());
+		System.out.println("Items:");
+		for(String s:actualRoom.getItems().keySet()){
+			System.out.println(s +" x"+actualRoom.getItems().get(s).size());
+		}
 	}
 }
