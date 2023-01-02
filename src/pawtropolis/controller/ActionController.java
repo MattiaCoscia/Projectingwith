@@ -9,16 +9,38 @@ import java.util.*;
 
 public class ActionController {
     private final Scanner sc=new Scanner(System.in);
-    public void playerAction(GameMap map, Player player){
+    public String playerAction(GameMap map, Player player){
         String[] action = sc.nextLine().toLowerCase().split(" ");
         switch (action[0]){
             case "go":{
                 go(action[1], player, map);
+                return "go";
             }
             case "get":{
                 get(action[1],player,map);
+                return "get";
+            }
+            case "bag":{
+                System.out.println("In your bag there are:");
+                String items="";
+                for(String s:player.getBag().getItems().keySet()){
+                    items+=s +" x"+player.getBag().getItems().get(s).size()+" | ";
+                }
+                System.out.println((items));
+                return "bag";
+            }
+            case "look":{
+                Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
+                System.out.println("Actual Room "+actualRoom.getName());
+                System.out.println("Items in this room:");
+                String items="";
+                for(String s:actualRoom.getItems().keySet()){
+                    items+=s +" x"+actualRoom.getItems().get(s).size()+" | ";
+                }
+                System.out.println((items));
             }
         }
+        return "";
     }
 
     public void get(String s, Player player, GameMap map) {

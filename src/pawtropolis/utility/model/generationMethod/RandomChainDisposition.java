@@ -42,7 +42,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
 		for(Room[] y:map.getRooms()){
 			for(Room x:y){
-				if(x.getType().equals(RoomType.ROOM_TYPE)){
+				if(x!=null && x.getType().equals(RoomType.ROOM_TYPE)){
 					addItemsToRoom(items,x);
 				}
 			}

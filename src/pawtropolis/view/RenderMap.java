@@ -86,9 +86,11 @@ public class RenderMap {
 		}
 		Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
 		System.out.println("Actual Room "+actualRoom.getName());
-		System.out.println("Items:");
+		System.out.println("Items in the room:");
+		String items="";
 		for(String s:actualRoom.getItems().keySet()){
-			System.out.println(s +" x"+actualRoom.getItems().get(s).size());
+			items+=s +" x"+actualRoom.getItems().get(s).size()+" | ";
 		}
+		System.out.println((items));
 	}
 }
