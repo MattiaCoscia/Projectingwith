@@ -10,6 +10,8 @@ public class Bag {
     private Map<String, List<Item>> items=new HashMap<>();
     private int volume;
 
+    private int occupiedSlots=0;
+
     private Bag(){};
 
     public static Bag getInstance(int volume){
@@ -31,5 +33,13 @@ public class Bag {
 
     public void setMaxSlots(int maxSlots) {
         this.volume = maxSlots;
+    }
+
+    public int getOccupiedSlots() {
+        return occupiedSlots;
+    }
+
+    public void setOccupiedSlots(int occupiedSlots) {
+        this.occupiedSlots = occupiedSlots;
     }
 }

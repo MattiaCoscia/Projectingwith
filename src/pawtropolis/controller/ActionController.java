@@ -1,13 +1,11 @@
 package pawtropolis.controller;
 
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class ActionController {
     private final Scanner sc=new Scanner(System.in);
@@ -17,8 +15,23 @@ public class ActionController {
             case "go":{
                 go(action[1], player, map);
             }
+            case "take":{
+                take(action[1],player,map);
+            }
         }
     }
+
+    public void take(String s, Player player, GameMap map) {
+        Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
+        Item item=actualRoom.getItems().get(s) != null ? actualRoom.getItems().get(s).get(0) : null;
+        if(item != null){
+            if(player.getBag().getOccupiedSlots()+ item.getVolume()<=player.getBag().getMaxSlots()){
+                player.getBag().getItems();
+            }
+        }
+
+    }
+
     public void go(String direction,Player player, GameMap map){
         boolean nord=player.getPositionY() - 1 >= 0;
         boolean sud=player.getPositionY() + 1 < map.getRooms().length;
@@ -51,6 +64,13 @@ public class ActionController {
             }
         }
     }
+
+
+
+
+
+
+
 
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map){
         Room toGo=map.getRooms()[player.getPositionY() + changeInY][player.getPositionX() + changeInX];
