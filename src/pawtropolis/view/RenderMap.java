@@ -80,7 +80,10 @@ public class RenderMap {
 					// ok
 				}
 			}
+
 			System.out.println(printLineHead + "\n" + printLineBody + "\n" + printLineFoot);
 		}
+		Room startingRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
+		System.out.println("Actual Room "+startingRoom.getName());
 	}
 }
