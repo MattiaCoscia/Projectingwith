@@ -23,20 +23,7 @@ public class RenderMap {
 			}
 		}
 	}
-	
-	public static void printMapNumberGeneration(int[][] map) {
-		for(int[] y:map) {
-			String line="";
-			for(int x:y) {
-				if(x==1) {
-					line+="   ";
-				}else if(x==2) {
-					line+="|D|";
-				}
-			}
-			System.out.println(line);
-		}
-	}
+
 
 	public static void printMap(GameMap map, Player player) {
 		/*visibleRooms.add(player.getPositionY() + ";"+ player.getPositionX());
