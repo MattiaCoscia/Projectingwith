@@ -15,3 +15,5 @@ V
 &src/pawtropolis/model/map/GameMap.java,c\3\c36aa283a99a93769b62aeab47e9391aae2f4de4
 S
 #src/pawtropolis/model/map/Room.java,d\9\d91810e73a2183fdbdaae433f01e820c2d4e9f5f
+`
+0src/pawtropolis/controller/GameMapGenerator.java,7\1\719f7ae44f0495b5fcdd399b4727ded03784b674
