@@ -15,47 +15,62 @@ public class ActionController {
         String[] action = sc.nextLine().toLowerCase().split(" ");
         switch (action[0]) {
             case "go": {
-                go(action[1], player, map);
-                return "go";
+            	if(action[1].replace(' ', '.').equals(".")) {
+            		return null;
+            	}
+                return go(action[1], player, map);
             }
             case "get": {
-                get(action[1], player, map);
-                return "get";
+            	if(action[1].replace(' ', '.').equals(".")) {
+            		return null;
+            	}
+                return get(action[1], player, map);
             }
             case "drop": {
-                drop(action[1], player, map);
-                return "drop";
+            	if(action[1].replace(' ', '.').equals(".")) {
+            		return null;
+            	}
+                return drop(action[1], player, map);
             }
             case "bag": {
-                System.out.println("In your bag there are:");
-                String items = "";
-                for (String s : player.getBag().getItems().keySet()) {
-                    items += s + " x" + player.getBag().getItems().get(s).size() + " | ";
-                }
-                System.out.println((items));
-                return "bag";
+                return bag(player);
             }
             case "look": {
-                Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
-                System.out.println("Actual Room " + actualRoom.getName());
-                System.out.println("Items in this room:");
-                String items = "";
-                for (String s : actualRoom.getItems().keySet()) {
-                    items += s + " x" + actualRoom.getItems().get(s).size() + " | ";
-                }
-                System.out.println((items));
-                System.out.println("Npcs in this room:");
-                String npcs = "";
-                for (Entity s : actualRoom.getEntities()) {
-                    npcs += s.getName() + " | ";
-                }
-                System.out.println(npcs);
+                return look(player,map);
             }
         }
-        return "";
+        return null;
+    }
+    
+    private String bag(Player player) {
+    	System.out.println("In your bag there are:");
+        String items = "";
+        for (String s : player.getBag().getItems().keySet()) {
+            items += s + " x" + player.getBag().getItems().get(s).size() + " | ";
+        }
+        System.out.println((items));
+        return "bag";
+    }
+    
+    private String look(Player player,GameMap map) {
+    	Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
+        System.out.println("Actual Room " + actualRoom.getName());
+        System.out.println("Items in this room:");
+        String items = "";
+        for (String s : actualRoom.getItems().keySet()) {
+            items += s + " x" + actualRoom.getItems().get(s).size() + " | ";
+        }
+        System.out.println((items));
+        System.out.println("Npcs in this room:");
+        String npcs = "";
+        for (Entity s : actualRoom.getEntities()) {
+            npcs += s.getName() + " | ";
+        }
+        System.out.println(npcs);
+        return "look";
     }
 
-    public void get(String s, Player player, GameMap map) {
+    private String get(String s, Player player, GameMap map) {
         Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
         List<Item> itemsOftype = actualRoom.getItems().get(s);
         Item item = itemsOftype != null ? actualRoom.getItems().get(s).get(0) : null;
@@ -72,9 +87,10 @@ public class ActionController {
                 System.out.println("the bag is full");
             }
         }
+        return "get";
     }
 
-    public void drop(String s, Player player, GameMap map) {
+    private String drop(String s, Player player, GameMap map) {
         Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
         List<Item> itemsOftype = player.getBag().getItems().get(s);
         Item item = itemsOftype != null ? player.getBag().getItems().get(s).get(0) : null;
@@ -87,9 +103,10 @@ public class ActionController {
             }
             player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() - item.getVolume());
         }
+        return "drop";
     }
 
-    public void go(String direction, Player player, GameMap map) {
+    private String go(String direction, Player player, GameMap map) {
         boolean nord = player.getPositionY() - 1 >= 0;
         boolean sud = player.getPositionY() + 1 < map.getRooms().length;
         boolean est = player.getPositionX() + 1 < map.getRooms()[0].length;
@@ -120,6 +137,7 @@ public class ActionController {
                 break;
             }
         }
+        return "go";
     }
 
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map) {
