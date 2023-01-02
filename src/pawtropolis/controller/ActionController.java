@@ -23,13 +23,18 @@ public class ActionController {
 
     public void take(String s, Player player, GameMap map) {
         Room actualRoom=map.getRooms()[player.getPositionY()][player.getPositionX()];
-        Item item=actualRoom.getItems().get(s) != null ? actualRoom.getItems().get(s).get(0) : null;
+        List<Item> itemsOftype=actualRoom.getItems().get(s);
+        Item item=itemsOftype != null ? actualRoom.getItems().get(s).get(0) : null;
         if(item != null){
             if(player.getBag().getOccupiedSlots()+ item.getVolume()<=player.getBag().getMaxSlots()){
-                player.getBag().getItems();
+                player.getBag().getItems().computeIfAbsent(s,k->new ArrayList<>()).add(item);
+                actualRoom.getItems().get(s).remove(0);
+                System.out.println(item.getName()+" has been put in the bag");
+                if(itemsOftype.size() == 0){
+                    actualRoom.getItems().remove(itemsOftype);
+                }
             }
         }
-
     }
 
     public void go(String direction,Player player, GameMap map){
@@ -64,13 +69,6 @@ public class ActionController {
             }
         }
     }
-
-
-
-
-
-
-
 
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map){
         Room toGo=map.getRooms()[player.getPositionY() + changeInY][player.getPositionX() + changeInX];
