@@ -12,9 +12,9 @@ import java.util.List;
 
 public class Avvio {
     public static void main(String[] args) {
-		Item milk=new Item("milk","a bottle of milk",2);
-		Item apple=new Item("apple","an apple",1);
-		Item banana=new Item("banana","a banana",1);
+		Item milk=new Item("milk","a bottle of milk",5);
+		Item apple=new Item("apple","an apple",5);
+		Item banana=new Item("banana","a banana",5);
 		List<Item> items=new ArrayList<>();
 		items.add(milk);
 		items.add(apple);

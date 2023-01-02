@@ -26,13 +26,16 @@ public class ActionController {
         List<Item> itemsOftype=actualRoom.getItems().get(s);
         Item item=itemsOftype != null ? actualRoom.getItems().get(s).get(0) : null;
         if(item != null){
-            if(player.getBag().getOccupiedSlots()+ item.getVolume()<=player.getBag().getMaxSlots()){
+            if(player.getBag().getOccupiedSlots() + item.getVolume()<=player.getBag().getMaxSlots()){
                 player.getBag().getItems().computeIfAbsent(s,k->new ArrayList<>()).add(item);
                 actualRoom.getItems().get(s).remove(0);
+                player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() + item.getVolume());
                 System.out.println(item.getName()+" has been put in the bag");
                 if(itemsOftype.size() < 1){
                     actualRoom.getItems().remove(s,itemsOftype);
                 }
+            }else{
+                System.out.println("the bag is full");
             }
         }
     }
