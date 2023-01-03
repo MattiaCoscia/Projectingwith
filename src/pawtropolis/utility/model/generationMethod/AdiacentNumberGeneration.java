@@ -12,10 +12,12 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 
 	private int[][] numberMap = null;
 	private GameMap map = null;
+	private Random randomBasedOnSeed=null;
 	private final Queue<String> queueNumberPositions = new LinkedList<>();
 
-	public AdiacentNumberGeneration(GameMap map) {
+	public AdiacentNumberGeneration(GameMap map,long seed) {
 		this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
+		this.randomBasedOnSeed=new Random(seed);
 		this.map = map;
 	}
 
@@ -90,11 +92,11 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 	}
 
 	private void populateIntegerMapWithStartingRoom(Player player) {
-		int randomX = (int) Math.floor(Math.random() * numberMap[0].length);
-		int randomY = (int) Math.floor(Math.random() * numberMap[0].length);
+		int randomX = randomBasedOnSeed.nextInt(0,numberMap[0].length);
+		int randomY = randomBasedOnSeed.nextInt(0,numberMap.length);
 		player.setPositionX(randomX);
 		player.setPositionY(randomY);
-		numberMap[randomY][randomX] = (int) Math.ceil(Math.random() * 2);
+		numberMap[randomY][randomX] = randomBasedOnSeed.nextInt(1,3);
 		queueNumberPositions.add(randomY + ";" + randomX + ";");
 	}
 
@@ -111,8 +113,8 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 				} else if (room == 2) {
 					map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new ArrayList<>(), countX,
 							countY, RoomType.ROOM_TYPE, room);
-					addItemsToRoom(items,map.getRooms()[countY][countX]);
-					addNpcsToRoom(map.getRooms()[countY][countX]);
+					addItemsToRoom(items,map.getRooms()[countY][countX],randomBasedOnSeed);
+					addNpcsToRoom(map.getRooms()[countY][countX],randomBasedOnSeed);
 				}
 				countX++;
 			}
@@ -163,14 +165,14 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			Room adiacentRoom = null;
 			for (Room r : room.getAdiacentRooms()) {
 				if (r == null) {
-					int listPosition = (int) Math.floor(Math.random() * positions.size());
+					int listPosition = randomBasedOnSeed.nextInt(0, positions.size());
 					int countRoom = positions.remove(listPosition);
 					switch (countRoom) {
 					case 0: {
 						if (possiblePositionNord) {
 							adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
 							if (adiacentRoom != null) {
-								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
+								if (room.getType().equals(adiacentRoom.getType()) && randomBasedOnSeed.nextInt(10) > 4
 										|| (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1)) {
 									r = adiacentRoom;
@@ -185,7 +187,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						if (possiblePositionEast) {
 							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
 							if (adiacentRoom != null) {
-								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
+								if (room.getType().equals(adiacentRoom.getType()) && randomBasedOnSeed.nextInt(10) > 4
 										|| (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1)) {
 									r = adiacentRoom;
@@ -200,7 +202,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						if (possiblePositionSud) {
 							adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
 							if (adiacentRoom != null) {
-								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
+								if (room.getType().equals(adiacentRoom.getType()) && randomBasedOnSeed.nextInt(10) > 4
 										|| (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1)) {
 									r = adiacentRoom;
@@ -215,7 +217,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						if (possiblePositionOvest) {
 							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
 							if (adiacentRoom != null) {
-								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
+								if (room.getType().equals(adiacentRoom.getType()) && randomBasedOnSeed.nextInt(10) > 4
 										||( noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
 										|| nullArea(actualRoomX, actualRoomY) >= 1)) {
 									r = adiacentRoom;

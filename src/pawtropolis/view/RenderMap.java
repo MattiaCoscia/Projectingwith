@@ -40,6 +40,8 @@ public class RenderMap {
 	}
 
 	public static void printMap(GameMap map, Player player) {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 		putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
 				, chooseDirectionForVisibleRooms(map, player));
 		List<String> commandsStrings=getListCommandsToPrint();
@@ -49,8 +51,7 @@ public class RenderMap {
 			String printLineBody = "";
 			String printLineFoot = "";
 			for (Room room : line) {
-				if (room != null && visibleRooms.stream()
-						.anyMatch(r -> r.equals(room.getPositionY() + ";" + room.getPositionX()))) {
+				if (room != null /*&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX())*/) {
 					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 					String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
 					String estOvest = printBodyConnectionsRoom(room);

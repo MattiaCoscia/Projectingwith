@@ -15,15 +15,15 @@ public class GameMapGeneratorController {
 	private static int dimX = 10;
 	private final static GameMap gameMap = new GameMap(new Room[dimY][dimX]);
 	
-	public static GameMap run(Player player, List<Item> items) {
+	public static GameMap run(Player player, List<Item> items, long seed) {
 		System.out.println("Choose generation type 1:(Tree like) 2:(Cavern like)");
 		switch(new Scanner(System.in).nextLine()) {
 		case "1":{
-			RandomChainDisposition generationMethod=new RandomChainDisposition(gameMap);
+			RandomChainDisposition generationMethod=new RandomChainDisposition(gameMap,seed);
 			return generationMethod.generateMap(player, items);
 		}
 		case "2":{
-			AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration(gameMap);
+			AdiacentNumberGeneration numberGenerator=new AdiacentNumberGeneration(gameMap,seed);
 			return numberGenerator.generateMap(player, items);
 		}
 		}

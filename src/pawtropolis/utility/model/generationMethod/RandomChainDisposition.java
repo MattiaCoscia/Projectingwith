@@ -1,11 +1,6 @@
 package pawtropolis.utility.model.generationMethod;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
@@ -20,13 +15,16 @@ public class RandomChainDisposition extends GenerationMethod {
 	private int proximityX = 0;
 	private int proximityY = 0;
 
+	private Random randomBasedOnSeed=null;
 	private int startingX = 0;
 	private int startingY = 0;
 	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
 	private GameMap map = null;
 
-	public RandomChainDisposition(GameMap map) {
+	public RandomChainDisposition(GameMap map, long seed) {
 		this.map = map;
+		this.randomBasedOnSeed=new Random();
+		this.randomBasedOnSeed.setSeed(seed);
 		proximityX = (int) Math.floor(this.map.getRooms()[0].length / 3);
 		proximityY = (int) Math.floor(this.map.getRooms().length / 3);
 	}
@@ -42,8 +40,8 @@ public class RandomChainDisposition extends GenerationMethod {
 		for(Room[] y:map.getRooms()){
 			for(Room x:y){
 				if(x!=null && x.getType().equals(RoomType.ROOM_TYPE)){
-					addItemsToRoom(items,x);
-					addNpcsToRoom(x);
+					addItemsToRoom(items,x,this.randomBasedOnSeed);
+					addNpcsToRoom(x,this.randomBasedOnSeed);
 				}
 			}
 		}
@@ -51,8 +49,8 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	private void populateMapWithStartingRoom(Player player) {
-		startingX = (int) Math.floor(this.map.getRooms()[0].length * Math.random());
-		startingY = (int) Math.floor(this.map.getRooms().length * Math.random());
+		startingX = randomBasedOnSeed.nextInt(0,this.map.getRooms()[0].length);
+		startingY = randomBasedOnSeed.nextInt(0,this.map.getRooms().length);
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
 		Room entryRoom = new Room("Entry", new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
@@ -64,7 +62,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	protected void regulateMapPopulationRooms(Room actualRoom) {
 		List<Integer> availablePositions = availableAdiacentPositions(actualRoom.getPositionX(),
 				actualRoom.getPositionY());
-		int maxAdiacentRooms = (int) Math.floor(Math.random() * (availablePositions.size() + 1));
+		int maxAdiacentRooms = randomBasedOnSeed.nextInt(0,availablePositions.size()+1);
 
 		if (isNearEntry(actualRoom) && maxAdiacentRooms < 1) {
 			maxAdiacentRooms = availablePositions.size();
@@ -97,7 +95,7 @@ public class RandomChainDisposition extends GenerationMethod {
 
 	public void chooseAndAssignAdiacentRooms(Room actualRoom,int maxAdiacentRooms, List<Integer> availablePositions) {
 		for (int i = 0; i < maxAdiacentRooms; i++) {
-			int randomValuePosition = ((int) Math.floor(Math.random() * availablePositions.size()));
+			int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
 			int adiacentPosition = availablePositions.remove(randomValuePosition).intValue();
 			// NORD = 0;
 	// OVEST = 3 ;     EAST= 1
@@ -151,7 +149,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		int halfList = (int) Math.floor(sortedRooms.size() / 2);
 		Room farestRoom = sortedRooms.get(0);
 		Room halfDistanceRoom = sortedRooms.get(halfList);
-		int randomCorridorRange = (int) (Math.ceil(Math.random() * 2));
+		int randomCorridorRange = randomBasedOnSeed.nextInt(1,3);
 		BiPredicate<Integer, Integer> validRoomChain = (a, b) -> (a <= b && a > (b - randomCorridorRange));
 		sortedRooms = sortedRooms.stream()
 				.filter(r -> (validRoomChain.test(r.getChainPosition(), halfDistanceRoom.getChainPosition()))

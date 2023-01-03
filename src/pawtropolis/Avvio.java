@@ -15,8 +15,11 @@ public class Avvio {
 		System.out.println("Choose your name");
     	Player player=Player.getInstance(new Scanner(System.in).nextLine());
     	GameMap map= null;
+		Scanner sc=new Scanner(System.in);
     	while(map == null) {
-    		map=GameMapGeneratorController.run(player,ItemContainer.getItems());
+			System.out.println("Write a seed on what the map will be generated");
+			long seed=sc.nextLine().hashCode();
+    		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
     	RenderMap.printMap(map,player);
 		ActionController ac=new ActionController();
