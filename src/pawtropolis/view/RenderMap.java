@@ -47,7 +47,7 @@ public class RenderMap {
 		}
 		List<String> commandsStrings=getListCommandsToPrint();
 		List<String> dataAboutRoom=getDataAboutRoom(player, map);
-		List<String> directionsToPrint=getDirections(map.getRooms()[player.getPositionY()][player.getPositionX()]);
+		List<String> directionsToPrint=getDirectionsToPrintInCompass(map.getRooms()[player.getPositionY()][player.getPositionX()]);
 		for (Room[] line : map.getRooms()) {
 			String printLineHead = "";
 			String printLineBody = "";
@@ -179,7 +179,7 @@ public class RenderMap {
 		return commands;
 	}
 	
-	private static List<String> getDirections(Room room){
+	private static List<String> getDirectionsToPrintInCompass(Room room){
 		List<String> directions = new ArrayList<>();
 		directions.add("      DIRECTIONS      ");
 		if(room.getAdiacentRooms()[0] !=null) {
