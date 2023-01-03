@@ -136,8 +136,10 @@ public class RenderMap {
 		if(directions != null) {
 			if(directions.size()>0) {
 				printLineHead +=(" ||"+directions.remove(0));
-				printLineBody +=(" ||");
-				printLineFoot +=(" ||");
+				if(directions.size()>0) {
+					printLineBody +=(" ||"+directions.remove(0));
+					printLineFoot +=(" ||"+directions.remove(0));
+				}
 			}
 		}
 		return printLineHead + "\n" + printLineBody + "\n" + printLineFoot;
@@ -152,14 +154,14 @@ public class RenderMap {
 		data.add("Items in this room:");
 		String items = "";
 		for (String s : actualRoom.getItems().keySet()) {
-			items += s + " x" + actualRoom.getItems().get(s).size() + " | ";
+			items += s + " x" + actualRoom.getItems().get(s).size() + "|";
 		}
 		data.add(items);
 		
 		data.add("Npcs in this room:");
 		String npcs = "";
 		for (Entity s : actualRoom.getEntities()) {
-			npcs += s.getName() + " | ";
+			npcs += s.getName() + "|";
 		}
 		data.add(npcs);
 		
