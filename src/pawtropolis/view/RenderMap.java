@@ -41,7 +41,7 @@ public class RenderMap {
 	}
 
 	public static void printMap(GameMap map, Player player) {
-		if(showMap) {
+		if(!showMap) {
 			putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
 					, chooseDirectionForVisibleRooms(map, player));
 		}
@@ -53,7 +53,7 @@ public class RenderMap {
 			String printLineFoot = "";
 			for (Room room : line) {
 				if ((showMap && room != null) 
-						|| (!showMap && room !=null
+						|| (room != null && !showMap
 						&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX()))
 					) {
 					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
