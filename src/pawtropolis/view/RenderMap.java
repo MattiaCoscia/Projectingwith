@@ -123,13 +123,13 @@ public class RenderMap {
 			printLineHead +=(" ||"+toAdd);
 			printLineBody +=(" ||");
 			printLineFoot +=(" ||");
-			if(toAdd.length()<19) {
-				for(int i=19-toAdd.length();i>0;i--) {
+			if(toAdd.length()<20) {
+				for(int i=20-toAdd.length();i>0;i--) {
 					printLineHead+=" ";
 				}
 			}
 		}
-		for(int i=0;i<19;i++) {
+		for(int i=0;i<20;i++) {
 			printLineBody +=(" ");
 			printLineFoot +=(" ");
 		}
