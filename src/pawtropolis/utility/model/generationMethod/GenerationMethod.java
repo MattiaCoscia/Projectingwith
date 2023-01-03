@@ -27,7 +27,7 @@ public abstract class GenerationMethod {
 
     protected void addNpcsToRoom(Room room, Random random) {
         int qnt = random.nextInt(1,4);
-        if (random.nextInt(3) > 1) {
+        if (random.nextInt(4) > 1) {
             for (int q = 0; q < qnt; q++) {
                 Entity ent=NpcsFactory.getInstanceEntity((random.nextInt(0,3)));
                 ent.setPositionX(room.getPositionX());
