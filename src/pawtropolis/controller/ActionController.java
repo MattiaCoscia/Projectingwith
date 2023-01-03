@@ -112,25 +112,25 @@ public class ActionController {
         boolean est = player.getPositionX() + 1 < map.getRooms()[0].length;
         boolean ovest = player.getPositionX() - 1 >= 0;
         switch (direction) {
-            case "est": {
+            case "east": {
                 if (est && map.getRooms()[player.getPositionY()][player.getPositionX() + 1] != null && isRoomConnected(player, 1, 0, map)) {
                     player.setPositionX(player.getPositionX() + 1);
                 }
                 break;
             }
-            case "ovest": {
+            case "west": {
                 if (ovest && map.getRooms()[player.getPositionY()][player.getPositionX() - 1] != null && isRoomConnected(player, -1, 0, map)) {
                     player.setPositionX(player.getPositionX() - 1);
                 }
                 break;
             }
-            case "nord": {
+            case "north": {
                 if (nord && map.getRooms()[player.getPositionY() - 1][player.getPositionX()] != null && isRoomConnected(player, 0, -1, map)) {
                     player.setPositionY(player.getPositionY() - 1);
                 }
                 break;
             }
-            case "sud": {
+            case "south": {
                 if (sud && map.getRooms()[player.getPositionY() + 1][player.getPositionX()] != null && isRoomConnected(player, 0, 1, map)) {
                     player.setPositionY(player.getPositionY() + 1);
                 }
