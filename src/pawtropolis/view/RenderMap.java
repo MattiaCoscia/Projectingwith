@@ -11,6 +11,7 @@ import pawtropolis.utility.RoomType;
 
 public class RenderMap {
 
+	private static boolean showMap=false;
 	private static List<String> visibleRooms = new ArrayList<>();
 
 	private static void putVisibleRoom(Room room, List<Integer> directions) {
@@ -40,8 +41,10 @@ public class RenderMap {
 	}
 
 	public static void printMap(GameMap map, Player player) {
-		putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
-				, chooseDirectionForVisibleRooms(map, player));
+		if(showMap) {
+			putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
+					, chooseDirectionForVisibleRooms(map, player));
+		}
 		List<String> commandsStrings=getListCommandsToPrint();
 		List<String> dataAboutRoom=getDataAboutRoom(player, map);
 		for (Room[] line : map.getRooms()) {
@@ -49,7 +52,10 @@ public class RenderMap {
 			String printLineBody = "";
 			String printLineFoot = "";
 			for (Room room : line) {
-				if (room != null && visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX())) {
+				if ((showMap && room != null) 
+						|| (!showMap && room !=null
+						&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX()))
+					) {
 					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 					String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
 					String estOvest = printBodyConnectionsRoom(room);
@@ -151,5 +157,9 @@ public class RenderMap {
 		commands.add("'look'");
 		commands.add("'bag'");
 		return commands;
+	}
+
+	public static void setShowMap(boolean showMap) {
+		RenderMap.showMap = showMap;
 	}
 }

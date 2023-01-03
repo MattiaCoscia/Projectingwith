@@ -21,6 +21,10 @@ public class Avvio {
 			long seed=sc.nextLine().hashCode();
     		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
+    	System.out.println("choose if you want to see all map digit yes else just send");
+    	if(sc.nextLine().toLowerCase().equals("yes")) {
+    		RenderMap.setShowMap(true);
+    	}
     	RenderMap.printMap(map,player);
 		ActionController ac=new ActionController();
 		while(true){
