@@ -10,7 +10,7 @@ import pawtropolis.view.RenderMap;
 import java.util.Scanner;
 
 
-public class Avvio {
+public class Starter {
     public static void main(String[] args) {
 		System.out.println("Choose your name");
     	Player player=Player.getInstance(new Scanner(System.in).nextLine());
@@ -22,7 +22,7 @@ public class Avvio {
     		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
     	System.out.println("choose if you want to see all map digit yes else just send");
-    	if(sc.nextLine().toLowerCase().equals("yes")) {
+    	if(sc.nextLine().toLowerCase().replaceAll(" ", "").equals("yes")) {
     		RenderMap.setShowMap(true);
     	}
     	RenderMap.printMap(map,player);
