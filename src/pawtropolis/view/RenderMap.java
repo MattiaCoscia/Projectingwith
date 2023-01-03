@@ -47,6 +47,7 @@ public class RenderMap {
 		}
 		List<String> commandsStrings=getListCommandsToPrint();
 		List<String> dataAboutRoom=getDataAboutRoom(player, map);
+		List<String> directionsToPrint=getDirections(map.getRooms()[player.getPositionY()][player.getPositionX()]);
 		for (Room[] line : map.getRooms()) {
 			String printLineHead = "";
 			String printLineBody = "";
@@ -81,7 +82,7 @@ public class RenderMap {
 				}
 			}
 			System.out.println(addPanelWithCommandAndInfo(printLineHead, printLineBody, printLineFoot,
-					dataAboutRoom, commandsStrings));
+					dataAboutRoom, commandsStrings,directionsToPrint));
 		}
 		System.out.print("Put command: ");
 	}
@@ -101,7 +102,7 @@ public class RenderMap {
 	}
 	
 	private static String addPanelWithCommandAndInfo(String printLineHead, String printLineBody, String printLineFoot,
-			List<String> dataAboutRoom, List<String> commandsStrings) {
+			List<String> dataAboutRoom, List<String> commandsStrings, List<String> directions) {
 		if(commandsStrings.size() > 0) {
 			String toAdd=commandsStrings.remove(0);
 			printLineHead += (" ||"+toAdd);
@@ -118,9 +119,26 @@ public class RenderMap {
 			printLineFoot +=(" ");
 		}
 		if(dataAboutRoom.size() > 0){
-			printLineHead +=(" ||"+dataAboutRoom.remove(0));
+			String toAdd=dataAboutRoom.remove(0);
+			printLineHead +=(" ||"+toAdd);
 			printLineBody +=(" ||");
 			printLineFoot +=(" ||");
+			if(toAdd.length()<19) {
+				for(int i=19-toAdd.length();i>0;i--) {
+					printLineHead+=" ";
+				}
+			}
+		}
+		for(int i=0;i<19;i++) {
+			printLineBody +=(" ");
+			printLineFoot +=(" ");
+		}
+		if(directions != null) {
+			if(directions.size()>0) {
+				printLineHead +=(" ||"+directions.remove(0));
+				printLineBody +=(" ||");
+				printLineFoot +=(" ||");
+			}
 		}
 		return printLineHead + "\n" + printLineBody + "\n" + printLineFoot;
 	}
@@ -157,6 +175,31 @@ public class RenderMap {
 		commands.add("'look'");
 		commands.add("'bag'");
 		return commands;
+	}
+	
+	private static List<String> getDirections(Room room){
+		List<String> directions = new ArrayList<>();
+		directions.add("      DIRECTIONS      ");
+		if(room.getAdiacentRooms()[0] !=null) {
+			directions.add("      ^ NORTH ^       ");
+		}else {
+			directions.add("      +=WALL==+       ");
+		}
+		if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null) {
+			directions.add("WEST <          > EAST");
+		} else if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] == null) {
+			directions.add("WEST <         || WALL");
+		} else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] != null) {
+			directions.add("WALL||          > EAST");
+		} else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] == null) {
+			directions.add("WALL||         || WALL");
+		}
+		if(room.getAdiacentRooms()[2] !=null) {
+			directions.add("      v SOUTH v       ");
+		}else {
+			directions.add("      +=WALL==+       ");
+		}
+		return directions;
 	}
 
 	public static void setShowMap(boolean showMap) {
