@@ -21,7 +21,7 @@ public class Starter {
 			long seed=sc.nextLine().hashCode();
     		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
-    	System.out.println("choose if you want to see all map digit yes else just send");
+    	System.out.println("choose if you want to see all map digit 'yes' and send else just send");
     	if(sc.nextLine().toLowerCase().replaceAll(" ", "").equals("yes")) {
     		RenderMap.setShowMap(true);
     	}
