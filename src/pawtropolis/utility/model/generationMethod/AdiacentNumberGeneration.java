@@ -154,10 +154,10 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 			positions.add(1);
 			positions.add(2);
 			positions.add(3);
-			boolean PossiblePositionNord = ((room.getPositionY() - 1) >= 0);
-			boolean PossiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
-			boolean PossiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
-			boolean PossiblePositionOvest = ((room.getPositionX() - 1) >= 0);
+			boolean possiblePositionNord = ((room.getPositionY() - 1) >= 0);
+			boolean possiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
+			boolean possiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
+			boolean possiblePositionOvest = ((room.getPositionX() - 1) >= 0);
 			int actualRoomX = room.getPositionX();
 			int actualRoomY = room.getPositionY();
 			Room adiacentRoom = null;
@@ -167,7 +167,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 					int countRoom = positions.remove(listPosition);
 					switch (countRoom) {
 					case 0: {
-						if (PossiblePositionNord) {
+						if (possiblePositionNord) {
 							adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
 							if (adiacentRoom != null) {
 								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
@@ -182,7 +182,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						break;
 					}
 					case 1: {
-						if (PossiblePositionEast) {
+						if (possiblePositionEast) {
 							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
 							if (adiacentRoom != null) {
 								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
@@ -197,7 +197,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						break;
 					}
 					case 2: {
-						if (PossiblePositionSud) {
+						if (possiblePositionSud) {
 							adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
 							if (adiacentRoom != null) {
 								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
@@ -212,7 +212,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 						break;
 					}
 					case 3: {
-						if (PossiblePositionOvest) {
+						if (possiblePositionOvest) {
 							adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
 							if (adiacentRoom != null) {
 								if (room.getType().equals(adiacentRoom.getType()) && Math.random() * 10 > 4
@@ -251,21 +251,21 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 	}
 
 	public List<Integer> availableAdiacentPositions(int x, int y) {
-		boolean PossiblePositionNord = ((y - 1) >= 0);
-		boolean PossiblePositionSud = ((y + 1) < numberMap.length);
-		boolean PossiblePositionEast = ((x + 1) < numberMap[0].length);
-		boolean PossiblePositionOvest = ((x - 1) >= 0);
+		boolean possiblePositionNord = ((y - 1) >= 0);
+		boolean possiblePositionSud = ((y + 1) < numberMap.length);
+		boolean possiblePositionEast = ((x + 1) < numberMap[0].length);
+		boolean possiblePositionOvest = ((x - 1) >= 0);
 		List<Integer> availablePositions = new ArrayList<>();
-		if (PossiblePositionNord && (numberMap[y - 1][x] == 0)) {
+		if (possiblePositionNord && (numberMap[y - 1][x] == 0)) {
 			availablePositions.add(0);
 		}
-		if (PossiblePositionEast && (numberMap[y][x + 1] == 0)) {
+		if (possiblePositionEast && (numberMap[y][x + 1] == 0)) {
 			availablePositions.add(1);
 		}
-		if (PossiblePositionSud && (numberMap[y + 1][x] == 0)) {
+		if (possiblePositionSud && (numberMap[y + 1][x] == 0)) {
 			availablePositions.add(2);
 		}
-		if (PossiblePositionOvest && (numberMap[y][x - 1] == 0)) {
+		if (possiblePositionOvest && (numberMap[y][x - 1] == 0)) {
 			availablePositions.add(3);
 		}
 		return availablePositions;

@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	@Override
 	public GameMap generateMap(Player player, List<Item> items) {
 		populateMapWithStartingRoom(player);
-		while (queueRoomsPositions.size() > 0) {
+		while (!queueRoomsPositions.isEmpty()) {
 			Room roomInQueue = queueRoomsPositions.poll();
 			regulateMapPopulationRooms(roomInQueue);
 		}
@@ -76,34 +75,34 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	public List<Integer> availableAdiacentPositions(int x, int y) {
-		boolean PossiblePositionNord = ((y - 1) >= 0);
-		boolean PossiblePositionSud = ((y + 1) < this.map.getRooms().length);
-		boolean PossiblePositionEast = ((x + 1) < this.map.getRooms()[0].length);
-		boolean PossiblePositionOvest = ((x - 1) >= 0);
+		boolean possiblePositionNord = ((y - 1) >= 0);
+		boolean possiblePositionSud = ((y + 1) < this.map.getRooms().length);
+		boolean possiblePositionEast = ((x + 1) < this.map.getRooms()[0].length);
+		boolean possiblePositionOvest = ((x - 1) >= 0);
 		List<Integer> availablePositions = new ArrayList<>();
-		if (PossiblePositionNord && (this.map.getRooms()[y - 1][x] == null)) {
+		if (possiblePositionNord && (this.map.getRooms()[y - 1][x] == null)) {
 			availablePositions.add(0);
 		}
-		if (PossiblePositionEast && (this.map.getRooms()[y][x + 1] == null)) {
+		if (possiblePositionEast && (this.map.getRooms()[y][x + 1] == null)) {
 			availablePositions.add(1);
 		}
-		if (PossiblePositionSud && (this.map.getRooms()[y + 1][x] == null)) {
+		if (possiblePositionSud && (this.map.getRooms()[y + 1][x] == null)) {
 			availablePositions.add(2);
 		}
-		if (PossiblePositionOvest && (this.map.getRooms()[y][x - 1] == null)) {
+		if (possiblePositionOvest && (this.map.getRooms()[y][x - 1] == null)) {
 			availablePositions.add(3);
 		}
 		return availablePositions;
 	}
 
-	public void chooseAndAssignAdiacentRooms(Room actualRoom, int maxAdiacentRooms, List<Integer> availablePositions) {
+	public void chooseAndAssignAdiacentRooms(Room actualRoom,int maxAdiacentRooms, List<Integer> availablePositions) {
 		for (int i = 0; i < maxAdiacentRooms; i++) {
 			int randomValuePosition = ((int) Math.floor(Math.random() * availablePositions.size()));
 			int adiacentPosition = availablePositions.remove(randomValuePosition).intValue();
 			// NORD = 0;
-			// OVEST = 3 ; EAST= 1
-			// SUD = 2;
-			Room adiacentRoom = new Room("", new HashMap<>(), new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
+	// OVEST = 3 ;     EAST= 1
+			 // SUD = 2;
+			Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
 					actualRoom.getChainPosition() + 1);
 			switch (adiacentPosition) {
 			case 0: {
@@ -181,11 +180,7 @@ public class RandomChainDisposition extends GenerationMethod {
 
 		boolean proximityYToEntry = room.getPositionY() >= (startingY - proximityY)
 				&& room.getPositionY() <= (startingY + proximityY);
-		if (proximityXToEntry && proximityYToEntry) {
-			return true;
-		} else {
-			return false;
-		}
+		return proximityXToEntry && proximityYToEntry;
 	}
 
 	public boolean isOnTheBorder(Room room) {
@@ -199,7 +194,7 @@ public class RandomChainDisposition extends GenerationMethod {
 				&& (y <= maxY && y >= (maxY - proximityY));
 		BiPredicate<Integer, Integer> sudOvest = (x, y) -> (x <= maxX && x >= (maxX - proximityX))
 				&& (y <= maxY && y >= (maxY - proximityY));
-		if (nordEst.test(room.getPositionX(), room.getPositionY())
+		if(nordEst.test(room.getPositionX(), room.getPositionY())
 				|| nordOvest.test(room.getPositionX(), room.getPositionY())
 				|| sudEst.test(room.getPositionX(), room.getPositionY())
 				|| sudOvest.test(room.getPositionX(), room.getPositionY())) {

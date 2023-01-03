@@ -3,14 +3,12 @@ package pawtropolis;
 import pawtropolis.controller.ActionController;
 import pawtropolis.controller.GameMapGeneratorController;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.utility.ItemContainer;
 import pawtropolis.view.RenderMap;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+
 
 public class Avvio {
     public static void main(String[] args) {

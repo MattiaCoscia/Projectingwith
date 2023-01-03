@@ -2,7 +2,6 @@ package pawtropolis.utility.model.generationMethod;
 
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
