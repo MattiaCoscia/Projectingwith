@@ -1,9 +1,9 @@
 package pawtropolis.utility;
 
 import pawtropolis.model.entity.Entity;
-import pawtropolis.model.entity.npc.animal.specie.Eagle;
-import pawtropolis.model.entity.npc.animal.specie.Lion;
-import pawtropolis.model.entity.npc.animal.specie.Tiger;
+import pawtropolis.model.entity.npc.animal.species.Eagle;
+import pawtropolis.model.entity.npc.animal.species.Lion;
+import pawtropolis.model.entity.npc.animal.species.Tiger;
 
 import java.time.LocalDate;
 

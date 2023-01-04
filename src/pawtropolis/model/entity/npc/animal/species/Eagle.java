@@ -1,4 +1,4 @@
-package pawtropolis.model.entity.npc.animal.specie;
+package pawtropolis.model.entity.npc.animal.species;
 
 import java.time.LocalDate;
 

@@ -103,34 +103,34 @@ public class RandomChainDisposition extends GenerationMethod {
 			Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
 					actualRoom.getChainPosition() + 1);
 			switch (adiacentPosition) {
-			case 0: {
-				adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
-				adiacentRoom.setPositionX(actualRoom.getPositionX());
-				actualRoom.setSingleRoom(0, adiacentRoom);
-				adiacentRoom.setSingleRoom(2, actualRoom);
-				break;
-			}
-			case 1: {
-				adiacentRoom.setPositionY(actualRoom.getPositionY());
-				adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
-				actualRoom.setSingleRoom(1, adiacentRoom);
-				adiacentRoom.setSingleRoom(3, actualRoom);
-				break;
-			}
-			case 2: {
-				adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
-				adiacentRoom.setPositionX(actualRoom.getPositionX());
-				actualRoom.setSingleRoom(2, adiacentRoom);
-				adiacentRoom.setSingleRoom(0, actualRoom);
-				break;
-			}
-			case 3: {
-				adiacentRoom.setPositionY(actualRoom.getPositionY());
-				adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
-				actualRoom.setSingleRoom(3, adiacentRoom);
-				adiacentRoom.setSingleRoom(1, actualRoom);
-				break;
-			}
+				case 0 -> {
+					adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
+					adiacentRoom.setPositionX(actualRoom.getPositionX());
+					actualRoom.setSingleRoom(0, adiacentRoom);
+					adiacentRoom.setSingleRoom(2, actualRoom);
+					break;
+				}
+				case 1 -> {
+					adiacentRoom.setPositionY(actualRoom.getPositionY());
+					adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
+					actualRoom.setSingleRoom(1, adiacentRoom);
+					adiacentRoom.setSingleRoom(3, actualRoom);
+					break;
+				}
+				case 2 -> {
+					adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
+					adiacentRoom.setPositionX(actualRoom.getPositionX());
+					actualRoom.setSingleRoom(2, adiacentRoom);
+					adiacentRoom.setSingleRoom(0, actualRoom);
+					break;
+				}
+				case 3 -> {
+					adiacentRoom.setPositionY(actualRoom.getPositionY());
+					adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
+					actualRoom.setSingleRoom(3, adiacentRoom);
+					adiacentRoom.setSingleRoom(1, actualRoom);
+					break;
+				}
 			}
 			this.map.setRoom(adiacentRoom);
 			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
@@ -153,8 +153,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		BiPredicate<Integer, Integer> validRoomChain = (a, b) -> (a <= b && a > (b - randomCorridorRange));
 		sortedRooms = sortedRooms.stream()
 				.filter(r -> (validRoomChain.test(r.getChainPosition(), halfDistanceRoom.getChainPosition()))
-						|| (validRoomChain.test(r.getChainPosition(), farestRoom.getChainPosition())))
-				.collect(Collectors.toList());
+						|| (validRoomChain.test(r.getChainPosition(), farestRoom.getChainPosition()))).toList();
 		sortedRooms.forEach(r -> {
 			if (isOnTheBorder(r)) {
 				recursionToFormCorridorFromEndRoomToStartingRoom(r, halfDistanceRoom.getChainPosition());
@@ -203,7 +202,7 @@ public class RandomChainDisposition extends GenerationMethod {
 
 	public int getMapOccupiedSize() {
 		List<Room> listRooms = Arrays.stream(map.getRooms()) // 'array' is two-dimensional
-				.flatMap(Arrays::stream).filter(r -> r != null).collect(Collectors.toList());
+				.flatMap(Arrays::stream).filter(r -> r != null).toList();
 		return listRooms.size();
 	}
 
