@@ -15,19 +15,19 @@ public class ActionController {
         String[] action = sc.nextLine().toLowerCase().split(" ");
         switch (action[0]) {
             case "go": {
-            	if(action.length < 1 || action[1].replace(' ', '.').equals(".")) {
+            	if(action.length <= 1 || action[1].replace(' ', '.').equals(".")) {
             		return null;
             	}
                 return go(action[1], player, map);
             }
             case "get": {
-            	if(action.length < 1 || action[1].replace(' ', '.').equals(".")) {
+            	if(action.length <= 1 || action[1].replace(' ', '.').equals(".")) {
             		return null;
             	}
                 return get(action[1], player, map);
             }
             case "drop": {
-            	if(action.length < 1 || action[1].replace(' ', '.').equals(".")) {
+            	if(action.length <= 1 || action[1].replace(' ', '.').equals(".")) {
             		return null;
             	}
                 return drop(action[1], player, map);
