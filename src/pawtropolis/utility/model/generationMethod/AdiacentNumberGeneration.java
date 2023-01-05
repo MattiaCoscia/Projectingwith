@@ -146,7 +146,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 
     public void chooseAndAssignAdiacentRooms(Room room) {
         if (room != null) {
-            List<Integer> positions = List.of(0,1,2,3);
+            List<Integer> positions = new ArrayList<>(List.of(0,1,2,3));
             boolean possiblePositionNord = ((room.getPositionY() - 1) >= 0);
             boolean possiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
             boolean possiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
