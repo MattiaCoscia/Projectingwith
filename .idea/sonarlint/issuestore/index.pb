@@ -1,6 +1,4 @@
 
-B
-Projectingwith.iml,2\0\207b0ce4607fb4397c290584b0f500a8a2618fdf
 T
 $src/pawtropolis/model/items/Bag.java,f\c\fca4563e0c2c76f4b4e2f79d430c6bbf950d95fc
 U
@@ -15,5 +13,3 @@ V
 &src/pawtropolis/model/map/GameMap.java,c\3\c36aa283a99a93769b62aeab47e9391aae2f4de4
 S
 #src/pawtropolis/model/map/Room.java,d\9\d91810e73a2183fdbdaae433f01e820c2d4e9f5f
-`
-0src/pawtropolis/controller/GameMapGenerator.java,7\1\719f7ae44f0495b5fcdd399b4727ded03784b674
