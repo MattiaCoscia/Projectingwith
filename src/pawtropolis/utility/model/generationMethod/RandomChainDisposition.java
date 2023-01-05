@@ -25,8 +25,8 @@ public class RandomChainDisposition extends GenerationMethod {
 		this.map = map;
 		this.randomBasedOnSeed=new Random();
 		this.randomBasedOnSeed.setSeed(seed);
-		proximityX = (int) Math.floor(this.map.getRooms()[0].length / 3);
-		proximityY = (int) Math.floor(this.map.getRooms().length / 3);
+		proximityX = this.map.getRooms()[0].length / 3;
+		proximityY = this.map.getRooms().length / 3;
 	}
 
 	@Override
@@ -64,9 +64,7 @@ public class RandomChainDisposition extends GenerationMethod {
 				actualRoom.getPositionY());
 		int maxAdiacentRooms = randomBasedOnSeed.nextInt(0,availablePositions.size()+1);
 
-		if (isNearEntry(actualRoom) && maxAdiacentRooms < 1) {
-			maxAdiacentRooms = availablePositions.size();
-		} else if ((availablePositions.size() > 2 && maxAdiacentRooms < 1)) {
+		if (isNearEntry(actualRoom) && maxAdiacentRooms < 1 || (availablePositions.size() > 2 && maxAdiacentRooms < 1)) {
 			maxAdiacentRooms = availablePositions.size();
 		}
 		chooseAndAssignAdiacentRooms(actualRoom, maxAdiacentRooms, availablePositions);
@@ -97,9 +95,6 @@ public class RandomChainDisposition extends GenerationMethod {
 		for (int i = 0; i < maxAdiacentRooms; i++) {
 			int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
 			int adiacentPosition = availablePositions.remove(randomValuePosition).intValue();
-			// NORD = 0;
-	// OVEST = 3 ;     EAST= 1
-			 // SUD = 2;
 			Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
 					actualRoom.getChainPosition() + 1);
 			switch (adiacentPosition) {
@@ -108,28 +103,24 @@ public class RandomChainDisposition extends GenerationMethod {
 					adiacentRoom.setPositionX(actualRoom.getPositionX());
 					actualRoom.setSingleRoom(0, adiacentRoom);
 					adiacentRoom.setSingleRoom(2, actualRoom);
-					break;
 				}
 				case 1 -> {
 					adiacentRoom.setPositionY(actualRoom.getPositionY());
 					adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
 					actualRoom.setSingleRoom(1, adiacentRoom);
 					adiacentRoom.setSingleRoom(3, actualRoom);
-					break;
 				}
 				case 2 -> {
 					adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
 					adiacentRoom.setPositionX(actualRoom.getPositionX());
 					actualRoom.setSingleRoom(2, adiacentRoom);
 					adiacentRoom.setSingleRoom(0, actualRoom);
-					break;
 				}
 				case 3 -> {
 					adiacentRoom.setPositionY(actualRoom.getPositionY());
 					adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
 					actualRoom.setSingleRoom(3, adiacentRoom);
 					adiacentRoom.setSingleRoom(1, actualRoom);
-					break;
 				}
 			}
 			this.map.setRoom(adiacentRoom);
@@ -146,7 +137,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	private void chooseWhichRoomsAreCorridorEnd(List<Room> sortedRooms) {
-		int halfList = (int) Math.floor(sortedRooms.size() / 2);
+		int halfList = sortedRooms.size() / 2;
 		Room farestRoom = sortedRooms.get(0);
 		Room halfDistanceRoom = sortedRooms.get(halfList);
 		int randomCorridorRange = randomBasedOnSeed.nextInt(1,3);
@@ -199,11 +190,4 @@ public class RandomChainDisposition extends GenerationMethod {
 		}
 		return false;
 	}
-
-	public int getMapOccupiedSize() {
-		List<Room> listRooms = Arrays.stream(map.getRooms()) // 'array' is two-dimensional
-				.flatMap(Arrays::stream).filter(r -> r != null).toList();
-		return listRooms.size();
-	}
-
 }
