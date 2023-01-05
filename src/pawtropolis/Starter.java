@@ -16,9 +16,10 @@ public class Starter {
     	Player player=Player.getInstance(new Scanner(System.in).nextLine());
     	GameMap map= null;
 		Scanner sc=new Scanner(System.in);
+		System.out.println("Write a seed on what the map will be generated");
+		long seed=sc.nextLine().hashCode();
     	while(map == null) {
-			System.out.println("Write a seed on what the map will be generated");
-			long seed=sc.nextLine().hashCode();
+			System.out.println("Choose generation type 1:(Tree like) 2:(Cavern like)");
     		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
     	System.out.println("choose if you want to see all map digit 'yes' and send else just send");
