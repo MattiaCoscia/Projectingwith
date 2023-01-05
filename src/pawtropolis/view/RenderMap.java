@@ -53,40 +53,53 @@ public class RenderMap {
 			String printLineBody = "";
 			String printLineFoot = "";
 			for (Room room : line) {
-				if ((showMap && room != null) 
-						|| (room != null && !showMap
-						&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX()))
-					) {
-					String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
-					String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
-					String estOvest = printBodyConnectionsRoom(room);
-					if (room.getPositionX() == player.getPositionX() && room.getPositionY() == player.getPositionY()) {
-						for (int i = 0; i < (room.getChainPosition() + "").length(); i++) {
-							estOvest = estOvest.replace('.', '0');
-						}
-					} else {
-						estOvest = estOvest.replace('.', ' ');
-					}
-					if (room.getType().equals(RoomType.CORRIDOR_TYPE)) {
-						nord = nord.replace(' ', ':');
-						estOvest = estOvest.replace(' ', ':');
-						sud = sud.replace(' ', ':');
-					}
-					printLineHead += nord;
-					printLineBody += estOvest;
-					printLineFoot += sud;
-				} else {
-					printLineHead += "     ";
-					printLineBody += "     ";
-					printLineFoot += "     ";
-				}
+				String[] lineToPrint=addRoomPrintToLine(room,printLineHead,printLineBody,printLineFoot,player);
+				printLineHead=lineToPrint[0];
+				printLineBody=lineToPrint[1];
+				printLineFoot=lineToPrint[2];
 			}
 			System.out.println(addPanelWithCommandAndInfo(printLineHead, printLineBody, printLineFoot,
 					dataAboutRoom, commandsStrings,directionsToPrint));
 		}
 		System.out.print("Put command: ");
 	}
-	
+
+	private static String[] addRoomPrintToLine(Room room,String printLineHead,String printLineBody,String printLineFoot,Player player){
+		if ((showMap && room != null)
+				|| (room != null && !showMap
+				&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX()))
+		) {
+			String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
+			String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
+			String estOvest = printBodyConnectionsRoom(room);
+			String[] roomVisuals=addVisualsForCorridorAndPlayerPosition(room,nord,estOvest,sud,player);
+			printLineHead += roomVisuals[0];
+			printLineBody += roomVisuals[1];
+			printLineFoot += roomVisuals[2];
+		} else {
+			printLineHead += "     ";
+			printLineBody += "     ";
+			printLineFoot += "     ";
+		}
+
+		return new String[]{printLineHead,printLineBody,printLineFoot};
+	}
+
+	private static String[] addVisualsForCorridorAndPlayerPosition(Room room,String nord,String estOvest, String sud, Player player){
+		if (room.getPositionX() == player.getPositionX() && room.getPositionY() == player.getPositionY()) {
+			for (int i = 0; i < (room.getChainPosition() + "").length(); i++) {
+				estOvest = estOvest.replace('.', '0');
+			}
+		} else {
+			estOvest = estOvest.replace('.', ' ');
+		}
+		if (room.getType().equals(RoomType.CORRIDOR_TYPE)) {
+			nord = nord.replace(' ', ':');
+			estOvest = estOvest.replace(' ', ':');
+			sud = sud.replace(' ', ':');
+		}
+		return new String[]{nord,estOvest,sud};
+	}
 	private static String printBodyConnectionsRoom(Room room) {
 		String estOvest = "";
 		if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null) {
