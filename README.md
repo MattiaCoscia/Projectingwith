@@ -1,4 +1,4 @@
-##This is a project made by Mattia Coscia and Daniele Liburdi.
+#This is a project made by Mattia Coscia and Daniele Liburdi.
 
 **The trace for said project is present in lezione2**
 
