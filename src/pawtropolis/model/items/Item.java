@@ -21,13 +21,6 @@ public class Item {
         this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
 
     public String getName() {
         return name;

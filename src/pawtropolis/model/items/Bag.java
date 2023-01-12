@@ -31,9 +31,6 @@ public class Bag {
         this.items = items;
     }
 
-    public void setMaxSlots(int maxSlots) {
-        this.volume = maxSlots;
-    }
 
     public int getOccupiedSlots() {
         return occupiedSlots;

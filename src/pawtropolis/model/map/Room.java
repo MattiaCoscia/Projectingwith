@@ -48,13 +48,6 @@ public class Room {
         this.items = items;
     }
 
-    public void setEntities(List<Entity> npcs) {
-        this.npcs = npcs;
-    }
-
-    public void setAdiacentRooms(Room[] rooms) {
-        this.adiacentRooms = rooms;
-    }
 
     public Room setSingleRoom(int pos,Room room){
         this.adiacentRooms[pos]=room;
@@ -70,9 +63,6 @@ public class Room {
     }
     
 
-	public void setChainPosition(int chainPosition) {
-		this.chainPosition = chainPosition;
-	}
 
     public String getName() {
         return name;
@@ -89,8 +79,7 @@ public class Room {
     public Room[] getAdiacentRooms() {
         return adiacentRooms;
     }
-    
-    public Room getSingleRoom(int pos){return this.adiacentRooms[pos];}
+
 
     public RoomType getType() {
         return type;
