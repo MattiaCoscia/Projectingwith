@@ -8,8 +8,6 @@ import pawtropolis.utility.ItemContainer;
 import pawtropolis.view.RenderMap;
 
 import java.util.Scanner;
-
-
 public class Starter {
     public static void main(String[] args) {
 		System.out.println("Choose your name");
