@@ -1,5 +1,6 @@
 package pawtropolis;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pawtropolis.controller.ActionController;
 import pawtropolis.controller.GameMapGeneratorController;
 import pawtropolis.model.entity.Player;
@@ -8,6 +9,8 @@ import pawtropolis.utility.ItemContainer;
 import pawtropolis.view.RenderMap;
 
 import java.util.Scanner;
+
+@SpringBootApplication
 public class Starter {
     public static void main(String[] args) {
 		System.out.println("Choose your name");
@@ -21,7 +24,7 @@ public class Starter {
     		map=GameMapGeneratorController.run(player,ItemContainer.getItems(),seed);
     	}
     	System.out.println("choose if you want to see all map digit 'yes' and send else just send");
-    	if(sc.nextLine().toLowerCase().replaceAll(" ", "").equals("yes")) {
+    	if(sc.nextLine().toLowerCase().replace(" ", "").equals("yes")) {
     		RenderMap.setShowMap(true);
     	}
     	RenderMap.printMap(map,player);
@@ -33,6 +36,9 @@ public class Starter {
 				}else if(s.equals("go") || s.equals("get") || s.equals("drop")){
 				RenderMap.printMap(map,player);
 			}
+
 		}
+
     }
+
 }
