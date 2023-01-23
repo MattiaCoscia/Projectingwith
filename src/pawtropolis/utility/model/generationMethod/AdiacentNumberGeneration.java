@@ -1,8 +1,6 @@
 package pawtropolis.utility.model.generationMethod;
 
 import java.util.*;
-import java.util.function.Predicate;
-
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;

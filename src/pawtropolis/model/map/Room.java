@@ -21,12 +21,8 @@ public class Room {
     private int positionX;
     private int positionY;
 
-    public Room(){
-        this.type=RoomType.ROOM_TYPE;
-    }
 
-    public Room(String name, Map<String, List<Item>> items, List<Entity> npcs, int positionX, int positionY
-    		, RoomType roomType, int chainPosition) {
+    public Room(String name, Map<String, List<Item>> items, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
         this.name = name;
         this.items = items;
         this.npcs = npcs;

@@ -15,7 +15,4 @@ public abstract class AnimalWithWings extends Animal {
         return wingsSpan;
     }
 
-    public void setWingsSpan(double wingsSpan) {
-        this.wingsSpan = wingsSpan;
-    }
 }

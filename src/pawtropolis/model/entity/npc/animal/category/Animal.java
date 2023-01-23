@@ -26,41 +26,10 @@ public abstract class Animal extends Entity {
 		this.name = name;
 	}
 
-	public void setPreferedFood(String preferedFood) {
-		this.preferedFood = preferedFood;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public void setDateEntry(LocalDate dateEntry) {
-		this.dateEntry = dateEntry;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public String getPreferedFood() {
-		return preferedFood;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public LocalDate getDateEntry() {
-		return dateEntry;
-	}
 
 	public double getWeight() {
 		return weight;

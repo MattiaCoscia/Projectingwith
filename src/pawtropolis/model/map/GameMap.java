@@ -11,7 +11,6 @@ public class GameMap {
         return rooms;
     }
 
-
     public void setRoom(Room room){
         this.rooms[room.getPositionY()][room.getPositionX()]=room;
     }

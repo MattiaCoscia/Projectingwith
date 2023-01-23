@@ -5,11 +5,6 @@ public class Item {
     private String description;
     private int volume;
 
-    public Item(){
-        this.name=name;
-        this.description=description;
-        this.volume=volume;
-    }
 
     public Item(String name, String description, int volume ) {
         this.name = name;

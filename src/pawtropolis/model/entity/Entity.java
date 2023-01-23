@@ -5,11 +5,7 @@ public abstract class Entity {
     protected double lifePoints;
     protected int positionX;
     protected int positionY;
-    
-    protected Entity(String name) {
-    	this.name=name;
-    }
-    
+
     public Entity(String name, double lifePoints, int positionX, int positionY) {
 		this.name = name;
 		this.lifePoints = lifePoints;
@@ -19,10 +15,6 @@ public abstract class Entity {
     
 	public void setName(String name) {
         this.name = name;
-    }
-
-    public void setLifePoints(double lifePoints) {
-    	this.lifePoints = lifePoints;
     }
 
     public void setPositionX(int positionX) {
@@ -35,10 +27,6 @@ public abstract class Entity {
 
     public String getName() {
         return this.name;
-    }
-
-    public double getLifePoints() {
-        return this.lifePoints;
     }
 
     public int getPositionX() {

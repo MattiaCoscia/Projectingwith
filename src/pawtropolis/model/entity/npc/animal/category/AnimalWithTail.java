@@ -11,9 +11,6 @@ public abstract class AnimalWithTail extends Animal {
         return tailLenght;
     }
 
-    public void setTailLenght(double tailLenght) {
-        this.tailLenght = tailLenght;
-    }
 
 
     protected AnimalWithTail(String name, String preferedFood, int age, LocalDate dateEntry, double weight, double height
