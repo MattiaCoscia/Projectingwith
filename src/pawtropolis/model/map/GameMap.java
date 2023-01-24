@@ -1,5 +1,8 @@
 package pawtropolis.model.map;
 
+import lombok.Getter;
+
+@Getter
 public class GameMap {
     private Room[][] rooms;
 
@@ -7,9 +10,6 @@ public class GameMap {
         this.rooms = rooms;
     }
 
-    public Room[][] getRooms() {
-        return rooms;
-    }
 
     public void setRoom(Room room){
         this.rooms[room.getPositionY()][room.getPositionX()]=room;

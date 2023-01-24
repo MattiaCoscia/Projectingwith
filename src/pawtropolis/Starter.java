@@ -3,6 +3,7 @@ package pawtropolis;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pawtropolis.controller.ActionController;
 import pawtropolis.controller.GameMapGeneratorController;
+import pawtropolis.controller.ZooOperationController;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.utility.ItemContainer;
@@ -14,7 +15,8 @@ import java.util.Scanner;
 public class Starter {
     public static void main(String[] args) {
 		System.out.println("Choose your name");
-    	Player player=Player.getInstance(new Scanner(System.in).nextLine());
+    	Player player=new Player();
+		player.setName(new Scanner(System.in).nextLine());
     	GameMap map= null;
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Write a seed on what the map will be generated");

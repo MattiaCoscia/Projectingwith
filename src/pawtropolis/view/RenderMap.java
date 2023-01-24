@@ -65,9 +65,7 @@ public class RenderMap {
 	}
 
 	private static String[] addRoomPrintToLine(Room room,String printLineHead,String printLineBody,String printLineFoot,Player player){
-		if ((showMap && room != null)
-				|| (room != null && !showMap
-				&& visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX()))
+		if (showMap && room != null || room != null && visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX())
 		) {
 			String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 			String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";

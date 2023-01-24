@@ -1,9 +1,16 @@
 package pawtropolis.model.items;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Bag {
 
     private static final Bag bag=new Bag();
@@ -12,31 +19,15 @@ public class Bag {
 
     private int occupiedSlots=0;
 
-    private Bag(){};
 
     public static Bag getInstance(int volume){
         bag.volume=volume;
         return bag;
     }
 
-    public Map<String, List<Item>> getItems() {
-        return items;
-    }
 
     public int getMaxSlots() {
         return volume;
     }
 
-    public void setItems(Map<String, List<Item>> items) {
-        this.items = items;
-    }
-
-
-    public int getOccupiedSlots() {
-        return occupiedSlots;
-    }
-
-    public void setOccupiedSlots(int occupiedSlots) {
-        this.occupiedSlots = occupiedSlots;
-    }
 }
