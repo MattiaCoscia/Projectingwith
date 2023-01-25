@@ -30,7 +30,7 @@ public class ZooOperationController {
         return optAnimal.isPresent() ? optAnimal.get() : null;
     }
     public Animal getLightest(List<Animal> animals){
-        Optional<Animal> optAnimal=animals.stream().max(Comparator.comparing(Animal::getWeight));
+        Optional<Animal> optAnimal=animals.stream().min(Comparator.comparing(Animal::getWeight));
         return optAnimal.isPresent() ? optAnimal.get() : null;
     }
 

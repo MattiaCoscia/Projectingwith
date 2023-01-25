@@ -94,7 +94,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	public void chooseAndAssignAdiacentRooms(Room actualRoom,int maxAdiacentRooms, List<Integer> availablePositions) {
 		for (int i = 0; i < maxAdiacentRooms; i++) {
 			int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
-			int adiacentPosition = availablePositions.remove(randomValuePosition).intValue();
+			int adiacentPosition = availablePositions.remove(randomValuePosition);
 			Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
 					actualRoom.getChainPosition() + 1);
 			switch (adiacentPosition) {
@@ -121,6 +121,9 @@ public class RandomChainDisposition extends GenerationMethod {
 					adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
 					actualRoom.setSingleRoom(3, adiacentRoom);
 					adiacentRoom.setSingleRoom(1, actualRoom);
+				}
+				default -> {
+					System.out.println("Error to assign adjacent room!");
 				}
 			}
 			this.map.setRoom(adiacentRoom);

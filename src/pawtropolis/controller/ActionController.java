@@ -38,8 +38,10 @@ public class ActionController {
             case "look": {
                 return look(player,map);
             }
+            default:{
+                return "Unknown command";
+            }
         }
-        return null;
     }
     
     private String bag(Player player) {
@@ -80,7 +82,7 @@ public class ActionController {
                 actualRoom.getItems().get(s).remove(0);
                 player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() + item.getVolume());
                 System.out.println(item.getName() + " has been put in the bag");
-                if (itemsOftype.size() < 1) {
+                if (itemsOftype.isEmpty()) {
                     actualRoom.getItems().remove(s, itemsOftype);
                 }
             } else {
@@ -98,7 +100,7 @@ public class ActionController {
             actualRoom.getItems().computeIfAbsent(s, k -> new ArrayList<>()).add(item);
             player.getBag().getItems().get(s).remove(0);
             System.out.println(item.getName() + " has been dropped in the room");
-            if (itemsOftype.size() < 1) {
+            if (itemsOftype.isEmpty()) {
                 player.getBag().getItems().remove(s, itemsOftype);
             }
             player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() - item.getVolume());
@@ -135,6 +137,9 @@ public class ActionController {
                     player.setPositionY(player.getPositionY() + 1);
                 }
                 break;
+            }
+            default:{
+                System.out.println("Unknown direction!");
             }
         }
         return "go";

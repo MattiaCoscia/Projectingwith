@@ -81,6 +81,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                         queueNumberPositions.add(y + ";" + (x - 1) + ";");
                         break;
                     }
+                    default:{
+                        System.out.println("Error to assign a room!");
+                    }
                 }
             }
         }
@@ -200,6 +203,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                                 }
                             }
                             break;
+                        }
+                        default:{
+                            System.out.println("Error to verify a free position for assign an adjacent room!");
                         }
                     }
                 }

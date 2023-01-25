@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public abstract class AnimalWithWings extends Animal {
     private double wingsSpan;
 
-
 }

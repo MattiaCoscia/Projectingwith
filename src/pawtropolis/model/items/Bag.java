@@ -25,7 +25,6 @@ public class Bag {
         return bag;
     }
 
-
     public int getMaxSlots() {
         return volume;
     }

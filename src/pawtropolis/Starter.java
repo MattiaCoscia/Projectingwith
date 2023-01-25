@@ -1,9 +1,9 @@
 package pawtropolis;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pawtropolis.controller.ActionController;
 import pawtropolis.controller.GameMapGeneratorController;
-import pawtropolis.controller.ZooOperationController;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.utility.ItemContainer;
@@ -14,6 +14,7 @@ import java.util.Scanner;
 @SpringBootApplication
 public class Starter {
     public static void main(String[] args) {
+		SpringApplication.run(Starter.class,args);
 		System.out.println("Choose your name");
     	Player player=new Player();
 		player.setName(new Scanner(System.in).nextLine());

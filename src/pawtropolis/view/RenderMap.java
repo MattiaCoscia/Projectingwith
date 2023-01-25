@@ -3,12 +3,15 @@ package pawtropolis.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RenderMap {
 
 	private static boolean showMap=false;
@@ -114,7 +117,7 @@ public class RenderMap {
 	
 	private static String addPanelWithCommandAndInfo(String printLineHead, String printLineBody, String printLineFoot,
 			List<String> dataAboutRoom, List<String> commandsStrings, List<String> directions) {
-		if(commandsStrings.size() > 0) {
+		if(!commandsStrings.isEmpty()) {
 			String toAdd=commandsStrings.remove(0);
 			printLineHead += (" ||"+toAdd);
 			printLineBody +=(" ||");
@@ -129,7 +132,7 @@ public class RenderMap {
 			printLineBody +=(" ");
 			printLineFoot +=(" ");
 		}
-		if(dataAboutRoom.size() > 0){
+		if(!dataAboutRoom.isEmpty()){
 			String toAdd=dataAboutRoom.remove(0);
 			printLineHead +=(" ||"+toAdd);
 			printLineBody +=(" ||");
@@ -145,9 +148,9 @@ public class RenderMap {
 			printLineFoot +=(" ");
 		}
 		if(directions != null) {
-			if(directions.size()>0) {
+			if(!directions.isEmpty()) {
 				printLineHead +=(" ||"+directions.remove(0));
-				if(directions.size()>0) {
+				if(!directions.isEmpty()) {
 					printLineBody +=(" ||"+directions.remove(0));
 					printLineFoot +=(" ||"+directions.remove(0));
 				}

@@ -3,9 +3,13 @@ package pawtropolis.utility;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import pawtropolis.model.items.Item;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ItemContainer {
+
 	
 	public static List<Item> getItems(){
 		List<Item> items=new ArrayList<>();

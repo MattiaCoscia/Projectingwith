@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class AnimalWithTail extends Animal {
-
     private double tailLenght;
 
 }
