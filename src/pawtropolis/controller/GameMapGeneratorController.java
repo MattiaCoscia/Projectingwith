@@ -17,7 +17,7 @@ public class GameMapGeneratorController {
 
 	private static int dimY = 10;
 	private static int dimX = 10;
-	private final static GameMap gameMap = new GameMap(new Room[dimY][dimX]);
+	private static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
 	
 	public static GameMap run(Player player, List<Item> items, long seed) {
 		switch(new Scanner(System.in).nextLine()) {

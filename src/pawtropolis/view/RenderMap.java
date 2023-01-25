@@ -123,30 +123,42 @@ public class RenderMap {
 			printLineBody +=(" ||");
 			printLineFoot +=(" ||");
 			if(toAdd.length()<18) {
-				for(int i=18-toAdd.length();i>0;i--) {
-					printLineHead+=" ";
+				StringBuilder printLineHeadBuilder = new StringBuilder(printLineHead);
+				for(int i = 18-toAdd.length(); i>0; i--) {
+					printLineHeadBuilder.append(" ");
 				}
+				printLineHead = printLineHeadBuilder.toString();
 			}
 		}
-		for(int i=0;i<18;i++) {
-			printLineBody +=(" ");
-			printLineFoot +=(" ");
+		StringBuilder printLineBodyBuilder = new StringBuilder(printLineBody);
+		StringBuilder printLineFootBuilder = new StringBuilder(printLineFoot);
+		for(int i = 0; i<18; i++) {
+			printLineBodyBuilder.append(" ");
+			printLineFootBuilder.append(" ");
 		}
+		printLineFoot = printLineFootBuilder.toString();
+		printLineBody = printLineBodyBuilder.toString();
 		if(!dataAboutRoom.isEmpty()){
 			String toAdd=dataAboutRoom.remove(0);
 			printLineHead +=(" ||"+toAdd);
 			printLineBody +=(" ||");
 			printLineFoot +=(" ||");
 			if(toAdd.length()<21) {
-				for(int i=21-toAdd.length();i>0;i--) {
-					printLineHead+=" ";
+				StringBuilder printLineHeadBuilder = new StringBuilder(printLineHead);
+				for(int i = 21-toAdd.length(); i>0; i--) {
+					printLineHeadBuilder.append(" ");
 				}
+				printLineHead = printLineHeadBuilder.toString();
 			}
 		}
-		for(int i=0;i<21;i++) {
-			printLineBody +=(" ");
-			printLineFoot +=(" ");
+		StringBuilder printLineBodyBuilder1 = new StringBuilder(printLineBody);
+		StringBuilder printLineFootBuilder1 = new StringBuilder(printLineFoot);
+		for(int i = 0; i<21; i++) {
+			printLineBodyBuilder1.append(" ");
+			printLineFootBuilder1.append(" ");
 		}
+		printLineFoot = printLineFootBuilder1.toString();
+		printLineBody = printLineBodyBuilder1.toString();
 		if(directions != null) {
 			if(!directions.isEmpty()) {
 				printLineHead +=(" ||"+directions.remove(0));
@@ -166,18 +178,18 @@ public class RenderMap {
 		data.add("Actual Room :" + actualRoom.getName());
 		
 		data.add("Items in this room:");
-		String items = "";
+		StringBuilder items = new StringBuilder();
 		for (String s : actualRoom.getItems().keySet()) {
-			items += s + " x" + actualRoom.getItems().get(s).size() + "|";
+			items.append(s).append(" x").append(actualRoom.getItems().get(s).size()).append("|");
 		}
-		data.add(items);
+		data.add(items.toString());
 		
 		data.add("Npcs in this room:");
-		String npcs = "";
+		StringBuilder npcs = new StringBuilder();
 		for (Entity s : actualRoom.getEntities()) {
-			npcs += s.getName() + "|";
+			npcs.append(s.getName()).append("|");
 		}
-		data.add(npcs);
+		data.add(npcs.toString());
 		
 		return data;
 	}

@@ -23,7 +23,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
     @Override
     public GameMap generateMap(Player player, List<Item> items) {
         populateIntegerMapWithStartingRoom(player);
-        while (queueNumberPositions.size() > 0) {
+        while (!queueNumberPositions.isEmpty()) {
             String[] yx = queueNumberPositions.poll().split(";");
             int x = Integer.parseInt(yx[1]);
             int y = Integer.parseInt(yx[0]);

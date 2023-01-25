@@ -46,11 +46,11 @@ public class ActionController {
     
     private String bag(Player player) {
     	System.out.println("In your bag there are:");
-        String items = "";
+        StringBuilder items = new StringBuilder();
         for (String s : player.getBag().getItems().keySet()) {
-            items += s + " x" + player.getBag().getItems().get(s).size() + " | ";
+            items.append(s).append(" x").append(player.getBag().getItems().get(s).size()).append(" | ");
         }
-        System.out.println((items));
+        System.out.println((items.toString()));
         return "bag";
     }
     
@@ -58,15 +58,15 @@ public class ActionController {
     	Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
         System.out.println("Actual Room " + actualRoom.getName());
         System.out.println("Items in this room:");
-        String items = "";
+        StringBuilder items = new StringBuilder();
         for (String s : actualRoom.getItems().keySet()) {
-            items += s + " x" + actualRoom.getItems().get(s).size() + " | ";
+            items.append(s).append(" x").append(actualRoom.getItems().get(s).size()).append(" | ");
         }
-        System.out.println((items));
+        System.out.println((items.toString()));
         System.out.println("Npcs in this room:");
-        String npcs = "";
+        StringBuilder npcs = new StringBuilder();
         for (Entity s : actualRoom.getEntities()) {
-            npcs += s.getName() + " | ";
+            npcs.append(s.getName()).append(" | ");
         }
         System.out.println(npcs);
         return "look";
