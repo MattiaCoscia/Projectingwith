@@ -5,7 +5,7 @@ import pawtropolis.model.items.Bag;
 
 @Data
 @AllArgsConstructor
-public class Player extends Entity{
+public class Player extends Entity {
 	private final Bag bag=Bag.getInstance(20);
 
 }
