@@ -1,12 +1,6 @@
-/build.gradle
-/settings.gradle
-/gradlew.bat
-/gradlew
 /.project
 /out/
-/gradle/
 /build/
 /bin/
 /.idea/
 /.gradle/
-/.gitignore
