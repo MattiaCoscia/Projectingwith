@@ -13,7 +13,7 @@ public class ConfigBeans {
         return new Bag();
     }
 
-    @Bean
+    @Bean(name = "myPlayerBean")
     public Player player(){
         return new Player(bag());
     }

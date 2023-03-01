@@ -7,8 +7,9 @@ import pawtropolis.model.items.Bag;
 
 @Data
 @NoArgsConstructor
-public class Player extends Entity {
-	private Bag bag;
+public class
+Player extends Entity {
+	public Bag bag;
 	public Player(Bag bag2){
 		this.bag = bag2;
 	}
