@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class Starter implements ApplicationRunner {
 	@Autowired
 	private  Player player;
+
     public static void main(String[] args) {
 		SpringApplication.run(Starter.class,args);
 	}
@@ -39,7 +40,8 @@ public class Starter implements ApplicationRunner {
 			RenderMap.setShowMap(true);
 		}
 		RenderMap.printMap(map,player);
-		ActionController ac=new ActionController();
+		ActionController ac=new ActionController
+				();
 		while(true){
 			String s=ac.playerAction(map,player);
 			if(s == null) {

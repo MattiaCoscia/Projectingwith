@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Bag;
+import pawtropolis.model.map.GameMap;
+import pawtropolis.model.map.Room;
 
 @Configuration
 public class ConfigBeans {
@@ -13,8 +15,12 @@ public class ConfigBeans {
         return new Bag();
     }
 
-    @Bean(name = "myPlayerBean")
+    @Bean
     public Player player(){
         return new Player(bag());
     }
+
+    @Bean
+    public GameMap gameMap() {return new GameMap(new Room[10][10]);}
+
 }
