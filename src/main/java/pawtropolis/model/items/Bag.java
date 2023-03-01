@@ -12,21 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bag {
-
-    private static final Bag bag=new Bag();
     private Map<String, List<Item>> items=new HashMap<>();
-    private int volume;
-
+    private int volume = 20;
     private int occupiedSlots=0;
-
-
-    public static Bag getInstance(int volume){
-        bag.volume=volume;
-        return bag;
-    }
-
-    public int getMaxSlots() {
-        return volume;
-    }
-
 }

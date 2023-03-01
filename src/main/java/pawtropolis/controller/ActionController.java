@@ -45,12 +45,13 @@ public class ActionController {
     }
     
     private String bag(Player player) {
-    	System.out.println("In your bag there are:");
+    	System.out.println("In your bag of volume "+player.getBag().getVolume()+" there are:");
         StringBuilder items = new StringBuilder();
         for (String s : player.getBag().getItems().keySet()) {
             items.append(s).append(" x").append(player.getBag().getItems().get(s).size()).append(" | ");
         }
         System.out.println((items.toString()));
+        System.out.println("there is "+player.getBag().getOccupiedSlots()+" of volume occupied");
         return "bag";
     }
     
@@ -77,7 +78,7 @@ public class ActionController {
         List<Item> itemsOftype = actualRoom.getItems().get(s);
         Item item = itemsOftype != null ? actualRoom.getItems().get(s).get(0) : null;
         if (item != null) {
-            if (player.getBag().getOccupiedSlots() + item.getVolume() <= player.getBag().getMaxSlots()) {
+            if (item.getVolume() <= player.getBag().getVolume() - player.getBag().getOccupiedSlots()) {
                 player.getBag().getItems().computeIfAbsent(s, k -> new ArrayList<>()).add(item);
                 actualRoom.getItems().get(s).remove(0);
                 player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() + item.getVolume());

@@ -1,5 +1,6 @@
 package pawtropolis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pawtropolis.controller.ActionController;
@@ -13,10 +14,11 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class Starter {
+	@Autowired
+	private static Player player;
     public static void main(String[] args) {
 		SpringApplication.run(Starter.class,args);
 		System.out.println("Choose your name");
-    	Player player=new Player();
 		player.setName(new Scanner(System.in).nextLine());
     	GameMap map= null;
 		Scanner sc=new Scanner(System.in);
