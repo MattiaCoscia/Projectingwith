@@ -1,8 +1,10 @@
 package pawtropolis.model.map;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class GameMap {
     private Room[][] rooms;
 

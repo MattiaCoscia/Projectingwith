@@ -9,7 +9,6 @@ import pawtropolis.model.map.Room;
 
 @Configuration
 public class ConfigBeans {
-
     @Bean
     public Bag bag(){
         return new Bag();
@@ -21,6 +20,8 @@ public class ConfigBeans {
     }
 
     @Bean
-    public GameMap gameMap() {return new GameMap(new Room[10][10]);}
+    public GameMap gameMap() {
+        return new GameMap(new Room[1][1]);
+    }
 
 }

@@ -6,16 +6,16 @@ public enum DirectionEnum {
     NORTH,
     SOUTH,
     EAST,
-    WEST;
+    WEST,
+    NOWHERE;
 
     public static DirectionEnum fromValue(String direction) {
         if (!ObjectUtils.isEmpty(direction)) {
             try {
                 return DirectionEnum.valueOf(direction.toUpperCase());
             } catch (IllegalArgumentException e) {
-                return null;
             }
         }
-        return null;
+        return NOWHERE;
     }
     }

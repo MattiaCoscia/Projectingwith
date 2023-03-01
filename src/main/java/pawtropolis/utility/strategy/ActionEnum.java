@@ -15,35 +15,8 @@ public enum ActionEnum {
             try {
                 return ActionEnum.valueOf(action.toUpperCase());
             } catch (IllegalArgumentException e) {
-                return null;
             }
         }
-        return null;
-    }
-
-    public static ActionStrategy getAction(String action){
-        switch (ActionEnum.fromValue(action)) {
-            case GO: {
-
-                return new GoStrategy();
-            }
-            case GET: {
-
-                return new GetStrategy();
-            }
-            case DROP: {
-
-                return new DropStrategy();
-            }
-            case BAG: {
-                return new BagStrategy();
-            }
-            case LOOK: {
-                return new LookStrategy();
-            }
-            default:{
-                return new UnknownStrategy();
-            }
-        }
+        return UNKNOWN_COMMAND;
     }
 }
