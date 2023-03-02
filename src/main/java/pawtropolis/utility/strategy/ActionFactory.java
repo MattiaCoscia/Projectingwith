@@ -11,7 +11,6 @@ public class ActionFactory {
     private LookStrategy lookStrategy;
     private BagStrategy bagStrategy;
 
-
     @Autowired
     public ActionFactory(GoStrategy goStrategy, GetStrategy getStrategy, DropStrategy dropStrategy, LookStrategy lookStrategy, BagStrategy bagStrategy) {
         this.goStrategy = goStrategy;
@@ -20,7 +19,6 @@ public class ActionFactory {
         this.lookStrategy = lookStrategy;
         this.bagStrategy = bagStrategy;
     }
-
 
     public ActionStrategy getAction(String action){
         switch (ActionEnum.fromValue(action)) {

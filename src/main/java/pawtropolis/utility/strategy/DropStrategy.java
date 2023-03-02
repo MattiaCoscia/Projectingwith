@@ -36,4 +36,13 @@ public class DropStrategy implements ActionStrategy{
         }
         return ActionEnum.UNKNOWN_COMMAND;
     }
+
+    public DropStrategy(){
+
+    }
+
+    public DropStrategy(Player player,GameMap gameMap){
+        this.player = player;
+        this.map = gameMap;
+    }
 }

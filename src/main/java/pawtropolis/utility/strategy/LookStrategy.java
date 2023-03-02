@@ -31,4 +31,13 @@ public class LookStrategy implements ActionStrategy{
         System.out.println(npcs);
         return ActionEnum.LOOK;
     }
+
+    public LookStrategy(){
+
+    }
+
+    public LookStrategy(Player player,GameMap gameMap){
+        this.player = player;
+        this.map = gameMap;
+    }
 }

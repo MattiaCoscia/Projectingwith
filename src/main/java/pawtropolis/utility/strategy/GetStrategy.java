@@ -39,4 +39,13 @@ public class GetStrategy implements ActionStrategy{
        }
        return ActionEnum.UNKNOWN_COMMAND;
     }
+
+    public GetStrategy(){
+
+    }
+
+    public GetStrategy(Player player,GameMap gameMap){
+        this.player = player;
+        this.map = gameMap;
+    }
 }

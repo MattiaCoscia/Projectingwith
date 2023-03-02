@@ -67,4 +67,12 @@ public class GoStrategy implements ActionStrategy {
         }
         return false;
     }
+
+    public GoStrategy(){
+
+    }
+    public GoStrategy(Player player,GameMap gameMap){
+        this.player = player;
+        this.map = gameMap;
+    }
 }

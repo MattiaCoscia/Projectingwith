@@ -18,4 +18,11 @@ public class BagStrategy implements ActionStrategy{
         System.out.println("there is "+bag.getOccupiedSlots()+" of volume occupied");
         return ActionEnum.BAG;
     }
+    public BagStrategy(){
+
+    }
+
+    public BagStrategy(Bag bag){
+        this.bag = bag;
+    }
 }

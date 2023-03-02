@@ -50,7 +50,7 @@ public class Starter implements ApplicationRunner {
 		}
 		RenderMap.printMap(map,player);
 		while(true){
-			ActionEnum s=actionController.playerAction(map,player);
+			ActionEnum s=actionController.playerAction();
 			if(s == null) {
 				System.out.println("command not existent");
 			}else if(!ActionEnum.UNKNOWN_COMMAND.equals(s)){
