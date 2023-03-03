@@ -2,15 +2,16 @@ package pawtropolis.model.entity;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.items.Bag;
 
 @Data
-@NoArgsConstructor
+@Component
 public class
 Player extends Entity {
-	public Bag bag;
-	public Player(Bag bag2){
-		this.bag = bag2;
+	private Bag bag;
+	public Player(){
+		this.bag = new Bag();
 	}
 }

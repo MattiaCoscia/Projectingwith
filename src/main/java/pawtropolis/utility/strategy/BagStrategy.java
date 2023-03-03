@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import pawtropolis.model.items.Bag;
 @Component
 public class BagStrategy implements ActionStrategy{
-    @Autowired
     private Bag bag;
     @Override
     public ActionEnum execute(String action) {

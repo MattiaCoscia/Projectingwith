@@ -10,38 +10,39 @@ public class ActionFactory {
     private DropStrategy dropStrategy;
     private LookStrategy lookStrategy;
     private BagStrategy bagStrategy;
-
+    private ExitStrategy exitStrategy;
 
     @Autowired
-    public ActionFactory(GoStrategy goStrategy, GetStrategy getStrategy, DropStrategy dropStrategy, LookStrategy lookStrategy, BagStrategy bagStrategy) {
+    public ActionFactory(GoStrategy goStrategy, GetStrategy getStrategy, DropStrategy dropStrategy, LookStrategy lookStrategy, BagStrategy bagStrategy,ExitStrategy exitStrategy) {
         this.goStrategy = goStrategy;
         this.getStrategy = getStrategy;
         this.dropStrategy = dropStrategy;
         this.lookStrategy = lookStrategy;
         this.bagStrategy = bagStrategy;
+        this.exitStrategy= exitStrategy;
     }
-
 
     public ActionStrategy getAction(String action){
         switch (ActionEnum.fromValue(action)) {
-            case GO: {
+            case GO:
                 return goStrategy;
-            }
-            case GET: {
+
+            case GET:
                 return getStrategy;
-            }
-            case DROP: {
+
+            case DROP:
                 return dropStrategy;
-            }
-            case BAG: {
+
+            case BAG:
                 return bagStrategy;
-            }
-            case LOOK: {
+
+            case LOOK:
                 return lookStrategy;
-            }
-            default:{
+
+            case EXIT:
+                return exitStrategy;
+            default:
                 return new UnknownStrategy();
-            }
         }
     }
 }

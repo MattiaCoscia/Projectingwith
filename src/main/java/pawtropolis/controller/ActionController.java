@@ -3,8 +3,6 @@ package pawtropolis.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.entity.Player;
-import pawtropolis.model.map.GameMap;
 import pawtropolis.utility.strategy.*;
 
 import java.util.*;

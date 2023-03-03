@@ -9,21 +9,10 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.ItemContainer;
 
-import java.awt.*;
 import java.util.List;
 
 @Configuration
 public class ConfigBeans {
-    @Bean
-    public Bag bag(){
-        return new Bag();
-    }
-
-    @Bean
-    public Player player(){
-        return new Player(bag());
-    }
-
     @Bean
     public GameMap gameMap() {
         return new GameMap(new Room[1][1]);

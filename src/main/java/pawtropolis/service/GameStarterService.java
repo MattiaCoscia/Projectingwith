@@ -29,7 +29,7 @@ public class GameStarterService {
         while(!isMapGenerated) {
             System.out.println("Choose generation type 1:(Tree like) 2:(Cavern like)");
             GameMap generatedMap = gameMapGeneratorService.run(seed);
-            isMapGenerated = generatedMap != null ? true : false;
+            isMapGenerated = generatedMap != null;
             if(isMapGenerated){
                 map.setRooms(generatedMap.getRooms());
             }

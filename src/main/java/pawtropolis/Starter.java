@@ -1,6 +1,7 @@
 package pawtropolis;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,21 +20,22 @@ public class Starter implements ApplicationRunner {
     private GameStarterService gameStarterService;
     @Autowired
     private RenderMapService renderMapService;
+
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-    gameStarterService.execute();
-        while (true) {
-            ActionEnum s = actionController.playerAction();
-            if (s == null) {
+        gameStarterService.execute();
+        ActionEnum actionEnum = null;
+        while (!ActionEnum.EXIT.equals(actionEnum)) {
+            actionEnum = actionController.playerAction();
+            if (ActionEnum.UNKNOWN_COMMAND.equals(actionEnum)) {
                 System.out.println("command not existent");
-            } else if (!ActionEnum.UNKNOWN_COMMAND.equals(s)) {
+            } else {
                 renderMapService.printMap();
             }
-
         }
     }
 }
