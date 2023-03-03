@@ -1,7 +1,10 @@
-package pawtropolis.controller;
+package pawtropolis.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
@@ -11,15 +14,22 @@ import pawtropolis.utility.model.generationMethod.RandomChainDisposition;
 
 import java.util.List;
 import java.util.Scanner;
-
+@Service
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class GameMapGeneratorController {
+public class GameMapGeneratorService {
 
-	private static int dimY = 10;
-	private static int dimX = 10;
-	private static final GameMap gameMap = new GameMap(new Room[dimY][dimX]);
-	
-	public static GameMap run(Player player, List<Item> items, long seed) {
+	@Autowired
+	private Player player;
+	@Autowired
+	private GameMap gameMap;
+
+	@Autowired
+	private List<Item> items;
+	private int dimY = 10;
+	private int dimX = 10;
+
+	public  GameMap run(long seed) {
+		gameMap.setRooms(new Room[dimY][dimX]);
 		switch(new Scanner(System.in).nextLine()) {
 		case "1":{
 			RandomChainDisposition generationMethod=new RandomChainDisposition(gameMap,seed);

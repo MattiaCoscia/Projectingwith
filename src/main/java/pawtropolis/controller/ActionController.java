@@ -14,7 +14,7 @@ public class ActionController {
     private ActionFactory actionFactory;
     private final Scanner sc = new Scanner(System.in);
 
-    public ActionEnum playerAction(GameMap map, Player player) {
+    public ActionEnum playerAction() {
         String[] action = sc.nextLine().split(" ");
         action = ObjectUtils.isEmpty(action) || ObjectUtils.isEmpty(action[0]) ? new String[]{" "}: action;
        return action.length < 2 || ObjectUtils.isEmpty(action[1])

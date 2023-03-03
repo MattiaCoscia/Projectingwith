@@ -5,15 +5,21 @@ import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class RenderMap {
+@Service
+public class RenderMapService {
 
+	@Autowired
+	private Player player;
+	@Autowired
+	private GameMap map;
 	private static boolean showMap=false;
 	private static List<String> visibleRooms = new ArrayList<>();
 
@@ -29,7 +35,7 @@ public class RenderMap {
 		}
 	}
 	
-	private static List<Integer> chooseDirectionForVisibleRooms(GameMap map, Player player) {
+	private List<Integer> chooseDirectionForVisibleRooms() {
 		visibleRooms = new ArrayList<>();
 		visibleRooms.add(player.getPositionY() + ";" + player.getPositionX());
 		List<Integer> directions = new ArrayList<>();
@@ -42,21 +48,20 @@ public class RenderMap {
 		}
 		return directions;
 	}
-
-	public static void printMap(GameMap map, Player player) {
+	public void printMap() {
 		if(!showMap) {
 			putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
-					, chooseDirectionForVisibleRooms(map, player));
+					, chooseDirectionForVisibleRooms());
 		}
 		List<String> commandsStrings=getListCommandsToPrint();
-		List<String> dataAboutRoom=getDataAboutRoom(player, map);
+		List<String> dataAboutRoom=getDataAboutRoom();
 		List<String> directionsToPrint=getDirectionsToPrintInCompass(map.getRooms()[player.getPositionY()][player.getPositionX()]);
 		for (Room[] line : map.getRooms()) {
 			String printLineHead = "";
 			String printLineBody = "";
 			String printLineFoot = "";
 			for (Room room : line) {
-				String[] lineToPrint=addRoomPrintToLine(room,printLineHead,printLineBody,printLineFoot,player);
+				String[] lineToPrint=addRoomPrintToLine(room,printLineHead,printLineBody,printLineFoot);
 				printLineHead=lineToPrint[0];
 				printLineBody=lineToPrint[1];
 				printLineFoot=lineToPrint[2];
@@ -67,13 +72,13 @@ public class RenderMap {
 		System.out.print("Put command: ");
 	}
 
-	private static String[] addRoomPrintToLine(Room room,String printLineHead,String printLineBody,String printLineFoot,Player player){
+	private String[] addRoomPrintToLine(Room room,String printLineHead,String printLineBody,String printLineFoot){
 		if (showMap && room != null || room != null && visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX())
 		) {
 			String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
 			String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
 			String estOvest = printBodyConnectionsRoom(room);
-			String[] roomVisuals=addVisualsForCorridorAndPlayerPosition(room,nord,estOvest,sud,player);
+			String[] roomVisuals=addVisualsForCorridorAndPlayerPosition(room,nord,estOvest,sud);
 			printLineHead += roomVisuals[0];
 			printLineBody += roomVisuals[1];
 			printLineFoot += roomVisuals[2];
@@ -86,7 +91,7 @@ public class RenderMap {
 		return new String[]{printLineHead,printLineBody,printLineFoot};
 	}
 
-	private static String[] addVisualsForCorridorAndPlayerPosition(Room room,String nord,String estOvest, String sud, Player player){
+	private String[] addVisualsForCorridorAndPlayerPosition(Room room,String nord,String estOvest, String sud){
 		if (room.getPositionX() == player.getPositionX() && room.getPositionY() == player.getPositionY()) {
 			for (int i = 0; i < (room.getChainPosition() + "").length(); i++) {
 				estOvest = estOvest.replace('.', '0');
@@ -101,7 +106,7 @@ public class RenderMap {
 		}
 		return new String[]{nord,estOvest,sud};
 	}
-	private static String printBodyConnectionsRoom(Room room) {
+	private String printBodyConnectionsRoom(Room room) {
 		String estOvest = "";
 		if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null) {
 			estOvest = "  .  ";
@@ -115,7 +120,7 @@ public class RenderMap {
 		return estOvest;
 	}
 	
-	private static String addPanelWithCommandAndInfo(String printLineHead, String printLineBody, String printLineFoot,
+	private String addPanelWithCommandAndInfo(String printLineHead, String printLineBody, String printLineFoot,
 			List<String> dataAboutRoom, List<String> commandsStrings, List<String> directions) {
 		if(!commandsStrings.isEmpty()) {
 			String toAdd=commandsStrings.remove(0);
@@ -171,7 +176,7 @@ public class RenderMap {
 		return printLineHead + "\n" + printLineBody + "\n" + printLineFoot;
 	}
 	
-	private static List<String> getDataAboutRoom(Player player, GameMap map){
+	private List<String> getDataAboutRoom(){
 		List<String> data = new ArrayList<>();
 		data.add("INFO ROOM");
 		Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
@@ -194,7 +199,7 @@ public class RenderMap {
 		return data;
 	}
 
-	private static List<String> getListCommandsToPrint() {
+	private List<String> getListCommandsToPrint() {
 		List<String> commands = new ArrayList<>();
 		commands.add("COMMANDS");
 		commands.add("'go <direction>'");
@@ -205,7 +210,7 @@ public class RenderMap {
 		return commands;
 	}
 	
-	private static List<String> getDirectionsToPrintInCompass(Room room){
+	private List<String> getDirectionsToPrintInCompass(Room room){
 		List<String> directions = new ArrayList<>();
 		directions.add("      DIRECTIONS      ");
 		if(room.getAdiacentRooms()[0] !=null) {
@@ -230,7 +235,7 @@ public class RenderMap {
 		return directions;
 	}
 
-	public static void setShowMap(boolean showMap) {
-		RenderMap.showMap = showMap;
+	public void setShowMap(boolean showMap) {
+		RenderMapService.showMap = showMap;
 	}
 }
