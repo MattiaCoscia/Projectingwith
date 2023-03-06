@@ -8,6 +8,7 @@ import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
+
 @Slf4j
 public class AdiacentNumberGeneration extends GenerationMethod {
 
@@ -138,8 +139,6 @@ public class AdiacentNumberGeneration extends GenerationMethod {
             boolean possiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
             boolean possiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
             boolean possiblePositionOvest = ((room.getPositionX() - 1) >= 0);
-            int actualRoomX = room.getPositionX();
-            int actualRoomY = room.getPositionY();
             Room adiacentRoom = null;
             for (Room possibleAdiacentRoom : room.getAdiacentRooms()) {
                 if (possibleAdiacentRoom == null) {
@@ -148,51 +147,37 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                     switch (countRoom) {
                         case 0: {
                             if (possiblePositionNord) {
-                                adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
-                                if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    possibleAdiacentRoom = adiacentRoom;
-                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
-                                    possibleAdiacentRoom.setSingleRoom(2, room);
-                                }
+                                adiacentRoom = map.getRooms()[room.getPositionY() - 1][room.getPositionX()];
                             }
                             break;
                         }
                         case 1: {
                             if (possiblePositionEast) {
-                                adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
-                                if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    possibleAdiacentRoom = adiacentRoom;
-                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
-                                    possibleAdiacentRoom.setSingleRoom(3, room);
-                                }
+                                adiacentRoom = map.getRooms()[room.getPositionY()][room.getPositionX() + 1];
                             }
                             break;
                         }
                         case 2: {
                             if (possiblePositionSud) {
-                                adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
-                                if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    possibleAdiacentRoom = adiacentRoom;
-                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
-                                    possibleAdiacentRoom.setSingleRoom(0, room);
-                                }
+                                adiacentRoom = map.getRooms()[room.getPositionY() + 1][room.getPositionX()];
                             }
                             break;
                         }
                         case 3: {
                             if (possiblePositionOvest) {
-                                adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
-                                if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    possibleAdiacentRoom = adiacentRoom;
-                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
-                                    possibleAdiacentRoom.setSingleRoom(1, room);
-                                }
+                                adiacentRoom = map.getRooms()[room.getPositionY()][room.getPositionX() - 1];
                             }
                             break;
                         }
                         default: {
                             log.error("Error to verify a free position for assign an adjacent room!");
                         }
+                    }
+                    if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, room.getPositionX(), room.getPositionY())) {
+                        possibleAdiacentRoom = adiacentRoom;
+                        room.setSingleRoom(countRoom, possibleAdiacentRoom);
+                        int nextAdiacentRoom = countRoom + 2 <= 3 ? countRoom + 2 : 0;
+                        possibleAdiacentRoom.setSingleRoom(nextAdiacentRoom, room);
                     }
                 }
             }
