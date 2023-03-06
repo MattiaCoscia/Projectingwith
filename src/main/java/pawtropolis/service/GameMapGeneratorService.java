@@ -9,6 +9,7 @@ import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.ItemContainer;
 import pawtropolis.utility.model.generationMethod.AdiacentNumberGeneration;
 import pawtropolis.utility.model.generationMethod.RandomChainDisposition;
 
@@ -22,14 +23,9 @@ public class GameMapGeneratorService {
 	private Player player;
 	@Autowired
 	private GameMap gameMap;
-
-	@Autowired
-	private List<Item> items;
-	private int dimY = 10;
-	private int dimX = 10;
+	private List<Item> items = ItemContainer.getItems();
 
 	public  GameMap run(long seed) {
-		gameMap.setRooms(new Room[dimY][dimX]);
 		switch(new Scanner(System.in).nextLine()) {
 		case "1":{
 			RandomChainDisposition generationMethod=new RandomChainDisposition(gameMap,seed);

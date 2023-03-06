@@ -55,7 +55,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		player.setPositionY(startingY);
 		Room entryRoom = new Room("Entry", new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
-		this.map.setRoom(entryRoom);
+		this.map.setSingleRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
 	}
 
@@ -126,7 +126,7 @@ public class RandomChainDisposition extends GenerationMethod {
 					System.out.println("Error to assign adjacent room!");
 				}
 			}
-			this.map.setRoom(adiacentRoom);
+			this.map.setSingleRoom(adiacentRoom);
 			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
 			queueRoomsPositions.add(adiacentRoom);
 		}

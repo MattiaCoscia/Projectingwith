@@ -19,8 +19,4 @@ public class ActionController {
                ? actionFactory.getAction(action[0]).execute("")
                : actionFactory.getAction(action[0]).execute(action[1]);
     }
-
-
-
-
 }
