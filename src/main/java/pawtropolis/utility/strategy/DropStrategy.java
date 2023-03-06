@@ -1,5 +1,6 @@
 package pawtropolis.utility.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -11,6 +12,7 @@ import pawtropolis.model.map.Room;
 import java.util.ArrayList;
 import java.util.List;
 @Component
+@Slf4j
 public class DropStrategy implements ActionStrategy{
     @Autowired
     private Player player;
@@ -25,7 +27,7 @@ public class DropStrategy implements ActionStrategy{
         if (item != null) {
             actualRoom.getItems().computeIfAbsent(object, k -> new ArrayList<>()).add(item);
             player.getBag().getItems().get(object).remove(0);
-            System.out.println(item.getName() + " has been dropped in the room");
+            log.info(item.getName() + " has been dropped in the room");
             if (itemsOftype.isEmpty()) {
                 player.getBag().getItems().remove(object, itemsOftype);
             }

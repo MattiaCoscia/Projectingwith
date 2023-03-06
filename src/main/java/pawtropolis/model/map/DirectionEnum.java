@@ -14,6 +14,7 @@ public enum DirectionEnum {
             try {
                 return DirectionEnum.valueOf(direction.toUpperCase());
             } catch (IllegalArgumentException e) {
+                return DirectionEnum.NOWHERE;
             }
         }
         return NOWHERE;

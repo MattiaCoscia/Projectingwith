@@ -1,12 +1,14 @@
-package pawtropolis.utility.model.generationMethod;
+package pawtropolis.utility.model.generationmethod;
 
 import java.util.*;
+
+import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
-
+@Slf4j
 public class AdiacentNumberGeneration extends GenerationMethod {
 
     private int[][] numberMap = null;
@@ -46,43 +48,27 @@ public class AdiacentNumberGeneration extends GenerationMethod {
             if (areaValue(x, y) <= 7) {
                 switch (adiacentPosition) {
                     case 0: {
-                        if ((areaValue(x, y - 1) % 2) == 0) {
-                            numberMap[y - 1][x] = (actualValue == 1) ? 2 : 1;
-                        } else {
-                            numberMap[y - 1][x] = (actualValue == 1) ? 1 : 2;
-                        }
+                        numberMap[y - 1][x] = areaValue(x, y - 1) == 0 && (actualValue == 1) ? 2 : 1;
                         queueNumberPositions.add((y - 1) + ";" + x + ";");
                         break;
                     }
                     case 1: {
-                        if ((areaValue(x + 1, y) % 2) == 0) {
-                            numberMap[y][x + 1] = (actualValue == 1) ? 2 : 1;
-                        } else {
-                            numberMap[y][x + 1] = (actualValue == 1) ? 1 : 2;
-                        }
+                        numberMap[y][x + 1] = areaValue(x + 1, y) == 0 && (actualValue == 1) ? 2 : 1;
                         queueNumberPositions.add(y + ";" + (x + 1) + ";");
                         break;
                     }
                     case 2: {
-                        if ((areaValue(x, y + 1) % 2) == 0) {
-                            numberMap[y + 1][x] = (actualValue == 1) ? 2 : 1;
-                        } else {
-                            numberMap[y + 1][x] = (actualValue == 1) ? 1 : 2;
-                        }
+                        numberMap[y + 1][x] = areaValue(x, y + 1) == 0 && (actualValue == 1) ? 2 : 1;
                         queueNumberPositions.add((y + 1) + ";" + x + ";");
                         break;
                     }
                     case 3: {
-                        if ((areaValue(x - 1, y) % 2) == 0) {
-                            numberMap[y][x - 1] = (actualValue == 1) ? 2 : 1;
-                        } else {
-                            numberMap[y][x - 1] = (actualValue == 1) ? 1 : 2;
-                        }
+                        numberMap[y][x - 1] = areaValue(x - 1, y) == 0 && (actualValue == 1) ? 2 : 1;
                         queueNumberPositions.add(y + ";" + (x - 1) + ";");
                         break;
                     }
-                    default:{
-                        System.out.println("Error to assign a room!");
+                    default: {
+                        log.error("Error to assign a room!");
                     }
                 }
             }
@@ -147,7 +133,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 
     public void chooseAndAssignAdiacentRooms(Room room) {
         if (room != null) {
-            List<Integer> positions = new ArrayList<>(List.of(0,1,2,3));
+            List<Integer> positions = new ArrayList<>(List.of(0, 1, 2, 3));
             boolean possiblePositionNord = ((room.getPositionY() - 1) >= 0);
             boolean possiblePositionSud = ((room.getPositionY() + 1) < numberMap.length);
             boolean possiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
@@ -155,8 +141,8 @@ public class AdiacentNumberGeneration extends GenerationMethod {
             int actualRoomX = room.getPositionX();
             int actualRoomY = room.getPositionY();
             Room adiacentRoom = null;
-            for (Room r : room.getAdiacentRooms()) {
-                if (r == null) {
+            for (Room possibleAdiacentRoom : room.getAdiacentRooms()) {
+                if (possibleAdiacentRoom == null) {
                     int listPosition = randomBasedOnSeed.nextInt(0, positions.size());
                     int countRoom = positions.remove(listPosition);
                     switch (countRoom) {
@@ -164,9 +150,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                             if (possiblePositionNord) {
                                 adiacentRoom = map.getRooms()[actualRoomY - 1][actualRoomX];
                                 if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    r = adiacentRoom;
-                                    room.setSingleRoom(countRoom, r);
-                                    r.setSingleRoom(2, room);
+                                    possibleAdiacentRoom = adiacentRoom;
+                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
+                                    possibleAdiacentRoom.setSingleRoom(2, room);
                                 }
                             }
                             break;
@@ -175,9 +161,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                             if (possiblePositionEast) {
                                 adiacentRoom = map.getRooms()[actualRoomY][actualRoomX + 1];
                                 if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    r = adiacentRoom;
-                                    room.setSingleRoom(countRoom, r);
-                                    r.setSingleRoom(3, room);
+                                    possibleAdiacentRoom = adiacentRoom;
+                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
+                                    possibleAdiacentRoom.setSingleRoom(3, room);
                                 }
                             }
                             break;
@@ -186,9 +172,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                             if (possiblePositionSud) {
                                 adiacentRoom = map.getRooms()[actualRoomY + 1][actualRoomX];
                                 if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    r = adiacentRoom;
-                                    room.setSingleRoom(countRoom, r);
-                                    r.setSingleRoom(0, room);
+                                    possibleAdiacentRoom = adiacentRoom;
+                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
+                                    possibleAdiacentRoom.setSingleRoom(0, room);
                                 }
                             }
                             break;
@@ -197,15 +183,15 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                             if (possiblePositionOvest) {
                                 adiacentRoom = map.getRooms()[actualRoomY][actualRoomX - 1];
                                 if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, actualRoomX, actualRoomY)) {
-                                    r = adiacentRoom;
-                                    room.setSingleRoom(countRoom, r);
-                                    r.setSingleRoom(1, room);
+                                    possibleAdiacentRoom = adiacentRoom;
+                                    room.setSingleRoom(countRoom, possibleAdiacentRoom);
+                                    possibleAdiacentRoom.setSingleRoom(1, room);
                                 }
                             }
                             break;
                         }
-                        default:{
-                            System.out.println("Error to verify a free position for assign an adjacent room!");
+                        default: {
+                            log.error("Error to verify a free position for assign an adjacent room!");
                         }
                     }
                 }
@@ -215,7 +201,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
 
     private boolean conditionsToLinkRooms(Room room, Room adiacentRoom, int actualRoomX, int actualRoomY) {
         return (room.getType().equals(adiacentRoom.getType()) && randomBasedOnSeed.nextInt(10) > 4
-                || (noConnectionToDifferentTypeRecursion(room, new ArrayList<Room>()) <= 1
+                || (noConnectionToDifferentTypeRecursion(room, new ArrayList<>()) <= 1
                 || nullArea(actualRoomX, actualRoomY) >= 1));
     }
 
@@ -228,7 +214,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                 if (r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(r)))) {
                     checkedRooms.add(r);
                     neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r, checkedRooms);
-                    return  neighbourWithForeignNeighbour;
+                    return neighbourWithForeignNeighbour;
                 } else if (!(r.getType().equals(room.getType()))) {
                     neighbourWithForeignNeighbour++;
                 }

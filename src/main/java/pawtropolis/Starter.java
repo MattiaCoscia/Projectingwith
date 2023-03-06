@@ -1,7 +1,7 @@
 package pawtropolis;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +10,7 @@ import pawtropolis.controller.ActionController;
 import pawtropolis.service.GameStarterService;
 import pawtropolis.utility.strategy.ActionEnum;
 import pawtropolis.view.RenderMapService;
-
+@Slf4j
 @SpringBootApplication
 public class Starter implements ApplicationRunner {
 
@@ -32,7 +32,7 @@ public class Starter implements ApplicationRunner {
         while (!ActionEnum.EXIT.equals(actionEnum)) {
             actionEnum = actionController.playerAction();
             if (ActionEnum.UNKNOWN_COMMAND.equals(actionEnum)) {
-                System.out.println("command not existent");
+                log.info("command not existent");
             } else if(!ActionEnum.EXIT.equals(actionEnum)){
                 renderMapService.printMap();
             }

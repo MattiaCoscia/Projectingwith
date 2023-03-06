@@ -1,5 +1,6 @@
 package pawtropolis.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pawtropolis.model.entity.Player;
@@ -9,6 +10,7 @@ import pawtropolis.view.RenderMapService;
 import java.util.Scanner;
 
 @Service
+@Slf4j
 public class GameStarterService {
     @Autowired
     private Player player;
@@ -21,20 +23,20 @@ public class GameStarterService {
     private boolean isMapGenerated = false;
 
     public void execute(){
-        System.out.println("Choose your name");
+        log.info("Choose your name");
         player.setName(new Scanner(System.in).nextLine());
         Scanner sc=new Scanner(System.in);
-        System.out.println("Write a seed on what the map will be generated");
+        log.info("Write a seed on what the map will be generated");
         long seed=sc.nextLine().hashCode();
         while(!isMapGenerated) {
-            System.out.println("Choose generation type 1:(Tree like) 2:(Cavern like)");
+            log.info("Choose generation type 1:(Tree like) 2:(Cavern like)");
             GameMap generatedMap = gameMapGeneratorService.run(seed);
             isMapGenerated = generatedMap != null;
             if(isMapGenerated){
                 map.setRooms(generatedMap.getRooms());
             }
         }
-        System.out.println("choose if you want to see all map digit 'yes' and send else just send");
+        log.info("choose if you want to see all map digit 'yes' and send else just send");
         if(sc.nextLine().toLowerCase().replace(" ", "").equals("yes")) {
             renderMapService.setShowMap(true);
         }

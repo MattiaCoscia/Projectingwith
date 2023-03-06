@@ -1,5 +1,6 @@
 package pawtropolis.utility.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -11,6 +12,7 @@ import pawtropolis.model.map.Room;
 import java.util.ArrayList;
 import java.util.List;
 @Component
+@Slf4j
 public class GetStrategy implements ActionStrategy{
     @Autowired
     private Player player;
@@ -27,12 +29,12 @@ public class GetStrategy implements ActionStrategy{
                 player.getBag().getItems().computeIfAbsent(object, k -> new ArrayList<>()).add(item);
                 actualRoom.getItems().get(object).remove(0);
                 player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() + item.getVolume());
-                System.out.println(item.getName() + " has been put in the bag");
+                log.info(item.getName() + " has been put in the bag");
                 if (itemsOftype.isEmpty()) {
                     actualRoom.getItems().remove(object, itemsOftype);
                 }
             } else {
-                System.out.println("the bag is full");
+                log.info("the bag is full");
             }
         }
         return ActionEnum.GET;

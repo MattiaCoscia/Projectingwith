@@ -1,4 +1,4 @@
-package pawtropolis.utility.model.generationMethod;
+package pawtropolis.utility.model.generationmethod;
 
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;

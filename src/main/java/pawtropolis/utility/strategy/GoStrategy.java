@@ -1,5 +1,6 @@
 package pawtropolis.utility.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -9,6 +10,7 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 
 @Component
+@Slf4j
 public class GoStrategy implements ActionStrategy {
     @Autowired
     private Player player;
@@ -18,37 +20,33 @@ public class GoStrategy implements ActionStrategy {
     @Override
     public ActionEnum execute(String direction) {
         if (!ObjectUtils.isEmpty(direction)) {
-            boolean nord = player.getPositionY() - 1 >= 0;
-            boolean sud = player.getPositionY() + 1 < map.getRooms().length;
-            boolean est = player.getPositionX() + 1 < map.getRooms()[0].length;
-            boolean ovest = player.getPositionX() - 1 >= 0;
             switch (DirectionEnum.fromValue(direction)) {
-                case EAST :  {
-                    if (est && map.getRooms()[player.getPositionY()][player.getPositionX() + 1] != null && isRoomConnected(player, 1, 0, map)) {
+                case EAST: {
+                    if (isRoomConnected(player, 1, 0, map)) {
                         player.setPositionX(player.getPositionX() + 1);
                     }
                     break;
                 }
                 case WEST: {
-                    if (ovest && map.getRooms()[player.getPositionY()][player.getPositionX() - 1] != null && isRoomConnected(player, -1, 0, map)) {
+                    if (isRoomConnected(player, -1, 0, map)) {
                         player.setPositionX(player.getPositionX() - 1);
                     }
                     break;
                 }
                 case NORTH: {
-                    if (nord && map.getRooms()[player.getPositionY() - 1][player.getPositionX()] != null && isRoomConnected(player, 0, -1, map)) {
+                    if (isRoomConnected(player, 0, -1, map)) {
                         player.setPositionY(player.getPositionY() - 1);
                     }
                     break;
                 }
                 case SOUTH: {
-                    if (sud && map.getRooms()[player.getPositionY() + 1][player.getPositionX()] != null && isRoomConnected(player, 0, 1, map)) {
+                    if (isRoomConnected(player, 0, 1, map)) {
                         player.setPositionY(player.getPositionY() + 1);
                     }
                     break;
                 }
                 default: {
-                    System.out.println("Unknown direction!");
+                    log.warn("Unknown direction!");
                 }
             }
             return ActionEnum.GO;

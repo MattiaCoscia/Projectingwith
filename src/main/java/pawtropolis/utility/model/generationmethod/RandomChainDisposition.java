@@ -1,15 +1,16 @@
-package pawtropolis.utility.model.generationMethod;
+package pawtropolis.utility.model.generationmethod;
 
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
-
+@Slf4j
 public class RandomChainDisposition extends GenerationMethod {
 
 	private int proximityX = 0;
@@ -18,7 +19,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	private Random randomBasedOnSeed=null;
 	private int startingX = 0;
 	private int startingY = 0;
-	private final Queue<Room> queueRoomsPositions = new LinkedList<Room>();
+	private final Queue<Room> queueRoomsPositions = new LinkedList<>();
 	private GameMap map = null;
 
 	public RandomChainDisposition(GameMap map, long seed) {
@@ -122,9 +123,6 @@ public class RandomChainDisposition extends GenerationMethod {
 					actualRoom.setSingleRoom(3, adiacentRoom);
 					adiacentRoom.setSingleRoom(1, actualRoom);
 				}
-				default -> {
-					System.out.println("Error to assign adjacent room!");
-				}
 			}
 			this.map.setSingleRoom(adiacentRoom);
 			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
@@ -177,6 +175,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	public boolean isOnTheBorder(Room room) {
 		int maxX = this.map.getRooms()[0].length - 1;
 		int maxY = this.map.getRooms().length - 1;
+		boolean flag= false;
 		BiPredicate<Integer, Integer> nordEst = (x, y) -> (x <= (0 + proximityX) && x >= 0)
 				&& (y <= (0 + proximityY) && y >= 0);
 		BiPredicate<Integer, Integer> nordOvest = (x, y) -> (x <= maxX && x >= (maxX - proximityX))
@@ -189,8 +188,8 @@ public class RandomChainDisposition extends GenerationMethod {
 				|| nordOvest.test(room.getPositionX(), room.getPositionY())
 				|| sudEst.test(room.getPositionX(), room.getPositionY())
 				|| sudOvest.test(room.getPositionX(), room.getPositionY())) {
-			return true;
+			flag= true;
 		}
-		return false;
+		return flag;
 	}
 }

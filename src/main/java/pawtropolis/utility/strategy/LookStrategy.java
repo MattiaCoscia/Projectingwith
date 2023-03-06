@@ -1,5 +1,6 @@
 package pawtropolis.utility.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.entity.Entity;
@@ -8,6 +9,7 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 
 @Component
+@Slf4j
 public class LookStrategy implements ActionStrategy{
     @Autowired
     private Player player;
@@ -16,19 +18,19 @@ public class LookStrategy implements ActionStrategy{
     @Override
     public ActionEnum execute(String action) {
         Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
-        System.out.println("Actual Room " + actualRoom.getName());
-        System.out.println("Items in this room:");
+        log.info("Actual Room " + actualRoom.getName());
+        log.info("Items in this room:");
         StringBuilder items = new StringBuilder();
         for (String s : actualRoom.getItems().keySet()) {
             items.append(s).append(" x").append(actualRoom.getItems().get(s).size()).append(" | ");
         }
-        System.out.println((items.toString()));
-        System.out.println("Npcs in this room:");
+        log.info((items.toString()));
+        log.info("Npcs in this room:");
         StringBuilder npcs = new StringBuilder();
         for (Entity s : actualRoom.getEntities()) {
             npcs.append(s.getName()).append(" | ");
         }
-        System.out.println(npcs);
+        log.info(npcs.toString());
         return ActionEnum.LOOK;
     }
 }

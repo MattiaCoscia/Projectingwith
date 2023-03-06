@@ -2,21 +2,21 @@ package pawtropolis.service;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
-import pawtropolis.model.map.Room;
 import pawtropolis.utility.ItemContainer;
-import pawtropolis.utility.model.generationMethod.AdiacentNumberGeneration;
-import pawtropolis.utility.model.generationMethod.RandomChainDisposition;
+import pawtropolis.utility.model.generationmethod.AdiacentNumberGeneration;
+import pawtropolis.utility.model.generationmethod.RandomChainDisposition;
 
 import java.util.List;
 import java.util.Scanner;
 @Service
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Slf4j
 public class GameMapGeneratorService {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class GameMapGeneratorService {
 			return numberGenerator.generateMap(player, items);
 		}
 			default:{
-				System.out.println("Unknown generation option!");
+				log.error("Unknown generation option!");
 			}
 		}
 		return null;

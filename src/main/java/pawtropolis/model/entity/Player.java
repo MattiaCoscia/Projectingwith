@@ -1,8 +1,6 @@
 package pawtropolis.model.entity;
 
-import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.items.Bag;
 
