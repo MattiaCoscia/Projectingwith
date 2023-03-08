@@ -28,22 +28,21 @@ public class GameMapGeneratorService {
 
 	public GameMap run(long seed, String type) {
 		switch (type) {
-			case "tree": {
+			case "tree" -> {
 				RandomChainDisposition generationMethod = new RandomChainDisposition(gameMap, seed);
 				return generationMethod.generateMap(player, items);
 			}
-			case "cave": {
+			case "cave" -> {
 				CaveAdiacentNumberGeneration numberGenerator = new CaveAdiacentNumberGeneration(gameMap, seed);
 				return numberGenerator.generateMap(player, items);
 			}
-			case "frame": {
+			case "frame" -> {
 				FrameAdiacentNumberGeneration numberGenerator = new FrameAdiacentNumberGeneration(gameMap, seed);
 				return numberGenerator.generateMap(player, items);
 			}
-			default: {
-				log.error("Unknown generation option!");
+			default -> {
+				return null;
 			}
 		}
-		return null;
 	}
 }
