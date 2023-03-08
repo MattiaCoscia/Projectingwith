@@ -6,10 +6,14 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 import pawtropolis.controller.ActionController;
 import pawtropolis.service.GameStarterService;
 import pawtropolis.utility.strategy.ActionEnum;
 import pawtropolis.view.RenderMapService;
+import pawtropolis.view.model.MainFrame;
+
 @Slf4j
 @SpringBootApplication
 public class Starter implements ApplicationRunner {
@@ -22,7 +26,10 @@ public class Starter implements ApplicationRunner {
     private RenderMapService renderMapService;
 
     public static void main(String[] args) {
-        SpringApplication.run(Starter.class, args);
+        //SpringApplication.run(Starter.class, args);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(Starter.class);
+        builder.headless(false);
+        ConfigurableApplicationContext context = builder.run(args);
     }
 
     @Override

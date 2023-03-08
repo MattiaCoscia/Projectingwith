@@ -1,7 +1,5 @@
 package pawtropolis.utility.model.generationmethod;
 
-import java.util.*;
-
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
@@ -9,15 +7,17 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
+import java.util.*;
+
 @Slf4j
-public class AdiacentNumberGeneration extends GenerationMethod {
+public class CaveAdiacentNumberGeneration extends GenerationMethod {
 
     private int[][] numberMap = null;
     private GameMap map = null;
     private Random randomBasedOnSeed = null;
     private final Queue<String> queueNumberPositions = new LinkedList<>();
 
-    public AdiacentNumberGeneration(GameMap map, long seed) {
+    public CaveAdiacentNumberGeneration(GameMap map, long seed) {
         this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
         this.randomBasedOnSeed = new Random(seed);
         this.map = map;
@@ -49,27 +49,43 @@ public class AdiacentNumberGeneration extends GenerationMethod {
             if (areaValue(x, y) <= 7) {
                 switch (adiacentPosition) {
                     case 0: {
-                        numberMap[y - 1][x] = areaValue(x, y - 1) == 0 && (actualValue == 1) ? 2 : 1;
+                        if ((areaValue(x, y - 1) % 2) == 0) {
+                            numberMap[y - 1][x] = (actualValue == 1) ? 2 : 1;
+                        } else {
+                            numberMap[y - 1][x] = (actualValue == 1) ? 1 : 2;
+                        }
                         queueNumberPositions.add((y - 1) + ";" + x + ";");
                         break;
                     }
                     case 1: {
-                        numberMap[y][x + 1] = areaValue(x + 1, y) == 0 && (actualValue == 1) ? 2 : 1;
+                        if ((areaValue(x + 1, y) % 2) == 0) {
+                            numberMap[y][x + 1] = (actualValue == 1) ? 2 : 1;
+                        } else {
+                            numberMap[y][x + 1] = (actualValue == 1) ? 1 : 2;
+                        }
                         queueNumberPositions.add(y + ";" + (x + 1) + ";");
                         break;
                     }
                     case 2: {
-                        numberMap[y + 1][x] = areaValue(x, y + 1) == 0 && (actualValue == 1) ? 2 : 1;
+                        if ((areaValue(x, y + 1) % 2) == 0) {
+                            numberMap[y + 1][x] = (actualValue == 1) ? 2 : 1;
+                        } else {
+                            numberMap[y + 1][x] = (actualValue == 1) ? 1 : 2;
+                        }
                         queueNumberPositions.add((y + 1) + ";" + x + ";");
                         break;
                     }
                     case 3: {
-                        numberMap[y][x - 1] = areaValue(x - 1, y) == 0 && (actualValue == 1) ? 2 : 1;
+                        if ((areaValue(x - 1, y) % 2) == 0) {
+                            numberMap[y][x - 1] = (actualValue == 1) ? 2 : 1;
+                        } else {
+                            numberMap[y][x - 1] = (actualValue == 1) ? 1 : 2;
+                        }
                         queueNumberPositions.add(y + ";" + (x - 1) + ";");
                         break;
                     }
                     default: {
-                        log.error("Error to assign a room!");
+                        System.out.println("Error to assign a room!");
                     }
                 }
             }
@@ -141,6 +157,7 @@ public class AdiacentNumberGeneration extends GenerationMethod {
             boolean possiblePositionOvest = ((room.getPositionX() - 1) >= 0);
             Room adiacentRoom = null;
             for (Room possibleAdiacentRoom : room.getAdiacentRooms()) {
+                adiacentRoom = null;
                 if (possibleAdiacentRoom == null) {
                     int listPosition = randomBasedOnSeed.nextInt(0, positions.size());
                     int countRoom = positions.remove(listPosition);
@@ -174,10 +191,9 @@ public class AdiacentNumberGeneration extends GenerationMethod {
                         }
                     }
                     if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, room.getPositionX(), room.getPositionY())) {
-                        possibleAdiacentRoom = adiacentRoom;
-                        room.setSingleRoom(countRoom, possibleAdiacentRoom);
-                        int nextAdiacentRoom = countRoom + 2 <= 3 ? countRoom + 2 : 0;
-                        possibleAdiacentRoom.setSingleRoom(nextAdiacentRoom, room);
+                        room.setSingleRoom(countRoom, adiacentRoom);
+                        int nextAdiacentRoom = countRoom+2 < 4 ? countRoom+2 : countRoom-2;
+                        adiacentRoom.setSingleRoom(nextAdiacentRoom, room);
                     }
                 }
             }
