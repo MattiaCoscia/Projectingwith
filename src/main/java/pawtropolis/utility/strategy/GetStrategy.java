@@ -21,7 +21,7 @@ public class GetStrategy implements ActionStrategy{
     @Override
     public ActionEnum execute(String object) {
        if(!ObjectUtils.isEmpty(object)){
-        Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
+        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         List<Item> itemsOftype = actualRoom.getItems().get(object);
         Item item = itemsOftype != null ? actualRoom.getItems().get(object).get(0) : null;
         if (item != null) {

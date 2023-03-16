@@ -18,7 +18,7 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
     private final Queue<String> queueNumberPositions = new LinkedList<>();
 
     public CaveAdiacentNumberGeneration(GameMap map, long seed) {
-        this.numberMap = new int[map.getRooms().length][map.getRooms()[0].length];
+        this.numberMap = new int[map.getHeightMap()][map.getWidthMap()];
         this.randomBasedOnSeed = new Random(seed);
         this.map = map;
     }
@@ -33,13 +33,9 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
             chooseAndAssignRooms(x, y, availableAdiacentPositions(x, y));
         }
         convertIntegerMapToGameMap(items);
-        for (Room[] y : map.getRooms()) {
-            for (Room r : y) {
-                if (r != null) {
-                    chooseAndAssignAdiacentRooms(r);
-                }
-            }
-        }
+        map.getRooms().forEach((key,value) ->{
+            chooseAndAssignAdiacentRooms(value);
+        });
         return map;
     }
 
@@ -104,18 +100,19 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
     private GameMap convertIntegerMapToGameMap(List<Item> items) {
         int countY = 0;
         int countX = 0;
-        for (Room[] y : map.getRooms()) {
+        for (int[] y : numberMap) {
             countX = 0;
-            for (Room x : y) {
-                int room = numberMap[countY][countX];
-                if (room == 1) {
-                    map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new ArrayList<>(), countX,
-                            countY, RoomType.CORRIDOR_TYPE, room);
-                } else if (room == 2) {
-                    map.getRooms()[countY][countX] = new Room("Y:" + countY + " X:" + countX, new HashMap<>(), new ArrayList<>(), countX,
-                            countY, RoomType.ROOM_TYPE, room);
-                    addItemsToRoom(items, map.getRooms()[countY][countX], randomBasedOnSeed);
-                    addNpcsToRoom(map.getRooms()[countY][countX], randomBasedOnSeed);
+            for (int x : y) {
+                if (x == 1) {
+                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY,countX), new HashMap<>(), new ArrayList<>(), countX,
+                            countY, RoomType.CORRIDOR_TYPE, x);
+                    map.setSingleRoom(roomTOAdd);
+                } else if (x == 2) {
+                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY,countX), new HashMap<>(), new ArrayList<>(), countX,
+                            countY, RoomType.ROOM_TYPE, x);
+                    map.setSingleRoom(roomTOAdd);
+                    addItemsToRoom(items, roomTOAdd, randomBasedOnSeed);
+                    addNpcsToRoom(roomTOAdd, randomBasedOnSeed);
                 }
                 countX++;
             }
@@ -164,25 +161,25 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
                     switch (countRoom) {
                         case 0: {
                             if (possiblePositionNord) {
-                                adiacentRoom = map.getRooms()[room.getPositionY() - 1][room.getPositionX()];
+                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY() - 1, room.getPositionX()));
                             }
                             break;
                         }
                         case 1: {
                             if (possiblePositionEast) {
-                                adiacentRoom = map.getRooms()[room.getPositionY()][room.getPositionX() + 1];
+                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY(), room.getPositionX() + 1));
                             }
                             break;
                         }
                         case 2: {
                             if (possiblePositionSud) {
-                                adiacentRoom = map.getRooms()[room.getPositionY() + 1][room.getPositionX()];
+                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY() + 1, room.getPositionX()));
                             }
                             break;
                         }
                         case 3: {
                             if (possiblePositionOvest) {
-                                adiacentRoom = map.getRooms()[room.getPositionY()][room.getPositionX() - 1];
+                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY(), room.getPositionX() - 1));
                             }
                             break;
                         }

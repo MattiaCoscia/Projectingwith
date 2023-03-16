@@ -56,8 +56,8 @@ public class GoStrategy implements ActionStrategy {
 
 
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map) {
-        Room toGo = map.getRooms()[player.getPositionY() + changeInY][player.getPositionX() + changeInX];
-        Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
+        Room toGo = map.getRooms().get(map.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
+        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         for (Room r : actualRoom.getAdiacentRooms()) {
             if (r != null && r.equals(toGo)) {
                 return true;

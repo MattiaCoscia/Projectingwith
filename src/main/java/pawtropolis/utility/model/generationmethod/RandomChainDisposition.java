@@ -26,8 +26,8 @@ public class RandomChainDisposition extends GenerationMethod {
 		this.map = map;
 		this.randomBasedOnSeed=new Random();
 		this.randomBasedOnSeed.setSeed(seed);
-		proximityX = this.map.getRooms()[0].length / 3;
-		proximityY = this.map.getRooms().length / 3;
+		proximityX = this.map.getWidthMap() / 3;
+		proximityY = this.map.getHeightMap() / 3;
 	}
 
 	@Override
@@ -38,20 +38,18 @@ public class RandomChainDisposition extends GenerationMethod {
 			regulateMapPopulationRooms(roomInQueue);
 		}
 		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
-		for(Room[] y:map.getRooms()){
-			for(Room x:y){
-				if(x!=null && x.getType().equals(RoomType.ROOM_TYPE)){
-					addItemsToRoom(items,x,this.randomBasedOnSeed);
-					addNpcsToRoom(x,this.randomBasedOnSeed);
-				}
+		map.getRooms().forEach((key,room) ->{
+			if(room.getType().equals(RoomType.ROOM_TYPE)){
+				addItemsToRoom(items,room,this.randomBasedOnSeed);
+				addNpcsToRoom(room,this.randomBasedOnSeed);
 			}
-		}
+		});
 		return this.map;
 	}
 
 	private void populateMapWithStartingRoom(Player player) {
-		startingX = randomBasedOnSeed.nextInt(0,this.map.getRooms()[0].length);
-		startingY = randomBasedOnSeed.nextInt(0,this.map.getRooms().length);
+		startingX = randomBasedOnSeed.nextInt(0,this.map.getWidthMap());
+		startingY = randomBasedOnSeed.nextInt(0,this.map.getHeightMap());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
 		Room entryRoom = new Room("Entry", new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
@@ -73,20 +71,20 @@ public class RandomChainDisposition extends GenerationMethod {
 
 	public List<Integer> availableAdiacentPositions(int x, int y) {
 		boolean possiblePositionNord = ((y - 1) >= 0);
-		boolean possiblePositionSud = ((y + 1) < this.map.getRooms().length);
-		boolean possiblePositionEast = ((x + 1) < this.map.getRooms()[0].length);
+		boolean possiblePositionSud = ((y + 1) < this.map.getHeightMap());
+		boolean possiblePositionEast = ((x + 1) < this.map.getWidthMap());
 		boolean possiblePositionOvest = ((x - 1) >= 0);
 		List<Integer> availablePositions = new ArrayList<>();
-		if (possiblePositionNord && (this.map.getRooms()[y - 1][x] == null)) {
+		if (possiblePositionNord && (this.map.getRooms().get(map.giveKeyForRoom(y - 1,x)) == null)) {
 			availablePositions.add(0);
 		}
-		if (possiblePositionEast && (this.map.getRooms()[y][x + 1] == null)) {
+		if (possiblePositionEast && (this.map.getRooms().get(map.giveKeyForRoom(y,x + 1)) == null)) {
 			availablePositions.add(1);
 		}
-		if (possiblePositionSud && (this.map.getRooms()[y + 1][x] == null)) {
+		if (possiblePositionSud && (this.map.getRooms().get(map.giveKeyForRoom(y + 1,x)) == null)) {
 			availablePositions.add(2);
 		}
-		if (possiblePositionOvest && (this.map.getRooms()[y][x - 1] == null)) {
+		if (possiblePositionOvest && (this.map.getRooms().get(map.giveKeyForRoom(y,x - 1)) == null)) {
 			availablePositions.add(3);
 		}
 		return availablePositions;
@@ -131,9 +129,8 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	private List<Room> sortRoomsByChainPosition() {
-		List<Room> collection = Arrays.stream(this.map.getRooms()).flatMap(Arrays::stream).filter(r -> r != null)
-				.collect(Collectors.toList());
-		collection.sort((r1, r2) -> Integer.compare(-r1.getChainPosition(), -r2.getChainPosition()));
+		List<Room> collection = new ArrayList<>(this.map.getRooms().values());
+		collection.sort(Comparator.comparingInt(r -> -r.getChainPosition()));
 		return collection;
 	}
 
@@ -173,8 +170,8 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	public boolean isOnTheBorder(Room room) {
-		int maxX = this.map.getRooms()[0].length - 1;
-		int maxY = this.map.getRooms().length - 1;
+		int maxX = this.map.getWidthMap() - 1;
+		int maxY = this.map.getHeightMap() - 1;
 		boolean flag= false;
 		BiPredicate<Integer, Integer> nordEst = (x, y) -> (x <= (0 + proximityX) && x >= 0)
 				&& (y <= (0 + proximityY) && y >= 0);

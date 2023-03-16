@@ -17,7 +17,7 @@ public class LookStrategy implements ActionStrategy{
     private GameMap map;
     @Override
     public ActionEnum execute(String action) {
-        Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
+        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         log.info("Actual Room " + actualRoom.getName());
         log.info("Items in this room:");
         StringBuilder items = new StringBuilder();

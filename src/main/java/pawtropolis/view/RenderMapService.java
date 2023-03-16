@@ -17,12 +17,16 @@ import java.util.List;
 @Slf4j
 public class RenderMapService {
 
-    @Autowired
     private Player player;
-    @Autowired
     private GameMap map;
     private boolean showMap = false;
     private List<String> visibleRooms = new ArrayList<>();
+    private Room[][] roomsMatrix = null;
+    @Autowired
+    public RenderMapService(GameMap map,Player player){
+        this.map = map;
+        this.player = player;
+    }
 
     private void putVisibleRoom(Room room, List<Integer> directions) {
         for (Integer i : directions) {
@@ -41,7 +45,7 @@ public class RenderMapService {
         visibleRooms.add(player.getPositionY() + ";" + player.getPositionX());
         List<Integer> directions = new ArrayList<>();
         int count = 0;
-        for (Room r : map.getRooms()[player.getPositionY()][player.getPositionX()].getAdiacentRooms()) {
+        for (Room r : roomsMatrix[player.getPositionY()][player.getPositionX()].getAdiacentRooms()) {
             if (r != null) {
                 directions.add(count);
             }
@@ -51,14 +55,18 @@ public class RenderMapService {
     }
 
     public void printMap() {
+        roomsMatrix = new Room[map.getHeightMap()][map.getWidthMap()];
+        map.getRooms().forEach((key,room) ->{
+            roomsMatrix[room.getPositionY()][room.getPositionX()] = room;
+        });
         if (!showMap) {
-            putVisibleRoom(map.getRooms()[player.getPositionY()][player.getPositionX()]
+            putVisibleRoom(roomsMatrix[player.getPositionY()][player.getPositionX()]
                     , chooseDirectionForVisibleRooms());
         }
         List<String> commandsStrings = getListCommandsToPrint();
         List<String> dataAboutRoom = getDataAboutRoom();
-        List<String> directionsToPrint = getDirectionsToPrintInCompass(map.getRooms()[player.getPositionY()][player.getPositionX()]);
-        for (Room[] line : map.getRooms()) {
+        List<String> directionsToPrint = getDirectionsToPrintInCompass(roomsMatrix[player.getPositionY()][player.getPositionX()]);
+        for (Room[] line : roomsMatrix) {
             String printLineHead = "";
             String printLineBody = "";
             String printLineFoot = "";
@@ -181,7 +189,7 @@ public class RenderMapService {
     private List<String> getDataAboutRoom() {
         List<String> data = new ArrayList<>();
         data.add("INFO ROOM");
-        Room actualRoom = map.getRooms()[player.getPositionY()][player.getPositionX()];
+        Room actualRoom = roomsMatrix[player.getPositionY()][player.getPositionX()];
         data.add("Actual Room :" + actualRoom.getName());
 
         data.add("Items in this room:");
