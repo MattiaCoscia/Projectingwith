@@ -2,7 +2,9 @@ package pawtropolis.model.map;
 
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.utility.RoomType;
 import pawtropolis.model.items.Item;
@@ -10,7 +12,8 @@ import pawtropolis.model.items.Item;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Room {
     private String name;

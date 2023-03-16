@@ -52,13 +52,14 @@ public class RandomChainDisposition extends GenerationMethod {
 		startingY = randomBasedOnSeed.nextInt(0,this.map.getHeightMap());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
-		Room entryRoom = new Room("Entry", new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
+		Room entryRoom = new Room(map.giveKeyForRoom(startingY,startingX), new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
 		this.map.setSingleRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
 	}
 
-	protected void regulateMapPopulationRooms(Room actualRoom) {
+	protected void
+	regulateMapPopulationRooms(Room actualRoom) {
 		List<Integer> availablePositions = availableAdiacentPositions(actualRoom.getPositionX(),
 				actualRoom.getPositionY());
 		int maxAdiacentRooms = randomBasedOnSeed.nextInt(0,availablePositions.size()+1);
@@ -91,40 +92,43 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	public void chooseAndAssignAdiacentRooms(Room actualRoom,int maxAdiacentRooms, List<Integer> availablePositions) {
-		for (int i = 0; i < maxAdiacentRooms; i++) {
-			int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
-			int adiacentPosition = availablePositions.remove(randomValuePosition);
-			Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
-					actualRoom.getChainPosition() + 1);
-			switch (adiacentPosition) {
-				case 0 -> {
-					adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
-					adiacentRoom.setPositionX(actualRoom.getPositionX());
-					actualRoom.setSingleRoom(0, adiacentRoom);
-					adiacentRoom.setSingleRoom(2, actualRoom);
+		if(!availablePositions.isEmpty()){
+			for (int i = 0; i < maxAdiacentRooms; i++) {
+				int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
+				int adiacentPosition = availablePositions.remove(randomValuePosition);
+				Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
+						actualRoom.getChainPosition() + 1);
+				switch (adiacentPosition) {
+					case 0 -> {
+						adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
+						adiacentRoom.setPositionX(actualRoom.getPositionX());
+						actualRoom.setSingleRoom(0, adiacentRoom);
+						adiacentRoom.setSingleRoom(2, actualRoom);
+					}
+					case 1 -> {
+						adiacentRoom.setPositionY(actualRoom.getPositionY());
+						adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
+						actualRoom.setSingleRoom(1, adiacentRoom);
+						adiacentRoom.setSingleRoom(3, actualRoom);
+					}
+					case 2 -> {
+						adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
+						adiacentRoom.setPositionX(actualRoom.getPositionX());
+						actualRoom.setSingleRoom(2, adiacentRoom);
+						adiacentRoom.setSingleRoom(0, actualRoom);
+					}
+					case 3 -> {
+						adiacentRoom.setPositionY(actualRoom.getPositionY());
+						adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
+						actualRoom.setSingleRoom(3, adiacentRoom);
+						adiacentRoom.setSingleRoom(1, actualRoom);
+					}
 				}
-				case 1 -> {
-					adiacentRoom.setPositionY(actualRoom.getPositionY());
-					adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
-					actualRoom.setSingleRoom(1, adiacentRoom);
-					adiacentRoom.setSingleRoom(3, actualRoom);
-				}
-				case 2 -> {
-					adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
-					adiacentRoom.setPositionX(actualRoom.getPositionX());
-					actualRoom.setSingleRoom(2, adiacentRoom);
-					adiacentRoom.setSingleRoom(0, actualRoom);
-				}
-				case 3 -> {
-					adiacentRoom.setPositionY(actualRoom.getPositionY());
-					adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
-					actualRoom.setSingleRoom(3, adiacentRoom);
-					adiacentRoom.setSingleRoom(1, actualRoom);
-				}
+				adiacentRoom.setName(map.giveKeyForRoom(adiacentRoom.getPositionY(),adiacentRoom.getPositionX()));
+				this.map.setSingleRoom(adiacentRoom);
+				queueRoomsPositions.add(adiacentRoom);
+				int prova = 0;
 			}
-			this.map.setSingleRoom(adiacentRoom);
-			adiacentRoom.setName("Y:" + adiacentRoom.getPositionY() + " X:" + adiacentRoom.getPositionX());
-			queueRoomsPositions.add(adiacentRoom);
 		}
 	}
 
@@ -173,11 +177,11 @@ public class RandomChainDisposition extends GenerationMethod {
 		int maxX = this.map.getWidthMap() - 1;
 		int maxY = this.map.getHeightMap() - 1;
 		boolean flag= false;
-		BiPredicate<Integer, Integer> nordEst = (x, y) -> (x <= (0 + proximityX) && x >= 0)
-				&& (y <= (0 + proximityY) && y >= 0);
+		BiPredicate<Integer, Integer> nordEst = (x, y) -> (x <= (proximityX) && x >= 0)
+				&& (y <= (proximityY) && y >= 0);
 		BiPredicate<Integer, Integer> nordOvest = (x, y) -> (x <= maxX && x >= (maxX - proximityX))
-				&& (y <= (0 + proximityY) && y >= 0);
-		BiPredicate<Integer, Integer> sudEst = (x, y) -> (x <= (0 + proximityX) && x >= 0)
+				&& (y <= (proximityY) && y >= 0);
+		BiPredicate<Integer, Integer> sudEst = (x, y) -> (x <= (proximityX) && x >= 0)
 				&& (y <= maxY && y >= (maxY - proximityY));
 		BiPredicate<Integer, Integer> sudOvest = (x, y) -> (x <= maxX && x >= (maxX - proximityX))
 				&& (y <= maxY && y >= (maxY - proximityY));
