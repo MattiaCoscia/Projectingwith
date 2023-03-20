@@ -7,7 +7,6 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.NpcsFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,8 +17,12 @@ public abstract class GenerationMethod {
         for (Item i : items) {
             int qnt = random.nextInt(1,5);
             if (random.nextInt(3) > 1) {
-                for (int q = 0; q < qnt; q++) {
-                    room.getItems().computeIfAbsent(i.getName(), k -> new ArrayList<>()).add(new Item(i.getName(), i.getDescription(), i.getVolume()));
+                Item itemToAdd = room.getItems().get(i.getName());
+                if(itemToAdd == null){
+                    itemToAdd = new Item(i.getName(),i.getDescription(),i.getVolume(),qnt);
+                    room.getItems().put(itemToAdd.getName(), itemToAdd);
+                }else{
+                    itemToAdd.setQuantity(itemToAdd.getQuantity()+qnt);
                 }
             }
         }

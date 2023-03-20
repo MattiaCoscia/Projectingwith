@@ -19,14 +19,14 @@ public class Room {
     private String name;
 
     private RoomType type;
-    private Map<String, List<Item>> items;
+    private Map<String, Item> items;
     private List<Entity> npcs;
     private Room[] adiacentRooms=new Room[4];
     private int chainPosition;
     private int positionX;
     private int positionY;
 
-    public Room(String name, Map<String, List<Item>> items, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
+    public Room(String name, Map<String, Item> items, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
         this.name = name;
         this.items = items;
         this.npcs = npcs;

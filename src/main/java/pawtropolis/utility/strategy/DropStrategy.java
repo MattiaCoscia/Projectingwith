@@ -8,9 +8,6 @@ import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
-
-import java.util.ArrayList;
-import java.util.List;
 @Component
 @Slf4j
 public class DropStrategy implements ActionStrategy{
@@ -20,21 +17,19 @@ public class DropStrategy implements ActionStrategy{
     private GameMap map;
     @Override
     public ActionEnum execute(String object) {
-        if(!ObjectUtils.isEmpty(object)){
-        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
-        List<Item> itemsOftype = player.getBag().getItems().get(object);
-        Item item = itemsOftype != null ? player.getBag().getItems().get(object).get(0) : null;
-        if (item != null) {
-            actualRoom.getItems().computeIfAbsent(object, k -> new ArrayList<>()).add(item);
-            player.getBag().getItems().get(object).remove(0);
-            log.info(item.getName() + " has been dropped in the room");
-            if (itemsOftype.isEmpty()) {
-                player.getBag().getItems().remove(object, itemsOftype);
+        if (!ObjectUtils.isEmpty(object)) {
+            Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
+            Item itemToDrop = player.removeItem(object);
+            if(itemToDrop != null){
+                Item itemInRoom = actualRoom.getItems().get(object);
+                if(itemInRoom != null){
+                    itemInRoom.increaseQuantity();
+                }else{
+                    actualRoom.getItems().put(itemToDrop.getName(),itemToDrop);
+                }
+                player.getBag().decreaseOccupiedSlots(itemToDrop.getVolume());
             }
-            player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() - item.getVolume());
-        }
-        return ActionEnum.DROP;
-
+            return ActionEnum.DROP;
         }
         return ActionEnum.UNKNOWN_COMMAND;
     }

@@ -20,25 +20,19 @@ public class GetStrategy implements ActionStrategy{
     private GameMap map;
     @Override
     public ActionEnum execute(String object) {
-       if(!ObjectUtils.isEmpty(object)){
-        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
-        List<Item> itemsOftype = actualRoom.getItems().get(object);
-        Item item = itemsOftype != null ? actualRoom.getItems().get(object).get(0) : null;
-        if (item != null) {
-            if (item.getVolume() <= player.getBag().getVolume() - player.getBag().getOccupiedSlots()) {
-                player.getBag().getItems().computeIfAbsent(object, k -> new ArrayList<>()).add(item);
-                actualRoom.getItems().get(object).remove(0);
-                player.getBag().setOccupiedSlots(player.getBag().getOccupiedSlots() + item.getVolume());
-                log.info(item.getName() + " has been put in the bag");
-                if (itemsOftype.isEmpty()) {
-                    actualRoom.getItems().remove(object, itemsOftype);
+        if (!ObjectUtils.isEmpty(object)) {
+            Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
+            Item itemToGet = actualRoom.getItems().get(object);
+            if(itemToGet != null){
+                if(itemToGet.getQuantity() <= 1){
+                    actualRoom.getItems().remove(itemToGet.getName(),itemToGet);
+                    player.getBag().increaseOccupiedSlots(itemToGet.getVolume());
                 }
-            } else {
-                log.info("the bag is full");
+                player.addItem(new Item(itemToGet.getName(), itemToGet.getDescription(),itemToGet.getVolume(),1));
+                itemToGet.decreaseQuantity();
+                return ActionEnum.GET;
             }
         }
-        return ActionEnum.GET;
-       }
        return ActionEnum.UNKNOWN_COMMAND;
     }
 }

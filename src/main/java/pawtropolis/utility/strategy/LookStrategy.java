@@ -22,7 +22,7 @@ public class LookStrategy implements ActionStrategy{
         log.info("Items in this room:");
         StringBuilder items = new StringBuilder();
         for (String s : actualRoom.getItems().keySet()) {
-            items.append(s).append(" x").append(actualRoom.getItems().get(s).size()).append(" | ");
+            items.append(s).append(" x").append(actualRoom.getItems().get(s).getQuantity()).append(" | ");
         }
         log.info((items.toString()));
         log.info("Npcs in this room:");

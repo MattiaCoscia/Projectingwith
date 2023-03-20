@@ -12,7 +12,14 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Bag {
-    private Map<String, List<Item>> items=new HashMap<>();
+    private Map<String, Item> items=new HashMap<>();
     private int volume = 20;
     private int occupiedSlots=0;
+
+    public void  increaseOccupiedSlots(int slots){
+        occupiedSlots += slots;
+    }
+    public void decreaseOccupiedSlots(int slots){
+        occupiedSlots -= slots;
+    }
 }
