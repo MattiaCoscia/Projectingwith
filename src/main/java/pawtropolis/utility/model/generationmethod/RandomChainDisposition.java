@@ -156,7 +156,7 @@ public class RandomChainDisposition extends GenerationMethod {
 
 	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room r, int halfLenght) {
 		r.setType(RoomType.CORRIDOR_TYPE);
-		for (Room room : r.getAdiacentRooms()) {
+		for (Room room : r.getAdiacentRooms().values()) {
 			if (room != null && (!room.getType().equals(RoomType.CORRIDOR_TYPE))
 					&& room.getChainPosition() == r.getChainPosition() - 1) {
 				recursionToFormCorridorFromEndRoomToStartingRoom(room, halfLenght);

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -30,12 +31,12 @@ public class RenderMapService {
 
     private void putVisibleRoom(Room room, List<Integer> directions) {
         for (Integer i : directions) {
-            if (room.getAdiacentRooms()[i] != null) {
+            if (room.getAdiacentRooms().get(DirectionEnum.values()[i]) != null) {
                 List<Integer> list = new ArrayList<>();
                 list.add(i);
                 visibleRooms.add(
-                        room.getAdiacentRooms()[i].getPositionY() + ";" + room.getAdiacentRooms()[i].getPositionX());
-                putVisibleRoom(room.getAdiacentRooms()[i], list);
+                        room.getAdiacentRooms().get(DirectionEnum.values()[i]).getPositionY() + ";" + room.getAdiacentRooms().get(DirectionEnum.values()[i]).getPositionX());
+                putVisibleRoom(room.getAdiacentRooms().get(DirectionEnum.values()[i]), list);
             }
         }
     }
@@ -45,7 +46,8 @@ public class RenderMapService {
         visibleRooms.add(player.getPositionY() + ";" + player.getPositionX());
         List<Integer> directions = new ArrayList<>();
         int count = 0;
-        for (Room r : roomsMatrix[player.getPositionY()][player.getPositionX()].getAdiacentRooms()) {
+        for (DirectionEnum directionEnum : DirectionEnum.values()) {
+            Room r = roomsMatrix[player.getPositionY()][player.getPositionX()].getAdiacentRooms().get(directionEnum);
             if (r != null) {
                 directions.add(count);
             }
@@ -85,8 +87,8 @@ public class RenderMapService {
     private String[] addRoomPrintToLine(Room room, String printLineHead, String printLineBody, String printLineFoot) {
         if (showMap && room != null || room != null && visibleRooms.contains(room.getPositionY() + ";" + room.getPositionX())
         ) {
-            String nord = room.getAdiacentRooms()[0] != null ? "|   |" : "+===+";
-            String sud = room.getAdiacentRooms()[2] != null ? "|   |" : "+===+";
+            String nord = room.getAdiacentRooms().get(DirectionEnum.NORTH) != null ? "|   |" : "+===+";
+            String sud = room.getAdiacentRooms().get(DirectionEnum.SOUTH) != null ? "|   |" : "+===+";
             String estOvest = printBodyConnectionsRoom(room);
             String[] roomVisuals = addVisualsForCorridorAndPlayerPosition(room, nord, estOvest, sud);
             printLineHead += roomVisuals[0];
@@ -119,13 +121,13 @@ public class RenderMapService {
 
     private String printBodyConnectionsRoom(Room room) {
         String estOvest = "";
-        if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null) {
+        if (room.getAdiacentRooms().get(DirectionEnum.WEST) != null && room.getAdiacentRooms().get(DirectionEnum.EAST) != null) {
             estOvest = "  .  ";
-        } else if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] == null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) != null && room.getAdiacentRooms().get(DirectionEnum.EAST) == null) {
             estOvest = "  . |";
-        } else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] != null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) == null && room.getAdiacentRooms().get(DirectionEnum.EAST) != null) {
             estOvest = "| .  ";
-        } else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] == null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) == null && room.getAdiacentRooms().get(DirectionEnum.EAST) == null) {
             estOvest = "| . |";
         }
         return estOvest;
@@ -223,21 +225,21 @@ public class RenderMapService {
     private List<String> getDirectionsToPrintInCompass(Room room) {
         List<String> directions = new ArrayList<>();
         directions.add("      DIRECTIONS      ");
-        if (room.getAdiacentRooms()[0] != null) {
+        if (room.getAdiacentRooms().get(DirectionEnum.NORTH) != null) {
             directions.add("      ^ NORTH ^       ");
         } else {
             directions.add("      +=WALL==+       ");
         }
-        if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] != null) {
+        if (room.getAdiacentRooms().get(DirectionEnum.WEST) != null && room.getAdiacentRooms().get(DirectionEnum.EAST) != null) {
             directions.add("WEST <          > EAST");
-        } else if (room.getAdiacentRooms()[3] != null && room.getAdiacentRooms()[1] == null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) != null && room.getAdiacentRooms().get(DirectionEnum.EAST) == null) {
             directions.add("WEST <         || WALL");
-        } else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] != null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) == null && room.getAdiacentRooms().get(DirectionEnum.EAST) != null) {
             directions.add("WALL||          > EAST");
-        } else if (room.getAdiacentRooms()[3] == null && room.getAdiacentRooms()[1] == null) {
+        } else if (room.getAdiacentRooms().get(DirectionEnum.WEST) == null && room.getAdiacentRooms().get(DirectionEnum.EAST) == null) {
             directions.add("WALL||         || WALL");
         }
-        if (room.getAdiacentRooms()[2] != null) {
+        if (room.getAdiacentRooms().get(DirectionEnum.SOUTH) != null) {
             directions.add("      v SOUTH v       ");
         } else {
             directions.add("      +=WALL==+       ");

@@ -5,6 +5,7 @@ import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Item;
+import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -137,9 +138,9 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
             boolean possiblePositionEast = ((room.getPositionX() + 1) < numberMap[0].length);
             boolean possiblePositionOvest = ((room.getPositionX() - 1) >= 0);
             Room adiacentRoom = null;
-            for (Room possibleAdiacentRoom : room.getAdiacentRooms()) {
+            for (DirectionEnum possibledirectionRoom : DirectionEnum.values()) {
                 adiacentRoom = null;
-                if (possibleAdiacentRoom == null) {
+                if (room.getAdiacentRooms().get(possibledirectionRoom) == null) {
                     int listPosition = randomBasedOnSeed.nextInt(0, positions.size());
                     int countRoom = positions.remove(listPosition);
                     switch (countRoom) {
@@ -191,7 +192,8 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
         int neighbourWithForeignNeighbour = 0;
         List<Room> checkedRooms = new ArrayList<>();
         checkedRooms.addAll(alreadyChecked);
-        for (Room r : room.getAdiacentRooms()) {
+        for (DirectionEnum direction : DirectionEnum.values()) {
+            Room r = room.getAdiacentRooms().get(direction);
             if (r != null) {
                 if (r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(r)))) {
                     checkedRooms.add(r);

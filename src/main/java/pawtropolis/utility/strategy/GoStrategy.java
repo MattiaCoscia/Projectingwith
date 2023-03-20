@@ -22,25 +22,25 @@ public class GoStrategy implements ActionStrategy {
         if (!ObjectUtils.isEmpty(direction)) {
             switch (DirectionEnum.fromValue(direction)) {
                 case EAST: {
-                    if (isRoomConnected(player, 1, 0, map)) {
+                    if (isRoomConnected(player, 1, 0, map,DirectionEnum.EAST)) {
                         player.setPositionX(player.getPositionX() + 1);
                     }
                     break;
                 }
                 case WEST: {
-                    if (isRoomConnected(player, -1, 0, map)) {
+                    if (isRoomConnected(player, -1, 0, map,DirectionEnum.WEST)) {
                         player.setPositionX(player.getPositionX() - 1);
                     }
                     break;
                 }
                 case NORTH: {
-                    if (isRoomConnected(player, 0, -1, map)) {
+                    if (isRoomConnected(player, 0, -1, map,DirectionEnum.NORTH)) {
                         player.setPositionY(player.getPositionY() - 1);
                     }
                     break;
                 }
                 case SOUTH: {
-                    if (isRoomConnected(player, 0, 1, map)) {
+                    if (isRoomConnected(player, 0, 1, map,DirectionEnum.SOUTH)) {
                         player.setPositionY(player.getPositionY() + 1);
                     }
                     break;
@@ -55,13 +55,12 @@ public class GoStrategy implements ActionStrategy {
     }
 
 
-    private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map) {
+    private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map, DirectionEnum directionEnum) {
         Room toGo = map.getRooms().get(map.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
         Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
-        for (Room r : actualRoom.getAdiacentRooms()) {
-            if (r != null && r.equals(toGo)) {
-                return true;
-            }
+        Room possibileDirectionRoom =actualRoom.getAdiacentRooms().get(directionEnum);
+        if(possibileDirectionRoom != null && possibileDirectionRoom == toGo){
+            return true;
         }
         return false;
     }
