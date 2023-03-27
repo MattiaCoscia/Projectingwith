@@ -46,7 +46,7 @@ name VARCHAR(24) NOT NULL,
 position_x INT NOT NULL,
 position_y INT NOT NULL,
 lifepoints INT NOT NULL
-)
+);
 
 CREATE TABLE IF NOT EXISTS bag(
 Id INT PRIMARY KEY NOT NULL,
