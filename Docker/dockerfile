@@ -1,0 +1,5 @@
+FROM postgres:latest
+ENV POSTGRES_USER=paw
+ENV POSTGRES_PASSWORD=paw
+ENV POSTGRES_DB=pawtropolis
+COPY init.sql /docker-entrypoint-initdb.d/
