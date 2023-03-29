@@ -52,10 +52,9 @@ CREATE TABLE IF NOT EXISTS direction
 
 CREATE TABLE IF NOT EXISTS room_connection
 (
-    id           INT PRIMARY KEY NOT NULL,
-    from_room_id INT             NOT NULL references room (id),
-    direction_id INT             NOT NULL references direction (id),
-    to_room_id   INT             NOT NULL references room (id)
+    from_room_id   INT PRIMARY KEY         NOT NULL references room (id),
+    direction_name varchar(24) PRIMARY KEY NOT NULL references direction (name),
+    to_room_id     INT PRIMARY KEY         NOT NULL references room (id)
 );
 
 CREATE TABLE IF NOT EXISTS player

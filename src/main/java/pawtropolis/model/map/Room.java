@@ -1,6 +1,7 @@
 package pawtropolis.model.map;
 
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +16,26 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
+@jakarta.persistence.Entity
 public class Room {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String name;
-
     private RoomType type;
+    @OneToMany
+    @MapKeyEnumerated(EnumType.STRING)
     private Map<String, ItemStored> items;
+    @OneToMany
     private List<Entity> npcs;
+    @ManyToMany(mappedBy = "adiacentRooms")
+    @JoinTable(name="room_connection",
+            joinColumns=
+            @JoinColumn(name="from_room_id", referencedColumnName="ID"),
+            inverseJoinColumns=
+            @JoinColumn(name="to_room_id", referencedColumnName="ID")
+    )
+    @MapKeyEnumerated(EnumType.STRING)
     private EnumMap<DirectionEnum,Room> adiacentRooms;
     private int chainPosition;
     private int positionX;

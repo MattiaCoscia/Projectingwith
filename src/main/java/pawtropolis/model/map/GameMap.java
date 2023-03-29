@@ -1,5 +1,6 @@
 package pawtropolis.model.map;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,15 @@ import java.util.Map;
 @Getter
 @Setter
 @Component
+@Entity
 public class GameMap {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private int widthMap;
     private int heightMap;
+    @OneToMany
+    @MapKeyEnumerated(EnumType.STRING)
     private Map<String,Room> rooms;
     @Autowired
     public GameMap() {
