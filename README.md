@@ -28,8 +28,8 @@
         1. South
         1. East
         1. West
-    - **Get**: The player can choose to get items present in the room in which he is present;
-    - **Drop**:The player can choose to drop items in the room in which he is present;
+    - **Get**: The player can choose to get itemStoreds present in the room in which he is present;
+    - **Drop**:The player can choose to drop itemStoreds in the room in which he is present;
     - **Look**:The player will receive information about the room in which he is present;
     - **Bag**:The player will receive information on what its bag has inside.
 

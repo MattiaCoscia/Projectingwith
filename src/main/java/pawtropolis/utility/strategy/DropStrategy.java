@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.items.Item;
+import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 @Component
@@ -19,15 +19,15 @@ public class DropStrategy implements ActionStrategy{
     public ActionEnum execute(String object) {
         if (!ObjectUtils.isEmpty(object)) {
             Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
-            Item itemToDrop = player.removeItem(object);
-            if(itemToDrop != null){
-                Item itemInRoom = actualRoom.getItems().get(object);
-                if(itemInRoom != null){
-                    itemInRoom.increaseQuantity();
+            ItemStored itemStoredToDrop = player.removeItem(object);
+            if(itemStoredToDrop != null){
+                ItemStored itemStoredInRoom = actualRoom.getItems().get(object);
+                if(itemStoredInRoom != null){
+                    itemStoredInRoom.increaseQuantity();
                 }else{
-                    actualRoom.getItems().put(itemToDrop.getName(),itemToDrop);
+                    actualRoom.getItems().put(itemStoredToDrop.getName(), itemStoredToDrop);
                 }
-                player.getBag().decreaseOccupiedSlots(itemToDrop.getVolume());
+                player.getBag().decreaseOccupiedSlots(itemStoredToDrop.getVolume());
             }
             return ActionEnum.DROP;
         }

@@ -2,11 +2,10 @@ package pawtropolis.utility.model.generationmethod;
 
 import java.util.*;
 import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.items.Item;
+import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -31,7 +30,7 @@ public class RandomChainDisposition extends GenerationMethod {
 	}
 
 	@Override
-	public GameMap generateMap(Player player, List<Item> items) {
+	public GameMap generateMap(Player player, List<ItemStored> itemStoreds) {
 		populateMapWithStartingRoom(player);
 		while (!queueRoomsPositions.isEmpty()) {
 			Room roomInQueue = queueRoomsPositions.poll();
@@ -40,7 +39,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		chooseWhichRoomsAreCorridorEnd(sortRoomsByChainPosition());
 		map.getRooms().forEach((key,room) ->{
 			if(room.getType().equals(RoomType.ROOM_TYPE)){
-				addItemsToRoom(items,room,this.randomBasedOnSeed);
+				addItemsToRoom(itemStoreds,room,this.randomBasedOnSeed);
 				addNpcsToRoom(room,this.randomBasedOnSeed);
 			}
 		});

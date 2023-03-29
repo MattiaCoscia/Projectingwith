@@ -4,7 +4,7 @@ import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.items.Item;
+import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
@@ -25,7 +25,7 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
     }
 
     @Override
-    public GameMap generateMap(Player player, List<Item> items) {
+    public GameMap generateMap(Player player, List<ItemStored> itemStoreds) {
         populateIntegerMapWithStartingRoom(player);
         while (!queueNumberPositions.isEmpty()) {
             String[] yx = queueNumberPositions.poll().split(";");
@@ -33,7 +33,7 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
             int y = Integer.parseInt(yx[0]);
             chooseAndAssignRooms(x, y, availableAdiacentPositions(x, y));
         }
-        convertIntegerMapToGameMap(items);
+        convertIntegerMapToGameMap(itemStoreds);
         map.getRooms().forEach((key, value) -> {
             chooseAndAssignAdiacentRooms(value);
         });
@@ -82,7 +82,7 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
         queueNumberPositions.add(randomY + ";" + randomX + ";");
     }
 
-    private GameMap convertIntegerMapToGameMap(List<Item> items) {
+    private GameMap convertIntegerMapToGameMap(List<ItemStored> itemStoreds) {
         int countY = 0;
         int countX = 0;
         for (int[] y : numberMap) {
@@ -96,7 +96,7 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
                     Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new HashMap<>(), new ArrayList<>(), countX,
                             countY, RoomType.ROOM_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
-                    addItemsToRoom(items, roomTOAdd, randomBasedOnSeed);
+                    addItemsToRoom(itemStoreds, roomTOAdd, randomBasedOnSeed);
                     addNpcsToRoom(roomTOAdd, randomBasedOnSeed);
                 }
                 countX++;

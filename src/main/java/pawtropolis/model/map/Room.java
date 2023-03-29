@@ -1,13 +1,12 @@
 package pawtropolis.model.map;
 
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pawtropolis.model.entity.Entity;
+import pawtropolis.model.items.ItemStored;
 import pawtropolis.utility.RoomType;
-import pawtropolis.model.items.Item;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -20,14 +19,14 @@ public class Room {
     private String name;
 
     private RoomType type;
-    private Map<String, Item> items;
+    private Map<String, ItemStored> items;
     private List<Entity> npcs;
     private EnumMap<DirectionEnum,Room> adiacentRooms;
     private int chainPosition;
     private int positionX;
     private int positionY;
 
-    public Room(String name, Map<String, Item> items, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
+    public Room(String name, Map<String, ItemStored> items, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
         this.name = name;
         this.items = items;
         this.npcs = npcs;

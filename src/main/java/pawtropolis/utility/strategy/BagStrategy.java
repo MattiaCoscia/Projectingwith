@@ -13,8 +13,8 @@ public class BagStrategy implements ActionStrategy{
     public ActionEnum execute(String action) {
         log.info("In your bag of volume "+player.getBag().getVolume()+" there are:");
         StringBuilder items = new StringBuilder();
-        for (String s : player.getBag().getItems().keySet()) {
-            items.append(s).append(" x").append(player.getBag().getItems().get(s).getQuantity()).append(" | ");
+        for (String s : player.getBag().getInventory().getItems().keySet()) {
+            items.append(s).append(" x").append(player.getBag().getInventory().getItems().get(s).getQuantity()).append(" | ");
         }
         log.info((items.toString()));
         log.info("there is "+player.getBag().getOccupiedSlots()+" of volume occupied");

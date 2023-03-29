@@ -2,7 +2,7 @@ package pawtropolis.utility.model.generationmethod;
 
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
-import pawtropolis.model.items.Item;
+import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.NpcsFactory;
@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class GenerationMethod {
-    public abstract GameMap generateMap(Player player, List<Item> items);
+    public abstract GameMap generateMap(Player player, List<ItemStored> itemStoreds);
 
-    protected void addItemsToRoom(List<Item> items, Room room, Random random) {
-        for (Item i : items) {
+    protected void addItemsToRoom(List<ItemStored> itemStoreds, Room room, Random random) {
+        for (ItemStored i : itemStoreds) {
             int qnt = random.nextInt(1,5);
             if (random.nextInt(3) > 1) {
-                Item itemToAdd = room.getItems().get(i.getName());
-                if(itemToAdd == null){
-                    itemToAdd = new Item(i.getName(),i.getDescription(),i.getVolume(),qnt);
-                    room.getItems().put(itemToAdd.getName(), itemToAdd);
+                ItemStored itemStoredToAdd = room.getItems().get(i.getName());
+                if(itemStoredToAdd == null){
+                    itemStoredToAdd = new ItemStored(i.getName(),i.getDescription(),i.getVolume(),qnt);
+                    room.getItems().put(itemStoredToAdd.getName(), itemStoredToAdd);
                 }else{
-                    itemToAdd.setQuantity(itemToAdd.getQuantity()+qnt);
+                    itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity()+qnt);
                 }
             }
         }
