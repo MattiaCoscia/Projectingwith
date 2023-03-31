@@ -3,6 +3,7 @@ package pawtropolis.model.entity;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.items.Bag;
+import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 
 @Data
@@ -12,7 +13,7 @@ public class Player extends Entity {
 	private Bag bag;
 
 	public Player() {
-		this.bag = new Bag();
+		this.bag = new Bag(new Inventory());
 	}
 
 	public void addItem(ItemStored itemStored) {

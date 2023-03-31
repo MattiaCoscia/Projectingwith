@@ -13,9 +13,8 @@ public enum DirectionEnum {
             try {
                 return DirectionEnum.valueOf(direction.toUpperCase());
             } catch (IllegalArgumentException e) {
-                return null;
             }
         }
-        return null;
+        return NORTH;
     }
 }

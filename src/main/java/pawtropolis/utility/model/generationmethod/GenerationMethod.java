@@ -17,10 +17,10 @@ public abstract class GenerationMethod {
         for (ItemStored i : itemStoreds) {
             int qnt = random.nextInt(1,5);
             if (random.nextInt(3) > 1) {
-                ItemStored itemStoredToAdd = room.getItems().get(i.getName());
+                ItemStored itemStoredToAdd = room.getItem(i.getName());
                 if(itemStoredToAdd == null){
                     itemStoredToAdd = new ItemStored(i.getName(),i.getDescription(),i.getVolume(),qnt);
-                    room.getItems().put(itemStoredToAdd.getName(), itemStoredToAdd);
+                    room.addItem(itemStoredToAdd);
                 }else{
                     itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity()+qnt);
                 }

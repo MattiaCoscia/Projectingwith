@@ -4,6 +4,7 @@ import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
@@ -89,11 +90,11 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
             countX = 0;
             for (int x : y) {
                 if (x == 1) {
-                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new HashMap<>(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.CORRIDOR_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                 } else if (x == 2) {
-                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new HashMap<>(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.ROOM_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                     addItemsToRoom(itemStoreds, roomTOAdd, randomBasedOnSeed);
