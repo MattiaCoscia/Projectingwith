@@ -19,7 +19,7 @@ public class Player extends Entity {
 		this.bag.addItem(itemStored);
 	}
 
-	public ItemStored removeItem(String item) {
+	public ItemStored getItem(String item) {
 		return bag.getItem(item);
 	}
 }

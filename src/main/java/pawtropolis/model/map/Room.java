@@ -76,7 +76,6 @@ public class Room {
                 if(itemStoredToGet.getQuantity() <= 1){
                     inventory.getItems().remove(itemStoredToGet.getName(), itemStoredToGet);
                 }
-                itemStoredToGet.decreaseQuantity();
                 return new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(), 1);
             }
         }

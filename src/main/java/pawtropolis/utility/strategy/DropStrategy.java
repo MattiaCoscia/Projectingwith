@@ -19,7 +19,7 @@ public class DropStrategy implements ActionStrategy{
     public ActionEnum execute(String object) {
         if (!ObjectUtils.isEmpty(object)) {
             Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
-            ItemStored itemStoredToDrop = player.removeItem(object);
+            ItemStored itemStoredToDrop = player.getItem(object);
             if(itemStoredToDrop != null){
                 ItemStored itemStoredInRoom = actualRoom.getItem(object);
                 if(itemStoredInRoom != null){
@@ -27,6 +27,7 @@ public class DropStrategy implements ActionStrategy{
                 }else{
                     actualRoom.addItem(itemStoredToDrop);
                 }
+                itemStoredToDrop.decreaseQuantity();
                 player.getBag().decreaseOccupiedSlots(itemStoredToDrop.getVolume());
             }
             return ActionEnum.DROP;
