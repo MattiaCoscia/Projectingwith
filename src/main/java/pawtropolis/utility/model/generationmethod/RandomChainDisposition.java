@@ -5,6 +5,7 @@ import java.util.function.BiPredicate;
 
 import lombok.extern.slf4j.Slf4j;
 import pawtropolis.model.entity.Player;
+import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
@@ -51,7 +52,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		startingY = randomBasedOnSeed.nextInt(0,this.map.getHeightMap());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
-		Room entryRoom = new Room(map.giveKeyForRoom(startingY,startingX), new HashMap<>(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
+		Room entryRoom = new Room(map.giveKeyForRoom(startingY,startingX), new Inventory(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
 		this.map.setSingleRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
@@ -95,7 +96,7 @@ public class RandomChainDisposition extends GenerationMethod {
 			for (int i = 0; i < maxAdiacentRooms; i++) {
 				int randomValuePosition = randomBasedOnSeed.nextInt(0,availablePositions.size());
 				int adiacentPosition = availablePositions.remove(randomValuePosition);
-				Room adiacentRoom = new Room("", new HashMap<>(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
+				Room adiacentRoom = new Room("", new Inventory(),new ArrayList<>(), 0, 0, RoomType.ROOM_TYPE,
 						actualRoom.getChainPosition() + 1);
 				switch (adiacentPosition) {
 					case 0 -> {
@@ -126,7 +127,6 @@ public class RandomChainDisposition extends GenerationMethod {
 				adiacentRoom.setName(map.giveKeyForRoom(adiacentRoom.getPositionY(),adiacentRoom.getPositionX()));
 				this.map.setSingleRoom(adiacentRoom);
 				queueRoomsPositions.add(adiacentRoom);
-				int prova = 0;
 			}
 		}
 	}

@@ -59,9 +59,6 @@ public class GoStrategy implements ActionStrategy {
         Room toGo = map.getRooms().get(map.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
         Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         Room possibileDirectionRoom =actualRoom.getAdiacentRooms().get(directionEnum);
-        if(possibileDirectionRoom != null && possibileDirectionRoom == toGo){
-            return true;
-        }
-        return false;
+        return possibileDirectionRoom != null && possibileDirectionRoom == toGo;
     }
 }

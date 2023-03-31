@@ -196,8 +196,8 @@ public class RenderMapService {
 
         data.add("Items in this room:");
         StringBuilder items = new StringBuilder();
-        for (String s : actualRoom.getItems().keySet()) {
-            items.append(s).append(" x").append(actualRoom.getItems().get(s).getQuantity()).append("|");
+        for (String s : actualRoom.getInventory().getItems().keySet()) {
+            items.append(s).append(" x").append(actualRoom.getItem(s).getQuantity()).append("|");
         }
         data.add(items.toString());
 
