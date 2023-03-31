@@ -20,14 +20,10 @@ public class GetStrategy implements ActionStrategy{
     public ActionEnum execute(String object) {
         if (!ObjectUtils.isEmpty(object)) {
             Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
-            ItemStored itemStoredToGet = actualRoom.getItems().get(object);
+            ItemStored itemStoredToGet = actualRoom.getItem(object);
             if(itemStoredToGet != null){
-                if(itemStoredToGet.getQuantity() <= 1){
-                    actualRoom.getItems().remove(itemStoredToGet.getName(), itemStoredToGet);
-                }
                 player.addItem(new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(),1));
                 player.getBag().increaseOccupiedSlots(itemStoredToGet.getVolume());
-                itemStoredToGet.decreaseQuantity();
                 return ActionEnum.GET;
             }
         }

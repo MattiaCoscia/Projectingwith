@@ -1,5 +1,6 @@
 package pawtropolis.model.items;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 public class Bag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @OneToOne
+    @Column(name="inventory_id")
     private Inventory inventory;
     private int volume = 20;
     private int occupiedSlots=0;
@@ -31,9 +38,9 @@ public class Bag {
                 if(itemStoredToGet.getQuantity() <= 1){
                     inventory.getItems().remove(itemStoredToGet.getName(), itemStoredToGet);
                 }
+                itemStoredToGet.decreaseQuantity();
+                return new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(), 1);
             }
-            itemStoredToGet.decreaseQuantity();
-            return new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(), 1);
         }
         return null;
     }

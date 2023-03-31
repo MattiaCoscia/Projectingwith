@@ -7,6 +7,7 @@ import pawtropolis.model.items.ItemStored;
 
 @Data
 @Component
+@jakarta.persistence.Entity
 public class Player extends Entity {
 	private Bag bag;
 

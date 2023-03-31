@@ -8,6 +8,7 @@ import pawtropolis.model.entity.Entity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@jakarta.persistence.Entity
 public abstract class Animal extends Entity {
 	private String animalName;
 	private String preferedFood;

@@ -21,11 +21,11 @@ public class DropStrategy implements ActionStrategy{
             Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
             ItemStored itemStoredToDrop = player.removeItem(object);
             if(itemStoredToDrop != null){
-                ItemStored itemStoredInRoom = actualRoom.getItems().get(object);
+                ItemStored itemStoredInRoom = actualRoom.getItem(object);
                 if(itemStoredInRoom != null){
                     itemStoredInRoom.increaseQuantity();
                 }else{
-                    actualRoom.getItems().put(itemStoredToDrop.getName(), itemStoredToDrop);
+                    actualRoom.addItem(itemStoredToDrop);
                 }
                 player.getBag().decreaseOccupiedSlots(itemStoredToDrop.getVolume());
             }
