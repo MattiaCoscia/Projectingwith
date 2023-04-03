@@ -50,11 +50,12 @@ CREATE TABLE IF NOT EXISTS direction
     name VARCHAR(24) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS room_connection
+CREATE TABLE IF NOT EXISTS bag
 (
-    from_room_id   INT PRIMARY KEY         NOT NULL references room (id),
-    direction_name varchar(24) PRIMARY KEY NOT NULL references direction (name),
-    to_room_id     INT PRIMARY KEY         NOT NULL references room (id)
+    Id              INT PRIMARY KEY NOT NULL,
+    volume          INT             NOT NULL,
+    occupied_volume INT             NOT NULL,
+    inventory_id INT NOT NULL references inventory (id)
 );
 
 CREATE TABLE IF NOT EXISTS player
@@ -67,10 +68,11 @@ CREATE TABLE IF NOT EXISTS player
     bag_id     INT             NOT NULL references bag (id)
 );
 
-CREATE TABLE IF NOT EXISTS bag
+CREATE TABLE IF NOT EXISTS room_connection
 (
-    Id              INT PRIMARY KEY NOT NULL,
-    volume          INT             NOT NULL,
-    occupied_volume INT             NOT NULL,
-    inventory_id    INT references inventory (id)
+    from_room_id   INT         NOT NULL,
+    direction_name varchar(24) NOT NULL references direction (name),
+    to_room_id     INT         NOT NULL,
+    PRIMARY KEY (from_room_id, to_room_id),
+    FOREIGN KEY (from_room_id, to_room_id) REFERENCES room (id)
 );

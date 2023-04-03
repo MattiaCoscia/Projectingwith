@@ -17,7 +17,6 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToMany(mappedBy = "inventory")
-    @MapKeyEnumerated(EnumType.STRING)
     private Map<String, ItemStored> items;
     public Inventory(){
         items=new HashMap<>();
