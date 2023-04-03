@@ -16,9 +16,7 @@ public class Player extends Entity {
 		this.bag = new Bag(new Inventory());
 	}
 
-	public void addItem(ItemStored itemStored) {
-		this.bag.addItem(itemStored);
-	}
+	public void addItem(ItemStored itemStored) {this.bag.addItem(itemStored);}
 
 	public ItemStored getItem(String item) {
 		return bag.getItem(item);

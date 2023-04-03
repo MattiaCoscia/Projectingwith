@@ -13,6 +13,7 @@ import pawtropolis.utility.RoomType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -196,9 +197,8 @@ public class RenderMapService {
 
         data.add("Items in this room:");
         StringBuilder items = new StringBuilder();
-        for (String s : actualRoom.getInventory().getItems().keySet()) {
-            items.append(s).append(" x").append(actualRoom.getItem(s).getQuantity()).append("|");
-        }
+        List<String> nameItems = new ArrayList<>(actualRoom.getInventory().getItems().keySet());
+        nameItems.forEach(s -> items.append(s).append(" x").append(actualRoom.getItem(s).getQuantity()).append("|"));
         data.add(items.toString());
 
         data.add("Npcs in this room:");

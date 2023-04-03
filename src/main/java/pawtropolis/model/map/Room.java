@@ -12,7 +12,6 @@ import pawtropolis.utility.RoomType;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
@@ -62,23 +61,9 @@ public class Room {
     }
 
     public void addItem(ItemStored itemStored){
-        ItemStored itemStoredToAdd = this.inventory.getItems().get(itemStored.getName());
-        if (itemStoredToAdd != null) {
-            itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity() + itemStored.getQuantity());
-        } else {
-            this.inventory.getItems().put(itemStored.getName(), itemStored);
-        }
+        inventory.addItemFromInventory(itemStored);
     }
     public ItemStored getItem(String item){
-        if(item != null){
-            ItemStored itemStoredToGet = inventory.getItems().get(item);
-            if(itemStoredToGet != null){
-                if(itemStoredToGet.getQuantity() <= 1){
-                    inventory.getItems().remove(itemStoredToGet.getName(), itemStoredToGet);
-                }
-                return new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(), 1);
-            }
-        }
-        return null;
+        return inventory.getItemFromInventory(item);
     }
 }
