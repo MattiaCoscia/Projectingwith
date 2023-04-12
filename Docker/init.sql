@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS item_blueprint
 
 CREATE TABLE IF NOT EXISTS type_room
 (
-    id VARCHAR(24) PRIMARY KEY NOT NULL
+    id   INT PRIMARY KEY NOT NULL,
+    name VARCHAR(24)     NOT NULL
 );
 
 
@@ -45,7 +46,8 @@ CREATE TABLE IF NOT EXISTS room
 
 CREATE TABLE IF NOT EXISTS direction
 (
-    id VARCHAR(24) PRIMARY KEY    NOT NULL
+    id   INT PRIMARY KEY NOT NULL,
+    name VARCHAR(24)     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS bag
@@ -68,8 +70,8 @@ CREATE TABLE IF NOT EXISTS player
 
 CREATE TABLE IF NOT EXISTS room_connection
 (
-    from_room_id INT         NOT NULL,
-    direction_id varchar(24) NOT NULL references direction (id),
-    to_room_id   INT         NOT NULL,
+    from_room_id INT NOT NULL,
+    direction_id INT NOT NULL references direction (id),
+    to_room_id   INT NOT NULL,
     PRIMARY KEY (from_room_id, to_room_id)
 );
