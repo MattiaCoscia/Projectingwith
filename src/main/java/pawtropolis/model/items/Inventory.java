@@ -23,11 +23,11 @@ public class Inventory {
     }
     public void addItemFromInventory(ItemStored itemStored){
         if(itemStored != null){
-            ItemStored itemStoredToAdd = items.get(itemStored.getName());
+            ItemStored itemStoredToAdd = items.get(itemStored.getItemBlueprint().getName());
             if (itemStoredToAdd != null) {
                 itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity() + 1);
             } else {
-                this.getItems().put(itemStored.getName(), itemStored);
+                this.getItems().put(itemStored.getItemBlueprint().getName(), itemStored);
             }
         }
     }
