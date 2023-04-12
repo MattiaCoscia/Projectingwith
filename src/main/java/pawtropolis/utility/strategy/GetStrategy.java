@@ -22,11 +22,11 @@ public class GetStrategy implements ActionStrategy{
             Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
             ItemStored itemStoredToGet = actualRoom.getItem(object);
             if(itemStoredToGet != null){
-                player.addItem(new ItemStored(itemStoredToGet.getName(), itemStoredToGet.getDescription(), itemStoredToGet.getVolume(),1));
-                player.getBag().increaseOccupiedSlots(itemStoredToGet.getVolume());
+                player.addItem(new ItemStored(itemStoredToGet.getItemBlueprint(),1));
+                player.getBag().increaseOccupiedSlots(itemStoredToGet.getItemBlueprint().getVolume());
                 itemStoredToGet.decreaseQuantity();
                 if(itemStoredToGet.getQuantity()==0){
-                    actualRoom.getInventory().getItems().remove(itemStoredToGet.getName(),itemStoredToGet);
+                    actualRoom.getInventory().getItems().remove(itemStoredToGet.getItemBlueprint().getName(),itemStoredToGet);
                 }
                 return ActionEnum.GET;
             }
