@@ -17,9 +17,9 @@ public abstract class GenerationMethod {
         for (ItemStored i : itemStoreds) {
             int qnt = random.nextInt(1,5);
             if (random.nextInt(3) > 1) {
-                ItemStored itemStoredToAdd = room.getItem(i.getName());
+                ItemStored itemStoredToAdd = room.getItem(i.getItemBlueprint().getName());
                 if(itemStoredToAdd == null){
-                    itemStoredToAdd = new ItemStored(i.getName(),i.getDescription(),i.getVolume(),qnt);
+                    itemStoredToAdd = new ItemStored(i.getItemBlueprint(),qnt);
                     room.addItem(itemStoredToAdd);
                 }else{
                     itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity()+qnt);
