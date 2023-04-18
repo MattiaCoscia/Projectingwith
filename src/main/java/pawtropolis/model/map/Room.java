@@ -1,7 +1,6 @@
 package pawtropolis.model.map;
 
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,7 +43,7 @@ public class Room {
         return npcs;
     }
     public void addItem(ItemStored itemStored){
-        inventory.addItemFromInventory(itemStored);
+        inventory.addItemTOInventory(itemStored);
     }
     public ItemStored getItem(String item){
         return inventory.getItemFromInventory(item);

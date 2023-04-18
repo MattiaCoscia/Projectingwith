@@ -1,6 +1,5 @@
 package pawtropolis.model.items;
 
-import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -17,7 +16,7 @@ public class Bag {
         this.inventory = inventory;
     }
     public void addItem(ItemStored itemStored){
-        inventory.addItemFromInventory(itemStored);
+        inventory.addItemTOInventory(itemStored);
     }
     public ItemStored getItem(String item){
         return inventory.getItemFromInventory(item);

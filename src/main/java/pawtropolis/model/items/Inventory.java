@@ -1,8 +1,6 @@
 package pawtropolis.model.items;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +16,7 @@ public class Inventory {
     public Inventory(){
         items=new HashMap<>();
     }
-    public void addItemFromInventory(ItemStored itemStored){
+    public void addItemTOInventory(ItemStored itemStored){
         if(itemStored != null){
             ItemStored itemStoredToAdd = items.get(itemStored.getItemBlueprint().getName());
             if (itemStoredToAdd != null) {
