@@ -16,32 +16,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@jakarta.persistence.Entity
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private RoomType type;
-    @OneToOne
-    @JoinColumn(name = "id")
-    @MapKeyEnumerated(EnumType.STRING)
     private Inventory inventory;
-    @OneToMany
     private List<Entity> npcs;
-    @ManyToMany(mappedBy = "adiacentRooms")
-    @JoinTable(name="room_connection",
-            joinColumns=
-            @JoinColumn(name="from_room_id", referencedColumnName="ID"),
-            inverseJoinColumns=
-            @JoinColumn(name="to_room_id", referencedColumnName="ID")
-    )
-    @MapKeyEnumerated(EnumType.STRING)
     private EnumMap<DirectionEnum,Room> adiacentRooms;
     private int chainPosition;
     private int positionX;
     private int positionY;
-
     public Room(String name, Inventory inventory, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
         this.name = name;
         this.inventory = inventory;
@@ -59,7 +43,6 @@ public class Room {
     public List<Entity> getEntities() {
         return npcs;
     }
-
     public void addItem(ItemStored itemStored){
         inventory.addItemFromInventory(itemStored);
     }

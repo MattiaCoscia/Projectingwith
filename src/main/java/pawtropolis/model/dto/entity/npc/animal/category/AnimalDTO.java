@@ -1,15 +1,17 @@
-package pawtropolis.model.entity.npc.animal.category;
+package pawtropolis.model.dto.entity.npc.animal.category;
+
+import jakarta.persistence.Entity;
+import lombok.*;
+import pawtropolis.model.dto.entity.EntityDTO;
 
 import java.time.LocalDate;
-
-import lombok.*;
-import pawtropolis.model.entity.Entity;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Animal extends Entity {
+@Entity
+public abstract class AnimalDTO extends EntityDTO {
 	private String animalName;
 	private String preferedFood;
 	private int age;

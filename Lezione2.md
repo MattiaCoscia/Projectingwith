@@ -22,7 +22,7 @@ Il codice che andrà sviluppato deve avere le funzionalità richieste ma non dev
 Vi invito pertanto a "fare vostri" i concetti illustrati nel codice fornito ma di non sostituirlo al vostro, fate piuttosto crescere ed evolvere quello che avete già realizzato ;)
 
 Requisiti
-È richiesto di introdurre il concetto di giocatore, di itemStored e di borsa per itemStored.
+È richiesto di introdurre il concetto di giocatore, di itemStoredDTO e di borsa per itemStoredDTO.
 Inoltre, per potersi spostare nella mappa di Pawtropolis è necessario modellare il concetto di stanza.
 Una stanza ha delle stanze adiacenti collegate tramite le sue porte e dentro ogni stanza possono essere presenti NPC (animali) e oggetti.
 
@@ -35,7 +35,7 @@ Player
 nome
 punti-vita
 Bag
-elenco di itemStored
+elenco di itemStoredDTO
 slot totali a disposizione (valore immutabile, rappresenta la dimensione della borsa)
 Item
 nome
@@ -43,7 +43,7 @@ descrizione
 slot richiesti
 Room
 nome
-elenco itemStored presenti
+elenco itemStoredDTO presenti
 elenco animali presenti
 elenco stanze adiacenti [vedi codice esempio] (massimo 4, identificate con "nord", "sud", "est", "ovest")
 PS: il termine "elenco" è volutamente vago e improprio, scegliere l'implementazione che si ritiene più adatta.
@@ -58,8 +58,8 @@ Il giocatore deve potersi muovere nella mappa tramite comandi testuali del tipo:
 go <direzione>
 look
 bag
-get <itemStored>
-drop <itemStored>
+get <itemStoredDTO>
+drop <itemStoredDTO>
 Comandi
 go
 Cambia la stanza corrente del giocatore in quella da lui scelta tramite la direzione indicata.
@@ -81,14 +81,14 @@ bag
 Elenca il contenuto della borsa del giocatore.
 Es.:
 bag
-Output: elenco degli itemStored contenuti nella borsa
+Output: elenco degli itemStoredDTO contenuti nella borsa
 Es.:
 
 >bag
 
 In bag: ball, collar
 get
-Aggiunge alla borsa del giocatore l'itemStored specificato come parametro (nome dell'itemStored) e lo rimuove dalla stanza.
+Aggiunge alla borsa del giocatore l'itemStoredDTO specificato come parametro (nome dell'itemStoredDTO) e lo rimuove dalla stanza.
 Se non è presente nella stanza, comunicarlo al giocatore e non fare nulla.
 Se nella borsa non restano slot sufficienti, comunicarlo al giocatore e non fare nulla.
 Es.:
@@ -96,7 +96,7 @@ get ball
 Output: niente
 
 drop
-Aggiunge alla stanza corrente l'itemStored specificato come parametro (nome dell'itemStored) e lo rimuove dalla borsa del giocatore.
+Aggiunge alla stanza corrente l'itemStoredDTO specificato come parametro (nome dell'itemStoredDTO) e lo rimuove dalla borsa del giocatore.
 Se non è presente nella borsa, comunicarlo al giocatore e non fare nulla.
 Es.:
 drop collar

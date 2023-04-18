@@ -1,6 +1,7 @@
 package pawtropolis.model.items;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,15 +9,11 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+@AllArgsConstructor
 @Getter
 @Setter
-@Entity
 public class Inventory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany(mappedBy = "inventory")
     private Map<String, ItemStored> items;
     public Inventory(){
         items=new HashMap<>();

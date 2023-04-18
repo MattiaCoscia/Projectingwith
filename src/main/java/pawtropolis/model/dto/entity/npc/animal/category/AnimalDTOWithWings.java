@@ -1,4 +1,4 @@
-package pawtropolis.model.entity.npc.animal.category;
+package pawtropolis.model.dto.entity.npc.animal.category;
 
 import jakarta.persistence.Entity;
 import lombok.*;
@@ -7,6 +7,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class AnimalWithWings extends Animal {
+@Entity
+public abstract class AnimalDTOWithWings extends AnimalDTO {
     private double wingsSpan;
+
 }

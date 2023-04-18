@@ -10,11 +10,11 @@
 
 - Procedural generation of a map based on a seed (Generation available are Tree-like and Cavern-like)
     - **Tree-like**:
-        - The map is generated starting from a room and amplying its size through branches formed by rooms and corridors;
+        - The map is generated starting from a roomDTO and amplying its size through branches formed by rooms and corridors;
     - **Cavern-like**
         - The map is generated with a stracture having ampious corridors and rooms giving the resemblance of a cavern;
 
-- Render of the map with information about the room in which the player resides and available directions.
+- Render of the map with information about the roomDTO in which the player resides and available directions.
 
 ------------
 
@@ -28,9 +28,9 @@
         1. South
         1. East
         1. West
-    - **Get**: The player can choose to get itemStoreds present in the room in which he is present;
-    - **Drop**:The player can choose to drop itemStoreds in the room in which he is present;
-    - **Look**:The player will receive information about the room in which he is present;
+    - **Get**: The player can choose to get itemStoreds present in the roomDTO in which he is present;
+    - **Drop**:The player can choose to drop itemStoreds in the roomDTO in which he is present;
+    - **Look**:The player will receive information about the roomDTO in which he is present;
     - **Bag**:The player will receive information on what its bag has inside.
 
 ------------

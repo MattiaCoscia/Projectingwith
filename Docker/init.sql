@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS type_room
 );
 
 
-CREATE TABLE IF NOT EXISTS inventory
+CREATE TABLE IF NOT EXISTS inventoryDTO
 (
     id INT PRIMARY KEY NOT NULL
 );
@@ -28,12 +28,12 @@ CREATE TABLE IF NOT EXISTS inventory
 CREATE TABLE IF NOT EXISTS item_stored
 (
     id           INT PRIMARY KEY NOT NULL,
-    inventory_id INT             NOT NULL references inventory (id),
+    inventory_id INT             NOT NULL references inventoryDTO (id),
     blueprint_id INT             NOT NULL references item_blueprint (id),
     quantity     INT             NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS room
+CREATE TABLE IF NOT EXISTS roomDTO
 (
     id           INT PRIMARY KEY    NOT NULL,
     name         VARCHAR(24) UNIQUE NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS room
     position_y   INT                NOT NULL,
     type_id      VARCHAR(24)        NOT NULL references type_room (id),
     map_id       INT                NOT NULL references game_map (id),
-    inventory_id INT references inventory (id)
+    inventory_id INT references inventoryDTO (id)
 );
 
 CREATE TABLE IF NOT EXISTS direction
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS bag
     Id              INT PRIMARY KEY NOT NULL,
     volume          INT             NOT NULL,
     occupied_volume INT             NOT NULL,
-    inventory_id INT NOT NULL references inventory (id)
+    inventory_id INT NOT NULL references inventoryDTO (id)
 );
 
 CREATE TABLE IF NOT EXISTS player

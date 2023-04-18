@@ -12,17 +12,11 @@ import java.util.Map;
 @Getter
 @Setter
 @Component
-@Entity
 public class GameMap {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int widthMap;
     private int heightMap;
-    @OneToMany
-    @MapKeyEnumerated(EnumType.STRING)
     private Map<String,Room> rooms;
-    @Autowired
     public GameMap() {
         this.rooms = new HashMap<>();
         widthMap = 10;

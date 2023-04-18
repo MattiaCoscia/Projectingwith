@@ -1,14 +1,16 @@
 package pawtropolis.model.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.items.Bag;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 
-@Data
+@Getter
+@Setter
 @Component
-@jakarta.persistence.Entity
 public class Player extends Entity {
 	private Bag bag;
 
