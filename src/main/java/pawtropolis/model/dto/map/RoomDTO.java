@@ -11,12 +11,12 @@ import pawtropolis.model.dto.items.ItemStoredDTO;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.utility.RoomType;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 public class RoomDTO {
     @Id
@@ -43,14 +43,8 @@ public class RoomDTO {
     private int positionX;
     private int positionY;
 
-    public RoomDTO(String name, InventoryDTO inventoryDTO, List<EntityDTO> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
-        this.name = name;
-        this.inventoryDTO = inventoryDTO;
-        this.npcs = npcs;
-        this.positionX=positionX;
-        this.positionY=positionY;
-        this.type=roomType;
-        this.chainPosition=chainPosition;
+    public RoomDTO() {
         this.adiacentRooms = new EnumMap(DirectionEnum.class);
+        this.npcs = new ArrayList<>();
     }
 }
