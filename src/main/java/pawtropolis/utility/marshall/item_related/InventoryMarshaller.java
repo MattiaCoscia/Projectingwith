@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall.itemRelated;
+package pawtropolis.utility.marshall.item_related;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

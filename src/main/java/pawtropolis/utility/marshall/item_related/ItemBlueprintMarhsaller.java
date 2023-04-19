@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall.itemRelated;
+package pawtropolis.utility.marshall.item_related;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
