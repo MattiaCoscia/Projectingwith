@@ -10,6 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
+@Table(name = "inventory")
 public class InventoryDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

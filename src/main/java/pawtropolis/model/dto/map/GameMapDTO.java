@@ -12,6 +12,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Entity
+@Table(name = "game_map")
 public class GameMapDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

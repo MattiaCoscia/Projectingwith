@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "entity")
 public abstract class EntityDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

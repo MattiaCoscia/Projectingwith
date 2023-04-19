@@ -1,6 +1,7 @@
 package pawtropolis.model.dto.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import pawtropolis.model.dto.items.ItemStoredDTO;
 @Getter
 @Setter
 @Entity
+@Table(name = "player")
 public class PlayerDTO extends EntityDTO {
 	private BagDTO bagDTO;
 	public PlayerDTO() {

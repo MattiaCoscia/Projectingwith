@@ -2,9 +2,7 @@ package pawtropolis.utility.marshall;
 
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.species.EagleDTO;
-import pawtropolis.model.dto.entity.npc.animal.species.LionDTO;
 import pawtropolis.model.entity.npc.animal.species.Eagle;
-import pawtropolis.model.entity.npc.animal.species.Lion;
 
 public class EagleMarshaller extends AnimalWithWingsMarshaller{
     public Eagle marshallFromDTO(EagleDTO EagleDTO) {

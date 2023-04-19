@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "room")
 public class RoomDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

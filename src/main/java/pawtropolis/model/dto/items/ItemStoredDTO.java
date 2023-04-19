@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "item_stored")
 public class ItemStoredDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

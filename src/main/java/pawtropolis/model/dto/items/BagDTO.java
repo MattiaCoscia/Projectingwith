@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "bag")
 public class BagDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
