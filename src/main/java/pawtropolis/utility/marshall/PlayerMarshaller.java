@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.PlayerDTO;
 import pawtropolis.model.entity.Player;
+import pawtropolis.utility.marshall.itemRelated.BagMarshaller;
+
 @Component
 public class PlayerMarshaller {
     private BagMarshaller bagMarshaller;

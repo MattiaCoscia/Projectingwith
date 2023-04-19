@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall;
+package pawtropolis.utility.marshall.animal;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import pawtropolis.model.entity.npc.animal.category.Animal;
 
 @Slf4j
 public abstract class AnimalMarshaller {
-    public <A extends AnimalDTO, B extends Animal> B baseMarshallFromDTO(A animalDTO, Class<B> animalClass) {
+    protected <A extends AnimalDTO, B extends Animal> B baseMarshallFromDTO(A animalDTO, Class<B> animalClass) {
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
             B animal = null;
             try {
@@ -32,7 +32,7 @@ public abstract class AnimalMarshaller {
         return null;
     }
 
-    public <A extends Animal, B extends AnimalDTO> B baseMarshallToDTO(A animal, Class<B> animalClass){
+    protected <A extends Animal, B extends AnimalDTO> B baseMarshallToDTO(A animal, Class<B> animalClass){
         if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalClass)){
             B animalDTO = null;
             try {

@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall;
+package pawtropolis.utility.marshall.animal;
 
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.species.EagleDTO;
