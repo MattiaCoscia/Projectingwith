@@ -31,7 +31,7 @@ public class CentralEntityMarshaller {
         }
         return null;
     }
-    public <A extends AnimalDTO, B extends Animal> A marshaller(B animal){
+    public <A extends DTOClasses, B extends ConcrateClasses> A marshaller(B animal){
         if(!ObjectUtils.isEmpty(animal)){
             EntityBranchMarshaller marshaller = marshallersMap.get(animal.getClass());
             if(!ObjectUtils.isEmpty(marshaller) && animal.getClass().isAssignableFrom(marshaller.getBusinessClass())){
