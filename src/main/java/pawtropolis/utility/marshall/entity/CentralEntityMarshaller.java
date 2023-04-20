@@ -14,18 +14,18 @@ import java.util.Map;
 
 @Component
 public class CentralEntityMarshaller {
-    Map<BusinessAndDTOBranchClassKey,EntityBranchMarshaller> marshallers;
+    Map<BusinessAndDTOBranchClassKey,EntityBranchMarshaller> marshallersMap;
     @Autowired
     public CentralEntityMarshaller(ApplicationContext applicationContext){
-        marshallers = new HashMap<>();
+        marshallersMap = new HashMap<>();
         applicationContext.getBeansOfType(EntityBranchMarshaller.class).forEach((key, value)->{
-            marshallers.put(value.getDoubleKey(),value);
+            marshallersMap.put(value.getDoubleKey(),value);
         });
     }
     public <A extends DTOClasses, B extends ConcrateClasses> B marshaller(A animalDTO){
         if(!ObjectUtils.isEmpty(animalDTO)){
-            EntityBranchMarshaller marshaller = marshallers.get(animalDTO.getClass());
-            if(!ObjectUtils.isEmpty(marshaller)){
+            EntityBranchMarshaller marshaller = marshallersMap.get(animalDTO.getClass());
+            if(!ObjectUtils.isEmpty(marshaller) && animalDTO.getClass().isAssignableFrom(marshaller.getDTOClass())){
                 return (B) marshaller.marshall(animalDTO);
             }
         }
@@ -33,8 +33,8 @@ public class CentralEntityMarshaller {
     }
     public <A extends AnimalDTO, B extends Animal> A marshaller(B animal){
         if(!ObjectUtils.isEmpty(animal)){
-            EntityBranchMarshaller marshaller = marshallers.get(animal.getClass());
-            if(!ObjectUtils.isEmpty(marshaller)){
+            EntityBranchMarshaller marshaller = marshallersMap.get(animal.getClass());
+            if(!ObjectUtils.isEmpty(marshaller) && animal.getClass().isAssignableFrom(marshaller.getBusinessClass())){
                 return (A) marshaller.marshall(animal);
             }
         }

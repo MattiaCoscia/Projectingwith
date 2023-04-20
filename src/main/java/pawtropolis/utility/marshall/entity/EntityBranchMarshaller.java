@@ -9,7 +9,12 @@ public abstract class EntityBranchMarshaller<C extends EntityBranchMarshaller<C,
     public EntityBranchMarshaller(Class<B> branchBusinessClass, Class<A> branchDTOClass) {
         this.doubleKey = new BusinessAndDTOBranchClassKey(branchBusinessClass,branchDTOClass);
     }
-
+    public Class<A> getDTOClass(){
+        return doubleKey.getDtoClass();
+    }
+    public Class<B> getBusinessClass(){
+        return doubleKey.getBusinessClass();
+    }
     public abstract <D extends A, E extends B > E marshall(D animalDTO);
 
     public abstract <D extends A, E extends B > D marshall(E animal);

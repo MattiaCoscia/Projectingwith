@@ -1,5 +1,6 @@
 package pawtropolis.utility.marshall.entity;
 
+import lombok.Getter;
 import pawtropolis.model.ConcrateClasses;
 import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
@@ -7,7 +8,7 @@ import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.utility.marshall.entity.animal.BusinessAndDTOAnimalClassKey;
 
 import java.util.Objects;
-
+@Getter
 public class BusinessAndDTOBranchClassKey<A extends DTOClasses, B extends ConcrateClasses> {
     private Class<A> dtoClass;
     private Class<B> businessClass;
