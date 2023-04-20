@@ -7,17 +7,18 @@ import pawtropolis.model.dto.entity.npc.animal.species.EagleDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.model.entity.npc.animal.species.Eagle;
 @Component
-public class EagleMarshaller extends BaseAnimalWithWingsMarshaller {
-    private Class<? extends Animal> businessClass = Eagle.class;
-    private Class<? extends AnimalDTO> dtoClass = EagleDTO.class;
-    public Eagle marshallFromDTO(EagleDTO EagleDTO) {
+public class EagleMarshaller extends BaseAnimalWithWingsMarshaller<EagleDTO,Eagle> {
+    private final Class<? extends Animal> businessClass = Eagle.class;
+    private final Class<? extends AnimalDTO> dtoClass = EagleDTO.class;
+    @Override
+    public Eagle marshall(EagleDTO EagleDTO) {
         if (!ObjectUtils.isEmpty(EagleDTO)) {
             return super.marshallFromDTO(EagleDTO, Eagle.class);
         }
         return null;
     }
-
-    public EagleDTO marshallToDTO(Eagle eagle) {
+    @Override
+    public EagleDTO marshall(Eagle eagle) {
         if (!ObjectUtils.isEmpty(eagle)) {
             return super.marshallToDTO(eagle, EagleDTO.class);
         }

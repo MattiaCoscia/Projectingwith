@@ -4,17 +4,15 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
-import pawtropolis.model.dto.entity.npc.animal.species.EagleDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
-import pawtropolis.model.entity.npc.animal.species.Eagle;
 
 @Slf4j
 @Getter
-public abstract class BaseAnimalMarshaller{
+public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal>{
 
     private Class<? extends Animal> businessClass;
     private Class<? extends AnimalDTO> dtoClass;
-    protected <A extends AnimalDTO, B extends Animal> B marshallFromDTO(A animalDTO, Class<B> animalClass) {
+    protected B marshallFromDTO(A animalDTO, Class<B> animalClass) {
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
             B animal = null;
             try {
@@ -38,9 +36,9 @@ public abstract class BaseAnimalMarshaller{
         return null;
     }
 
-    protected <A extends Animal, B extends AnimalDTO> B marshallToDTO(A animal, Class<B> animalClass){
+    protected A marshallToDTO(B animal, Class<A> animalClass){
         if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalClass)){
-            B animalDTO = null;
+            A animalDTO = null;
             try {
                 animalDTO = animalClass.getConstructor().newInstance();
                 animalDTO.setAge(animal.getAge());
@@ -61,4 +59,8 @@ public abstract class BaseAnimalMarshaller{
         }
         return null;
     }
+
+    public abstract B marshall(A animalDTO);
+
+    public abstract A marshall(B animal);
 }

@@ -4,8 +4,8 @@ import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithWings;
 import pawtropolis.model.entity.npc.animal.category.AnimalWithWings;
 
-public abstract class BaseAnimalWithWingsMarshaller extends BaseAnimalMarshaller {
-    protected <A extends AnimalDTOWithWings,B extends AnimalWithWings> B marshallFromDTO(A animalDTO,Class<B> animallClass){
+public abstract class BaseAnimalWithWingsMarshaller<A extends AnimalDTOWithWings, B extends AnimalWithWings> extends BaseAnimalMarshaller<A,B> {
+    protected B marshallFromDTO(A animalDTO, Class<B> animallClass){
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animallClass)){
             B animal = super.marshallFromDTO(animalDTO,animallClass);
             animal.setWingsSpan(animal.getWingsSpan());
@@ -14,9 +14,9 @@ public abstract class BaseAnimalWithWingsMarshaller extends BaseAnimalMarshaller
         return null;
     }
 
-    protected <A extends AnimalWithWings,B extends AnimalDTOWithWings> B marshallToDTO(A animal,Class<B> animallClass){
+    protected A marshallToDTO(B animal, Class<A> animallClass){
         if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animallClass)){
-            B animalDTO = super.marshallToDTO(animal,animallClass);
+            A animalDTO = super.marshallToDTO(animal,animallClass);
             animalDTO.setWingsSpan(animal.getWingsSpan());
             return animalDTO;
         }

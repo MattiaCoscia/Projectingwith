@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 public class AnimalMarshaller {
-    Map<BusinessAndDTOClassKey,BaseAnimalMarshaller> marshallers;
+    Map<BusinessAndDTOClassKey,BaseAnimalMarshaller<? extends AnimalDTO, ? extends Animal>> marshallers;
 
     @Autowired
     public AnimalMarshaller(ApplicationContext applicationContext){
@@ -27,6 +27,17 @@ public class AnimalMarshaller {
         if(!ObjectUtils.isEmpty(animalDTO)){
             BaseAnimalMarshaller marshaller = marshallers.get(animalDTO.getClass());
             if(!ObjectUtils.isEmpty(marshaller)){
+                return (B) marshaller.marshall(animalDTO);
+            }
+        }
+        return null;
+    }
+
+    public <A extends AnimalDTO, B extends Animal> A marshaller(B animal){
+        if(!ObjectUtils.isEmpty(animal)){
+            BaseAnimalMarshaller marshaller = marshallers.get(animal.getClass());
+            if(!ObjectUtils.isEmpty(marshaller)){
+                return (A) marshaller.marshall(animal);
             }
         }
         return null;
