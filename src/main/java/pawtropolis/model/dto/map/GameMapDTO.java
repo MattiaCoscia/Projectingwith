@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pawtropolis.model.dto.DTOClasses;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 @Setter
 @Entity
 @Table(name = "game_map")
-public class GameMapDTO {
+public class GameMapDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

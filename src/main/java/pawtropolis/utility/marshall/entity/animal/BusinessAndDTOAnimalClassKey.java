@@ -1,16 +1,16 @@
-package pawtropolis.utility.marshall.animal;
+package pawtropolis.utility.marshall.entity.animal;
 
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
 
 import java.util.Objects;
 
-public class BusinessAndDTOClassKey {
+public class BusinessAndDTOAnimalClassKey {
     private Class<? extends Animal> businessClass;
     private Class<? extends AnimalDTO> dtoClass;
     private int hashCode;
 
-    public BusinessAndDTOClassKey(Class<? extends Animal> businessClass, Class<? extends AnimalDTO> dtoClass){
+    public BusinessAndDTOAnimalClassKey(Class<? extends Animal> businessClass, Class<? extends AnimalDTO> dtoClass){
         this.businessClass = businessClass;
         this.dtoClass = dtoClass;
         this.hashCode = Objects.hash(businessClass,dtoClass);
@@ -21,7 +21,7 @@ public class BusinessAndDTOClassKey {
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
-        BusinessAndDTOClassKey that = (BusinessAndDTOClassKey) obj;
+        BusinessAndDTOAnimalClassKey that = (BusinessAndDTOAnimalClassKey) obj;
         return that.businessClass.equals(this.businessClass) || that.dtoClass.equals(this.dtoClass);
     }
 

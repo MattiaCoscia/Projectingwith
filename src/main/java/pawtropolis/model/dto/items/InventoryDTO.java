@@ -3,6 +3,7 @@ package pawtropolis.model.dto.items;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClasses;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 @Setter
 @Entity
 @Table(name = "inventory")
-public class InventoryDTO {
+public class InventoryDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

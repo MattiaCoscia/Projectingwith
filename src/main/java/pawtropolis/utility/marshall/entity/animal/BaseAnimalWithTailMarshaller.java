@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall.animal;
+package pawtropolis.utility.marshall.entity.animal;
 
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithTail;

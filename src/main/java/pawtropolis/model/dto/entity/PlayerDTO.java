@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.items.BagDTO;
 import pawtropolis.model.dto.items.InventoryDTO;
 import pawtropolis.model.dto.items.ItemStoredDTO;
@@ -14,7 +15,7 @@ import pawtropolis.model.dto.items.ItemStoredDTO;
 @Setter
 @Entity
 @Table(name = "player")
-public class PlayerDTO extends EntityDTO {
+public class PlayerDTO extends EntityDTO implements DTOClasses {
 	private BagDTO bagDTO;
 	public PlayerDTO() {
 		this.bagDTO = new BagDTO(new InventoryDTO());

@@ -2,6 +2,7 @@ package pawtropolis.model.dto.entity.npc.animal.category;
 
 import jakarta.persistence.Entity;
 import lombok.*;
+import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.entity.EntityDTO;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public abstract class AnimalDTO extends EntityDTO {
+public abstract class AnimalDTO extends EntityDTO implements DTOClasses {
 	private String animalName;
 	private String preferedFood;
 	private int age;

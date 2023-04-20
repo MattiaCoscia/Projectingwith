@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.items.InventoryDTO;
 import pawtropolis.model.dto.items.ItemStoredDTO;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "room")
-public class RoomDTO {
+public class RoomDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

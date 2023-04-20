@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithWings;
 
 
@@ -12,7 +13,7 @@ import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithWings;
 @Setter
 @AllArgsConstructor
 @Entity
-public class EagleDTO extends AnimalDTOWithWings {
+public class EagleDTO extends AnimalDTOWithWings implements DTOClasses {
 
 
 }

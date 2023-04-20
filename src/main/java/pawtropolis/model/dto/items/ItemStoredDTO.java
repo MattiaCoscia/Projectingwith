@@ -5,13 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClasses;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "item_stored")
-public class ItemStoredDTO {
+public class ItemStoredDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

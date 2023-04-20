@@ -1,4 +1,4 @@
-package pawtropolis.utility.marshall.animal;
+package pawtropolis.utility.marshall.entity.animal;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

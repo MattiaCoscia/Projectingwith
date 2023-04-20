@@ -9,7 +9,6 @@ import pawtropolis.model.dto.items.ItemStoredDTO;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 
-@Lazy
 @Component
 public class InventoryMarshaller {
     private ItemStoredMarshaller itemStoredMarshaller;

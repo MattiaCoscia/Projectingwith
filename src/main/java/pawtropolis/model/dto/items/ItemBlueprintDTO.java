@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClasses;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "item_blueprint")
-public class ItemBlueprintDTO {
+public class ItemBlueprintDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

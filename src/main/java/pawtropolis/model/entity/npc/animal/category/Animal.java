@@ -3,13 +3,14 @@ package pawtropolis.model.entity.npc.animal.category;
 import java.time.LocalDate;
 
 import lombok.*;
+import pawtropolis.model.ConcrateClasses;
 import pawtropolis.model.entity.Entity;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Animal extends Entity {
+public abstract class Animal extends Entity implements ConcrateClasses {
 	private String preferedFood;
 	private int age;
 	private LocalDate dateEntry;
