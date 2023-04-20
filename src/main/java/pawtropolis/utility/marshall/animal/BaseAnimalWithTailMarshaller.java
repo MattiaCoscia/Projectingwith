@@ -5,6 +5,10 @@ import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithTail;
 import pawtropolis.model.entity.npc.animal.category.AnimalWithTail;
 
 public abstract class BaseAnimalWithTailMarshaller<A extends AnimalDTOWithTail, B extends AnimalWithTail> extends BaseAnimalMarshaller<A,B> {
+    protected BaseAnimalWithTailMarshaller(Class<B> businessClass, Class<A> dtoClass) {
+        super(businessClass, dtoClass);
+    }
+
     protected B marshallFromDTO(A animalDTO, Class<B> animallClass){
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animallClass)){
             B animal = super.marshallFromDTO(animalDTO,animallClass);

@@ -1,5 +1,6 @@
 package pawtropolis.utility.marshall.animal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
@@ -8,8 +9,11 @@ import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.model.entity.npc.animal.species.Eagle;
 @Component
 public class EagleMarshaller extends BaseAnimalWithWingsMarshaller<EagleDTO,Eagle> {
-    private final Class<? extends Animal> businessClass = Eagle.class;
-    private final Class<? extends AnimalDTO> dtoClass = EagleDTO.class;
+    @Autowired
+    protected EagleMarshaller() {
+        super(Eagle.class, EagleDTO.class);
+    }
+
     @Override
     public Eagle marshall(EagleDTO EagleDTO) {
         if (!ObjectUtils.isEmpty(EagleDTO)) {

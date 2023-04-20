@@ -10,8 +10,13 @@ import pawtropolis.model.entity.npc.animal.category.Animal;
 @Getter
 public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal>{
 
-    private Class<? extends Animal> businessClass;
-    private Class<? extends AnimalDTO> dtoClass;
+    private Class<B> businessClass;
+    private Class<A> dtoClass;
+
+    protected BaseAnimalMarshaller(Class<B> businessClass,Class<A> dtoClass){
+        this.businessClass = businessClass;
+        this.dtoClass = dtoClass;
+    }
     protected B marshallFromDTO(A animalDTO, Class<B> animalClass) {
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
             B animal = null;
