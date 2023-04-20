@@ -13,7 +13,7 @@ import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithWings;
 @Setter
 @AllArgsConstructor
 @Entity
-public class EagleDTO extends AnimalDTOWithWings implements DTOClasses {
+public class EagleDTO extends AnimalDTOWithWings{
 
 
 }

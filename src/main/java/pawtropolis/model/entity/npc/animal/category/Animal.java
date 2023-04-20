@@ -10,7 +10,7 @@ import pawtropolis.model.entity.Entity;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Animal extends Entity implements ConcrateClasses {
+public abstract class Animal extends Entity{
 	private String preferedFood;
 	private int age;
 	private LocalDate dateEntry;

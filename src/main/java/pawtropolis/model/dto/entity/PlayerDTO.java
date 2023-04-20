@@ -15,7 +15,7 @@ import pawtropolis.model.dto.items.ItemStoredDTO;
 @Setter
 @Entity
 @Table(name = "player")
-public class PlayerDTO extends EntityDTO implements DTOClasses {
+public class PlayerDTO extends EntityDTO{
 	private BagDTO bagDTO;
 	public PlayerDTO() {
 		this.bagDTO = new BagDTO(new InventoryDTO());

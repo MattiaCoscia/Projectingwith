@@ -12,6 +12,6 @@ import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithTail;
 @Setter
 @AllArgsConstructor
 @Entity
-public class TigerDTO extends AnimalDTOWithTail implements DTOClasses {
+public class TigerDTO extends AnimalDTOWithTail{
 
 }

@@ -13,8 +13,9 @@ public class RoomMarshaller {
     private InventoryMarshaller inventoryMarshaller;
     private CentralEntityMarshaller centralEntityMarshaller;
     @Autowired
-    public RoomMarshaller(InventoryMarshaller inventoryMarshaller){
+    public RoomMarshaller(InventoryMarshaller inventoryMarshaller, CentralEntityMarshaller centralEntityMarshaller){
         this.inventoryMarshaller = inventoryMarshaller;
+        this.centralEntityMarshaller = centralEntityMarshaller;
     }
     public Room marshallFromDTO(RoomDTO roomDTO){
         if(!ObjectUtils.isEmpty(roomDTO)){
@@ -24,7 +25,7 @@ public class RoomMarshaller {
             room.setInventory(inventoryMarshaller.marhsallFromDTO(roomDTO.getInventoryDTO()));
             if(!ObjectUtils.isEmpty(roomDTO.getNpcs())){
                 roomDTO.getNpcs().forEach(npc ->{
-
+                    centralEntityMarshaller.marshaller(npc);
                 });
             }
         }

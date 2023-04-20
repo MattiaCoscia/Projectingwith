@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public abstract class AnimalDTO extends EntityDTO implements DTOClasses {
+public abstract class AnimalDTO extends EntityDTO{
 	private String animalName;
 	private String preferedFood;
 	private int age;

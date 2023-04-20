@@ -2,6 +2,7 @@ package pawtropolis.model.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import pawtropolis.model.dto.DTOClasses;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import lombok.*;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "entity")
-public abstract class EntityDTO {
+public abstract class EntityDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
