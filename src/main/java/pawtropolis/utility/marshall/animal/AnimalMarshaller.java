@@ -26,7 +26,7 @@ public class AnimalMarshaller {
     public <A extends AnimalDTO, B extends Animal> B marshaller(A animalDTO){
         if(!ObjectUtils.isEmpty(animalDTO)){
             BaseAnimalMarshaller marshaller = marshallers.get(animalDTO.getClass());
-            if(!ObjectUtils.isEmpty(marshaller)){
+            if(!ObjectUtils.isEmpty(marshaller) && marshaller.getDtoClass().equals(animalDTO.getClass())){
                 return (B) marshaller.marshall(animalDTO);
             }
         }
@@ -36,7 +36,7 @@ public class AnimalMarshaller {
     public <A extends AnimalDTO, B extends Animal> A marshaller(B animal){
         if(!ObjectUtils.isEmpty(animal)){
             BaseAnimalMarshaller marshaller = marshallers.get(animal.getClass());
-            if(!ObjectUtils.isEmpty(marshaller)){
+            if(!ObjectUtils.isEmpty(marshaller) && marshaller.getBusinessClass().equals(animal.getClass())){
                 return (A) marshaller.marshall(animal);
             }
         }
