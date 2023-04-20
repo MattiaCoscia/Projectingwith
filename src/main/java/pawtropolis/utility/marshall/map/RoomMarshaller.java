@@ -5,11 +5,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.map.RoomDTO;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.marshall.entity.CentralEntityMarshaller;
 import pawtropolis.utility.marshall.item_related.InventoryMarshaller;
 
 @Component
 public class RoomMarshaller {
     private InventoryMarshaller inventoryMarshaller;
+    private CentralEntityMarshaller centralEntityMarshaller;
     @Autowired
     public RoomMarshaller(InventoryMarshaller inventoryMarshaller){
         this.inventoryMarshaller = inventoryMarshaller;
@@ -20,6 +22,11 @@ public class RoomMarshaller {
             room.setName(roomDTO.getName());
             room.setId(roomDTO.getId());
             room.setInventory(inventoryMarshaller.marhsallFromDTO(roomDTO.getInventoryDTO()));
+            if(!ObjectUtils.isEmpty(roomDTO.getNpcs())){
+                roomDTO.getNpcs().forEach(npc ->{
+
+                });
+            }
         }
         return null;
     }
