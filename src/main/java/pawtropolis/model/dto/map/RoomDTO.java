@@ -25,14 +25,19 @@ public class RoomDTO implements DTOClasses {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private RoomType type;
+
     @OneToOne
     @JoinColumn(name = "id")
-    @MapKeyEnumerated(EnumType.STRING)
     private InventoryDTO inventoryDTO;
+
     @OneToMany
     private List<EntityDTO> npcs;
+
     @ManyToMany(mappedBy = "adiacentRooms")
     @JoinTable(name="room_connection",
             joinColumns=
@@ -41,9 +46,13 @@ public class RoomDTO implements DTOClasses {
             @JoinColumn(name="to_room_id", referencedColumnName="ID")
     )
     @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name = "direction_id",table = "room_connection")
     private EnumMap<DirectionEnum, RoomDTO> adiacentRooms;
+
     private int chainPosition;
+
     private int positionX;
+
     private int positionY;
 
     public RoomDTO() {

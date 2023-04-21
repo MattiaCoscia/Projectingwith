@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS item_blueprint
 );
 
 
-CREATE TABLE IF NOT EXISTS type_room
+CREATE TABLE IF NOT EXISTS room_type
 (
     id   INT PRIMARY KEY NOT NULL,
     name VARCHAR(24)     NOT NULL
@@ -39,15 +39,15 @@ CREATE TABLE IF NOT EXISTS roomDTO
     name         VARCHAR(24) UNIQUE NOT NULL,
     position_x   INT                NOT NULL,
     position_y   INT                NOT NULL,
-    type_id      VARCHAR(24)        NOT NULL references type_room (id),
+    type_id      VARCHAR(24)        NOT NULL references room_type (id),
     map_id       INT                NOT NULL references game_map (id),
     inventory_id INT references inventoryDTO (id)
 );
 
-CREATE TABLE IF NOT EXISTS direction
+CREATE TABLE IF NOT EXISTS direction_enum
 (
     id   INT PRIMARY KEY NOT NULL,
-    name VARCHAR(24)     NOT NULL
+    name VARCHAR(24) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS bag
@@ -71,7 +71,9 @@ CREATE TABLE IF NOT EXISTS player
 CREATE TABLE IF NOT EXISTS room_connection
 (
     from_room_id INT NOT NULL,
-    direction_id INT NOT NULL references direction (id),
+    direction_id INT NOT NULL references direction_enum (id),
     to_room_id   INT NOT NULL,
-    PRIMARY KEY (from_room_id, to_room_id)
+    PRIMARY KEY (from_room_id, to_room_id),
+    FOREIGN KEY (from_room_id) REFERENCES room (id),
+    FOREIGN KEY (to_room_id) REFERENCES room (id)
 );
