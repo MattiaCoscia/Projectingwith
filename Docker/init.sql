@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS room
     name         VARCHAR(24) UNIQUE NOT NULL,
     position_x   INT                NOT NULL,
     position_y   INT                NOT NULL,
-    type_id      VARCHAR(24)        NOT NULL references room_type (id),
+    type_id      INT                NOT NULL references room_type (id),
     map_id       INT                NOT NULL references game_map (id),
     inventory_id INT references inventory (id)
 );
