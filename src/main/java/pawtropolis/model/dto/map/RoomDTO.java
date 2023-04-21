@@ -10,6 +10,7 @@ import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.items.InventoryDTO;
 import pawtropolis.model.dto.items.ItemStoredDTO;
 import pawtropolis.model.map.DirectionEnum;
+import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
 import java.util.ArrayList;
@@ -48,5 +49,13 @@ public class RoomDTO implements DTOClasses {
     public RoomDTO() {
         this.adiacentRooms = new EnumMap(DirectionEnum.class);
         this.npcs = new ArrayList<>();
+    }
+    public RoomDTO setSingleRoom(DirectionEnum directionEnum, RoomDTO room){
+        this.adiacentRooms.put(directionEnum,room);
+        return room;
+    }
+    public RoomDTO setSingleRoom(int pos,RoomDTO room){
+        this.adiacentRooms.put(DirectionEnum.values()[pos],room);
+        return room;
     }
 }

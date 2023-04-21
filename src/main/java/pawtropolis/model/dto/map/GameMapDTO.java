@@ -28,4 +28,7 @@ public class GameMapDTO implements DTOClasses {
         widthMap = 10;
         heightMap = 10;
     }
+    public String giveKeyForRoom(int y, int x){
+        return "Y:"+y+"X:"+x;
+    }
 }

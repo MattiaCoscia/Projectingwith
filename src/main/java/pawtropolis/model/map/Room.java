@@ -35,6 +35,10 @@ public class Room {
         this.chainPosition=chainPosition;
         this.adiacentRooms = new EnumMap(DirectionEnum.class);
     }
+    public Room setSingleRoom(DirectionEnum directionEnum,Room room){
+        this.adiacentRooms.put(directionEnum,room);
+        return room;
+    }
     public Room setSingleRoom(int pos,Room room){
         this.adiacentRooms.put(DirectionEnum.values()[pos],room);
         return room;
