@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.ConcrateClasses;
 import pawtropolis.model.dto.DTOClasses;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
-import pawtropolis.model.entity.npc.animal.category.Animal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,20 +20,20 @@ public class CentralEntityMarshaller {
             marshallersMap.put(value.getDoubleKey(),value);
         });
     }
-    public <A extends DTOClasses, B extends ConcrateClasses> B marshaller(A animalDTO){
-        if(!ObjectUtils.isEmpty(animalDTO)){
-            EntityBranchMarshaller marshaller = marshallersMap.get(animalDTO.getClass());
-            if(!ObjectUtils.isEmpty(marshaller) && animalDTO.getClass().isAssignableFrom(marshaller.getDTOClass())){
-                return (B) marshaller.marshall(animalDTO);
+    public <A extends DTOClasses, B extends ConcrateClasses> B marshall(A entityDTO){
+        if(!ObjectUtils.isEmpty(entityDTO)){
+            EntityBranchMarshaller marshaller = marshallersMap.get(entityDTO.getClass());
+            if(!ObjectUtils.isEmpty(marshaller) && entityDTO.getClass().isAssignableFrom(marshaller.getDTOClass())){
+                return (B) marshaller.marshall(entityDTO);
             }
         }
         return null;
     }
-    public <A extends DTOClasses, B extends ConcrateClasses> A marshaller(B animal){
-        if(!ObjectUtils.isEmpty(animal)){
-            EntityBranchMarshaller marshaller = marshallersMap.get(animal.getClass());
-            if(!ObjectUtils.isEmpty(marshaller) && animal.getClass().isAssignableFrom(marshaller.getBusinessClass())){
-                return (A) marshaller.marshall(animal);
+    public <A extends DTOClasses, B extends ConcrateClasses> A marshall(B entity){
+        if(!ObjectUtils.isEmpty(entity)){
+            EntityBranchMarshaller marshaller = marshallersMap.get(entity.getClass());
+            if(!ObjectUtils.isEmpty(marshaller) && entity.getClass().isAssignableFrom(marshaller.getBusinessClass())){
+                return (A) marshaller.marshall(entity);
             }
         }
         return null;

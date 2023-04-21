@@ -3,6 +3,7 @@ package pawtropolis.utility.marshall.map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.map.RoomDTO;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.map.Room;
@@ -27,13 +28,14 @@ public class RoomMarshaller {
             room.setName(roomDTO.getName());
             room.setId(roomDTO.getId());
             room.setInventory(inventoryMarshaller.marhsallFromDTO(roomDTO.getInventoryDTO()));
+            List<Entity> entityList = new ArrayList<>();
             if(!ObjectUtils.isEmpty(roomDTO.getNpcs())){
-                List<Entity> entityList = new ArrayList<>();
                 roomDTO.getNpcs().forEach(npc ->{
-                    Entity entity = centralEntityMarshaller.marshaller(npc);
+                    Entity entity = centralEntityMarshaller.marshall(npc);
                     entityList.add(entity);
                 });
             }
+            room.setNpcs(entityList);
             room.setChainPosition(roomDTO.getChainPosition());
             room.setPositionX(roomDTO.getPositionX());
             room.setPositionY(roomDTO.getPositionY());
@@ -49,13 +51,14 @@ public class RoomMarshaller {
             roomDTO.setName(room.getName());
             roomDTO.setId(room.getId());
             roomDTO.setInventoryDTO(inventoryMarshaller.marshallToDTO(room.getInventory()));
+            List<EntityDTO> entityList = new ArrayList<>();
             if(!ObjectUtils.isEmpty(room.getNpcs())){
-                List<Entity> entityList = new ArrayList<>();
                 room.getNpcs().forEach(npc ->{
-                    Entity entity = centralEntityMarshaller.marshaller(npc);
+                    EntityDTO entity = centralEntityMarshaller.marshall(npc);
                     entityList.add(entity);
                 });
             }
+            roomDTO.setNpcs(entityList);
             roomDTO.setChainPosition(room.getChainPosition());
             roomDTO.setPositionX(room.getPositionX());
             roomDTO.setPositionY(room.getPositionY());
