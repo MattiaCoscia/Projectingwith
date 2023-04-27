@@ -1,0 +1,11 @@
+services:
+  pawtropolis-db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - ./src/main/resources/static/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: paw
+      POSTGRES_PASSWORD: paw
+      POSTGRES_DB: pawtropolis
