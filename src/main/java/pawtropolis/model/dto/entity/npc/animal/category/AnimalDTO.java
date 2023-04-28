@@ -2,7 +2,6 @@ package pawtropolis.model.dto.entity.npc.animal.category;
 
 import jakarta.persistence.Entity;
 import lombok.*;
-import pawtropolis.model.dto.DTOClasses;
 import pawtropolis.model.dto.entity.EntityDTO;
 
 import java.time.LocalDate;

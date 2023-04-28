@@ -12,22 +12,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class AnimalMarshaller extends EntityBranchMarshaller<AnimalMarshaller, AnimalDTO, Animal> {
-    Map<BusinessAndDTOAnimalClassKey,BaseAnimalMarshaller<? extends AnimalDTO, ? extends Animal>> marshallers;
+public class AnimalMarshaller extends EntityBranchMarshaller<AnimalDTO, Animal> {
+    Map<BusinessAndDTOAnimalClassKey<AnimalDTO,Animal>,BaseAnimalMarshaller<AnimalDTO,Animal>> marshallersMap;
     @Autowired
     public AnimalMarshaller(ApplicationContext applicationContext){
         super(Animal.class, AnimalDTO.class);
-        marshallers = new HashMap<>();
+        marshallersMap = new HashMap<>();
         applicationContext.getBeansOfType(BaseAnimalMarshaller.class).forEach((key,value)->{
-            BusinessAndDTOAnimalClassKey keyBiClasses = new BusinessAndDTOAnimalClassKey(value.getBusinessClass(), value.getDtoClass());
-            marshallers.put(keyBiClasses,value);
+            marshallersMap.put(value.getDoubleKey(),value);
         });
     }
     @Override
     public <A extends AnimalDTO, B extends Animal> B marshall(A animalDTO){
         if(!ObjectUtils.isEmpty(animalDTO)){
-            BaseAnimalMarshaller marshaller = marshallers.get(animalDTO.getClass());
-            if(!ObjectUtils.isEmpty(marshaller) && marshaller.getDtoClass().equals(animalDTO.getClass())){
+            BaseAnimalMarshaller<AnimalDTO,Animal> marshaller = marshallersMap.get(animalDTO.getClass());
+            if(!ObjectUtils.isEmpty(marshaller) && marshaller.getDTOClass().equals(animalDTO.getClass())){
                 return (B) marshaller.marshall(animalDTO);
             }
         }
@@ -36,7 +35,7 @@ public class AnimalMarshaller extends EntityBranchMarshaller<AnimalMarshaller, A
     @Override
     public <A extends AnimalDTO, B extends Animal> A marshall(B animal){
         if(!ObjectUtils.isEmpty(animal)){
-            BaseAnimalMarshaller marshaller = marshallers.get(animal.getClass());
+            BaseAnimalMarshaller<AnimalDTO,Animal> marshaller = marshallersMap.get(animal.getClass());
             if(!ObjectUtils.isEmpty(marshaller) && marshaller.getBusinessClass().equals(animal.getClass())){
                 return (A) marshaller.marshall(animal);
             }

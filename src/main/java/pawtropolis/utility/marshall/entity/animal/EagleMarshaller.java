@@ -5,17 +5,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.species.EagleDTO;
 import pawtropolis.model.entity.npc.animal.species.Eagle;
+import pawtropolis.utility.marshall.ConcrateMarshaller;
+
 @Component
-public class EagleMarshaller extends BaseAnimalWithWingsMarshaller<EagleDTO,Eagle> {
+public class EagleMarshaller extends BaseAnimalWithWingsMarshaller<EagleDTO,Eagle> implements ConcrateMarshaller<EagleDTO,Eagle> {
     @Autowired
     protected EagleMarshaller() {
         super(Eagle.class, EagleDTO.class);
     }
 
     @Override
-    public Eagle marshall(EagleDTO EagleDTO) {
-        if (!ObjectUtils.isEmpty(EagleDTO)) {
-            return super.marshallFromDTO(EagleDTO, Eagle.class);
+    public Eagle marshall(EagleDTO eagleDTO) {
+        if (!ObjectUtils.isEmpty(eagleDTO)) {
+            return super.marshallFromDTO(eagleDTO, Eagle.class);
         }
         return null;
     }

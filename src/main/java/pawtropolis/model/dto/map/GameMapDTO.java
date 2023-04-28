@@ -3,9 +3,7 @@ package pawtropolis.model.dto.map;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import pawtropolis.model.dto.DTOClasses;
+import pawtropolis.model.dto.DTOClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +12,7 @@ import java.util.Map;
 @Setter
 @Entity
 @Table(name = "game_map")
-public class GameMapDTO implements DTOClasses {
+public class GameMapDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

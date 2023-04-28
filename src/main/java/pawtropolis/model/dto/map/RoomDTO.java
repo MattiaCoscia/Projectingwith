@@ -3,14 +3,11 @@ package pawtropolis.model.dto.map;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pawtropolis.model.dto.DTOClasses;
+import pawtropolis.model.dto.DTOClass;
 import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.items.InventoryDTO;
-import pawtropolis.model.dto.items.ItemStoredDTO;
 import pawtropolis.model.map.DirectionEnum;
-import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "room")
-public class RoomDTO implements DTOClasses {
+public class RoomDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

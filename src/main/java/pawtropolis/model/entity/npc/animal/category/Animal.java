@@ -3,7 +3,6 @@ package pawtropolis.model.entity.npc.animal.category;
 import java.time.LocalDate;
 
 import lombok.*;
-import pawtropolis.model.ConcrateClasses;
 import pawtropolis.model.entity.Entity;
 
 @Getter

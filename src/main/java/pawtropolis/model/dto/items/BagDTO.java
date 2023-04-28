@@ -2,7 +2,7 @@ package pawtropolis.model.dto.items;
 
 import jakarta.persistence.*;
 import lombok.*;
-import pawtropolis.model.dto.DTOClasses;
+import pawtropolis.model.dto.DTOClass;
 
 @Getter
 @Setter
@@ -10,7 +10,7 @@ import pawtropolis.model.dto.DTOClasses;
 @NoArgsConstructor
 @Entity
 @Table(name = "bag")
-public class BagDTO implements DTOClasses {
+public class BagDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

@@ -1,18 +1,15 @@
 package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
-import pawtropolis.model.ConcrateClasses;
-import pawtropolis.model.dto.DTOClasses;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
-import pawtropolis.model.entity.npc.animal.category.Animal;
-import pawtropolis.utility.marshall.entity.animal.BusinessAndDTOAnimalClassKey;
+import pawtropolis.model.BusinessClass;
+import pawtropolis.model.dto.DTOClass;
 
 import java.util.Objects;
 @Getter
-public class BusinessAndDTOBranchClassKey<A extends DTOClasses, B extends ConcrateClasses> {
-    private Class<A> dtoClass;
-    private Class<B> businessClass;
-    private int hashCode;
+public class BusinessAndDTOBranchClassKey<A extends DTOClass, B extends BusinessClass> {
+    private final Class<A> dtoClass;
+    private final Class<B> businessClass;
+    private final int hashCode;
 
     public BusinessAndDTOBranchClassKey(Class<B> businessClass, Class<A> dtoClass) {
         this.businessClass = businessClass;
@@ -26,7 +23,7 @@ public class BusinessAndDTOBranchClassKey<A extends DTOClasses, B extends Concra
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
-        BusinessAndDTOBranchClassKey that = (BusinessAndDTOBranchClassKey) obj;
+        BusinessAndDTOBranchClassKey<A,B> that = (BusinessAndDTOBranchClassKey<A,B>) obj;
         return that.businessClass.isAssignableFrom(this.businessClass) || that.dtoClass.isAssignableFrom(this.dtoClass);
     }
 

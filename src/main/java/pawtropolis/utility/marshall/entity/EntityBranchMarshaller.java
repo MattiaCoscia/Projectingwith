@@ -1,13 +1,13 @@
 package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
-import pawtropolis.model.ConcrateClasses;
-import pawtropolis.model.dto.DTOClasses;
+import pawtropolis.model.BusinessClass;
+import pawtropolis.model.dto.DTOClass;
 @Getter
-public abstract class EntityBranchMarshaller<C extends EntityBranchMarshaller<C,A,B>,A extends DTOClasses, B extends ConcrateClasses> {
-    private BusinessAndDTOBranchClassKey doubleKey;
-    public EntityBranchMarshaller(Class<B> branchBusinessClass, Class<A> branchDTOClass) {
-        this.doubleKey = new BusinessAndDTOBranchClassKey(branchBusinessClass,branchDTOClass);
+public abstract class EntityBranchMarshaller<A extends DTOClass, B extends BusinessClass> {
+    private final BusinessAndDTOBranchClassKey<A,B> doubleKey;
+    protected EntityBranchMarshaller(Class<B> branchBusinessClass, Class<A> branchDTOClass) {
+        this.doubleKey = new BusinessAndDTOBranchClassKey<>(branchBusinessClass,branchDTOClass);
     }
     public Class<A> getDTOClass(){
         return doubleKey.getDtoClass();

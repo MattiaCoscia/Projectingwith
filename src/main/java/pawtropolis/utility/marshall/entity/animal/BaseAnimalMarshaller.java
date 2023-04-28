@@ -5,19 +5,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
+import pawtropolis.utility.marshall.AbstractMarshaller;
 
 @Slf4j
 @Getter
-public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal>{
+public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal> implements AbstractMarshaller<A,B>{
 
-    private Class<B> businessClass;
-    private Class<A> dtoClass;
+    private final BusinessAndDTOAnimalClassKey<A,B> doubleKey;
 
     protected BaseAnimalMarshaller(Class<B> businessClass,Class<A> dtoClass){
-        this.businessClass = businessClass;
-        this.dtoClass = dtoClass;
+        doubleKey = new BusinessAndDTOAnimalClassKey<A,B>(businessClass,dtoClass);
     }
-    protected B marshallFromDTO(A animalDTO, Class<B> animalClass) {
+    @Override
+    public B marshallFromDTO(A animalDTO, Class<B> animalClass) {
         if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
             B animal = null;
             try {
@@ -41,8 +41,8 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
         }
         return null;
     }
-
-    protected A marshallToDTO(B animal, Class<A> animalClass){
+    @Override
+    public A marshallToDTO(B animal, Class<A> animalClass){
         if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalClass)){
             A animalDTO;
             try {
@@ -65,6 +65,10 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
             return animalDTO;
         }
         return null;
+    }
+    public Class<A> getDTOClass(){return doubleKey.getDtoClass();}
+    public Class<B> getBusinessClass(){
+        return doubleKey.getBusinessClass();
     }
 
     public abstract B marshall(A animalDTO);

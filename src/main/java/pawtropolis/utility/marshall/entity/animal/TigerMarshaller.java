@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.species.TigerDTO;
 import pawtropolis.model.entity.npc.animal.species.Tiger;
+import pawtropolis.utility.marshall.ConcrateMarshaller;
+
 @Component
-public class TigerMarshaller extends BaseAnimalWithTailMarshaller<TigerDTO,Tiger> {
+public class TigerMarshaller extends BaseAnimalWithTailMarshaller<TigerDTO,Tiger> implements ConcrateMarshaller<TigerDTO,Tiger> {
     @Autowired
     protected TigerMarshaller() {
         super(Tiger.class, TigerDTO.class);

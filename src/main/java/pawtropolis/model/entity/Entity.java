@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pawtropolis.model.ConcrateClasses;
+import pawtropolis.model.BusinessClass;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Entity implements ConcrateClasses {
+public abstract class Entity implements BusinessClass {
     protected long id;
     protected String name;
     protected double lifePoints;
