@@ -1,20 +1,19 @@
-package pawtropolis.utility.marshall.entity.animal;
+package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
-import pawtropolis.model.entity.npc.animal.category.Animal;
+import pawtropolis.model.dto.entity.EntityDTO;
+import pawtropolis.model.entity.Entity;
 import pawtropolis.utility.marshall.AbstractMarshaller;
-import pawtropolis.utility.marshall.entity.BaseEntityMarshaller;
-import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;
 
 @Slf4j
 @Getter
-public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal>
-        extends BaseEntityMarshaller<A,B> implements AbstractMarshaller<A,B>{
-    protected BaseAnimalMarshaller(Class<B> businessClass,Class<A> dtoClass){
-        super(businessClass,dtoClass);
+public abstract class BaseEntityMarshaller<A extends EntityDTO, B extends Entity> implements AbstractMarshaller<A,B>{
+
+    private final BusinessAndDTOEntityClassKey<A,B> doubleKey;
+    protected BaseEntityMarshaller(Class<B> businessClass, Class<A> dtoClass){
+        doubleKey = new BusinessAndDTOEntityClassKey<>(businessClass,dtoClass);
     }
     @Override
     public B marshallFromDTO(A animalDTO, Class<B> animalClass) {
@@ -27,11 +26,11 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
                 log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
                 return null;
             }
-            animal.setAge(animalDTO.getAge());
-            animal.setHeight(animal.getHeight());
-            animal.setDateEntry(animal.getDateEntry());
-            animal.setPreferedFood(animal.getPreferedFood());
-            animal.setWeight(animal.getWeight());
+            animal.setId(animalDTO.getId());
+            animal.setLifePoints(animalDTO.getLifePoints());
+            animal.setName(animal.getName());
+            animal.setPositionX(animal.getPositionX());
+            animal.setPositionY(animal.getPositionY());
             return animal;
         }
         return null;
@@ -47,17 +46,19 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
                 log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
                 return null;
             }
-            animalDTO.setAge(animal.getAge());
-            animalDTO.setHeight(animal.getHeight());
-            animalDTO.setDateEntry(animal.getDateEntry());
-            animalDTO.setPreferedFood(animal.getPreferedFood());
-            animalDTO.setWeight(animal.getWeight());
+            animalDTO.setId(animal.getId());
+            animalDTO.setLifePoints(animal.getLifePoints());
+            animalDTO.setName(animal.getName());
+            animalDTO.setPositionX(animal.getPositionX());
+            animalDTO.setPositionY(animal.getPositionY());
             return animalDTO;
         }
         return null;
     }
-    public Class<A> getDTOClass(){return getDoubleKey().getDtoClass();}
-    public Class<B> getBusinessClass(){return getDoubleKey().getBusinessClass();}
+    public Class<A> getDTOClass(){return doubleKey.getDtoClass();}
+    public Class<B> getBusinessClass(){
+        return doubleKey.getBusinessClass();
+    }
 
     public abstract B marshall(A animalDTO);
 

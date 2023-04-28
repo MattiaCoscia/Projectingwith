@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
+import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;
 import pawtropolis.utility.marshall.entity.EntityBranchMarshaller;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 @Component
 public class AnimalMarshaller extends EntityBranchMarshaller<AnimalDTO, Animal> {
-    Map<BusinessAndDTOAnimalClassKey<AnimalDTO,Animal>,BaseAnimalMarshaller<AnimalDTO,Animal>> marshallersMap;
+    Map<BusinessAndDTOEntityClassKey<AnimalDTO,Animal>,BaseAnimalMarshaller<AnimalDTO,Animal>> marshallersMap;
     @Autowired
     public AnimalMarshaller(ApplicationContext applicationContext){
         super(Animal.class, AnimalDTO.class);
