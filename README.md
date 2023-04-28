@@ -34,3 +34,5 @@
     - **Bag**:The player will receive information on what its bag has inside.
 
 ------------
+
+To build the container with postegresql it is needed to use the command "Docker compose up -d" in the directiory of Projectingwith
