@@ -14,11 +14,6 @@ import java.util.Map;
 
 @Component
 public class GameMapMarshaller {
-    private final Map<DirectionEnum,DirectionEnum> inverseDirectionEnumMap = Map.of(
-            DirectionEnum.NORTH,DirectionEnum.SOUTH,
-            DirectionEnum.EAST,DirectionEnum.WEST,
-            DirectionEnum.WEST,DirectionEnum.EAST,
-            DirectionEnum.SOUTH,DirectionEnum.NORTH);
     private RoomMarshaller roomMarshaller;
     @Autowired
     public GameMapMarshaller(RoomMarshaller roomMarshaller){
@@ -43,7 +38,7 @@ public class GameMapMarshaller {
                         Room roomBusinessAdiacent = map.getRooms()
                                 .get(map.giveKeyForRoom(roomDTOAdiancent.getPositionY(),roomDTOAdiancent.getPositionX()));
                         roomBusiness.setSingleRoom(dirKey, roomBusinessAdiacent);
-                        roomBusinessAdiacent.setSingleRoom(inverseDirectionEnumMap.get(dirKey),roomBusiness);
+                        roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomBusiness);
                     });
                 });
             }
@@ -70,7 +65,7 @@ public class GameMapMarshaller {
                         RoomDTO roomBusinessAdiacent = mapDTO.getRooms()
                                 .get(mapDTO.giveKeyForRoom(roomBusinessAdiancent.getPositionY(),roomBusinessAdiancent.getPositionX()));
                         roomDTO.setSingleRoom(dirKey, roomBusinessAdiacent);
-                        roomBusinessAdiacent.setSingleRoom(inverseDirectionEnumMap.get(dirKey),roomDTO);
+                        roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomDTO);
                     });
                 });
             }
