@@ -29,7 +29,4 @@ public class GameMap {
             rooms.put(room.getName(),room);
         }
     }
-    public String giveKeyForRoom(int y, int x){
-        return "Y:"+y+"X:"+x;
-    }
 }

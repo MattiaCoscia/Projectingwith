@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.map.GameMapDTO;
 import pawtropolis.model.dto.map.RoomDTO;
+import pawtropolis.model.dto.map.RoomNameKeyGenerator;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
@@ -36,7 +37,7 @@ public class GameMapMarshaller {
                     Room roomBusiness = map.getRooms().get(key);
                     roomDTO.getAdiacentRooms().forEach((dirKey,roomDTOAdiancent)->{
                         Room roomBusinessAdiacent = map.getRooms()
-                                .get(map.giveKeyForRoom(roomDTOAdiancent.getPositionY(),roomDTOAdiancent.getPositionX()));
+                                .get(RoomNameKeyGenerator.giveKeyForRoom(roomDTOAdiancent.getPositionY(),roomDTOAdiancent.getPositionX()));
                         roomBusiness.setSingleRoom(dirKey, roomBusinessAdiacent);
                         roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomBusiness);
                     });
@@ -63,7 +64,7 @@ public class GameMapMarshaller {
                     RoomDTO roomDTO = mapDTO.getRooms().get(key);
                     room.getAdiacentRooms().forEach((dirKey,roomBusinessAdiancent)->{
                         RoomDTO roomBusinessAdiacent = mapDTO.getRooms()
-                                .get(mapDTO.giveKeyForRoom(roomBusinessAdiancent.getPositionY(),roomBusinessAdiancent.getPositionX()));
+                                .get(RoomNameKeyGenerator.giveKeyForRoom(roomBusinessAdiancent.getPositionY(),roomBusinessAdiancent.getPositionX()));
                         roomDTO.setSingleRoom(dirKey, roomBusinessAdiacent);
                         roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomDTO);
                     });

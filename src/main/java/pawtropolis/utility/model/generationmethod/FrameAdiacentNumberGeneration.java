@@ -3,6 +3,7 @@ package pawtropolis.utility.model.generationmethod;
 import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
+import pawtropolis.model.dto.map.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
@@ -90,11 +91,11 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
             countX = 0;
             for (int x : y) {
                 if (x == 1) {
-                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.CORRIDOR_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                 } else if (x == 2) {
-                    Room roomTOAdd = new Room(map.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.ROOM_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                     addItemsToRoom(itemStoreds, roomTOAdd, randomBasedOnSeed);
@@ -147,25 +148,25 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
                     switch (countRoom) {
                         case 0: {
                             if (possiblePositionNord) {
-                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY() - 1, room.getPositionX()));
+                                adiacentRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(room.getPositionY() - 1, room.getPositionX()));
                             }
                             break;
                         }
                         case 1: {
                             if (possiblePositionEast) {
-                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY(), room.getPositionX() + 1));
+                                adiacentRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(room.getPositionY(), room.getPositionX() + 1));
                             }
                             break;
                         }
                         case 2: {
                             if (possiblePositionSud) {
-                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY() + 1, room.getPositionX()));
+                                adiacentRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(room.getPositionY() + 1, room.getPositionX()));
                             }
                             break;
                         }
                         case 3: {
                             if (possiblePositionOvest) {
-                                adiacentRoom = map.getRooms().get(map.giveKeyForRoom(room.getPositionY(), room.getPositionX() - 1));
+                                adiacentRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(room.getPositionY(), room.getPositionX() - 1));
                             }
                             break;
                         }
@@ -174,9 +175,7 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
                         }
                     }
                     if (adiacentRoom != null && conditionsToLinkRooms(room, adiacentRoom, room.getPositionX(), room.getPositionY())) {
-                        room.setSingleRoom(countRoom, adiacentRoom);
-                        int nextAdiacentRoom = countRoom + 2 < 4 ? countRoom + 2 : countRoom - 2;
-                        adiacentRoom.setSingleRoom(nextAdiacentRoom, room);
+                        room.setSingleRoom(DirectionEnum.values()[countRoom], adiacentRoom);
                     }
                 }
             }

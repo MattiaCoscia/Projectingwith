@@ -37,10 +37,7 @@ public class Room {
     }
     public Room setSingleRoom(DirectionEnum directionEnum,Room room){
         this.adiacentRooms.put(directionEnum,room);
-        return room;
-    }
-    public Room setSingleRoom(int pos,Room room){
-        this.adiacentRooms.put(DirectionEnum.values()[pos],room);
+        room.adiacentRooms.put(DirectionEnum.oppositeValue(directionEnum),this);
         return room;
     }
     public List<Entity> getEntities() {

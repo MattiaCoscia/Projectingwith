@@ -4,9 +4,11 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 import lombok.extern.slf4j.Slf4j;
+import pawtropolis.model.dto.map.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
+import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomType;
@@ -52,7 +54,7 @@ public class RandomChainDisposition extends GenerationMethod {
 		startingY = randomBasedOnSeed.nextInt(0,this.map.getHeightMap());
 		player.setPositionX(startingX);
 		player.setPositionY(startingY);
-		Room entryRoom = new Room(map.giveKeyForRoom(startingY,startingX), new Inventory(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
+		Room entryRoom = new Room(RoomNameKeyGenerator.giveKeyForRoom(startingY,startingX), new Inventory(), new ArrayList<>(), startingX, startingY, RoomType.ROOM_TYPE,
 				0);
 		this.map.setSingleRoom(entryRoom);
 		queueRoomsPositions.add(entryRoom);
@@ -76,16 +78,16 @@ public class RandomChainDisposition extends GenerationMethod {
 		boolean possiblePositionEast = ((x + 1) < this.map.getWidthMap());
 		boolean possiblePositionOvest = ((x - 1) >= 0);
 		List<Integer> availablePositions = new ArrayList<>();
-		if (possiblePositionNord && (this.map.getRooms().get(map.giveKeyForRoom(y - 1,x)) == null)) {
+		if (possiblePositionNord && (this.map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(y - 1,x)) == null)) {
 			availablePositions.add(0);
 		}
-		if (possiblePositionEast && (this.map.getRooms().get(map.giveKeyForRoom(y,x + 1)) == null)) {
+		if (possiblePositionEast && (this.map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(y,x + 1)) == null)) {
 			availablePositions.add(1);
 		}
-		if (possiblePositionSud && (this.map.getRooms().get(map.giveKeyForRoom(y + 1,x)) == null)) {
+		if (possiblePositionSud && (this.map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(y + 1,x)) == null)) {
 			availablePositions.add(2);
 		}
-		if (possiblePositionOvest && (this.map.getRooms().get(map.giveKeyForRoom(y,x - 1)) == null)) {
+		if (possiblePositionOvest && (this.map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(y,x - 1)) == null)) {
 			availablePositions.add(3);
 		}
 		return availablePositions;
@@ -102,29 +104,22 @@ public class RandomChainDisposition extends GenerationMethod {
 					case 0 -> {
 						adiacentRoom.setPositionY(actualRoom.getPositionY() - 1);
 						adiacentRoom.setPositionX(actualRoom.getPositionX());
-						actualRoom.setSingleRoom(0, adiacentRoom);
-						adiacentRoom.setSingleRoom(2, actualRoom);
 					}
 					case 1 -> {
 						adiacentRoom.setPositionY(actualRoom.getPositionY());
 						adiacentRoom.setPositionX(actualRoom.getPositionX() + 1);
-						actualRoom.setSingleRoom(1, adiacentRoom);
-						adiacentRoom.setSingleRoom(3, actualRoom);
 					}
 					case 2 -> {
 						adiacentRoom.setPositionY(actualRoom.getPositionY() + 1);
 						adiacentRoom.setPositionX(actualRoom.getPositionX());
-						actualRoom.setSingleRoom(2, adiacentRoom);
-						adiacentRoom.setSingleRoom(0, actualRoom);
 					}
 					case 3 -> {
 						adiacentRoom.setPositionY(actualRoom.getPositionY());
 						adiacentRoom.setPositionX(actualRoom.getPositionX() - 1);
-						actualRoom.setSingleRoom(3, adiacentRoom);
-						adiacentRoom.setSingleRoom(1, actualRoom);
 					}
 				}
-				adiacentRoom.setName(map.giveKeyForRoom(adiacentRoom.getPositionY(),adiacentRoom.getPositionX()));
+				adiacentRoom.setName(RoomNameKeyGenerator.giveKeyForRoom(adiacentRoom.getPositionY(),adiacentRoom.getPositionX()));
+				actualRoom.setSingleRoom(DirectionEnum.values()[adiacentPosition],adiacentRoom);
 				this.map.setSingleRoom(adiacentRoom);
 				queueRoomsPositions.add(adiacentRoom);
 			}
