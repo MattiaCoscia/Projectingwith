@@ -8,10 +8,13 @@ import pawtropolis.utility.strategy.*;
 import java.util.*;
 @Component
 public class ActionController {
-    @Autowired
     private ActionFactory actionFactory;
-    private final Scanner sc = new Scanner(System.in);
-
+    private final Scanner sc;
+    @Autowired
+    public ActionController(ActionFactory actionFactory){
+        this.actionFactory = actionFactory;
+        sc = new Scanner(System.in);
+    }
     public ActionEnum playerAction() {
         String[] action = sc.nextLine().split(" ");
         action = ObjectUtils.isEmpty(action) || ObjectUtils.isEmpty(action[0]) ? new String[]{" "}: action;

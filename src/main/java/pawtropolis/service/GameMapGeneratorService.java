@@ -20,12 +20,13 @@ import java.util.List;
 @Slf4j
 public class GameMapGeneratorService {
 
-	@Autowired
 	private Player player;
-	@Autowired
 	private GameMap gameMap;
-	private List<ItemStored> itemStoreds = ItemContainer.getItems();
-
+	private List<ItemStored> itemStoreds;
+	@Autowired
+	public GameMapGeneratorService(Player player, GameMap gameMap){
+		itemStoreds = ItemContainer.getItems();
+	}
 	public GameMap run(long seed, String type) {
 		switch (type) {
 			case "tree" -> {

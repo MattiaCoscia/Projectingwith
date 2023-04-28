@@ -12,12 +12,15 @@ import java.util.Scanner;
 @Service
 @Slf4j
 public class GameStarterService {
-    @Autowired
     private Player player;
-    @Autowired
     private GameMapGeneratorService gameMapGeneratorService;
-    @Autowired
     private RenderMapService renderMapService;
+    @Autowired
+    public GameStarterService(Player player,GameMapGeneratorService gameMapGeneratorService,RenderMapService renderMapService){
+        this.player = player;
+        this.gameMapGeneratorService = gameMapGeneratorService;
+        this.renderMapService = renderMapService;
+    }
     public void execute() {
         log.info("Choose your name");
         player.setName(new Scanner(System.in).nextLine());
