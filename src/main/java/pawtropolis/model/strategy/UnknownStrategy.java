@@ -1,4 +1,4 @@
-package pawtropolis.utility.strategy;
+package pawtropolis.model.strategy;
 
 public class UnknownStrategy implements ActionStrategy{
     @Override

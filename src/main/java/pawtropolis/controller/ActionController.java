@@ -3,7 +3,7 @@ package pawtropolis.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.utility.strategy.*;
+import pawtropolis.model.strategy.*;
 
 import java.util.*;
 @Component

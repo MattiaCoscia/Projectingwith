@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pawtropolis.controller.ActionController;
 import pawtropolis.service.GameStarterService;
-import pawtropolis.utility.strategy.ActionEnum;
+import pawtropolis.model.strategy.ActionEnum;
 import pawtropolis.view.RenderMapService;
 
 @Slf4j

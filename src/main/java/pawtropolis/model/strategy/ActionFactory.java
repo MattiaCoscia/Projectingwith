@@ -1,4 +1,4 @@
-package pawtropolis.utility.strategy;
+package pawtropolis.model.strategy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
