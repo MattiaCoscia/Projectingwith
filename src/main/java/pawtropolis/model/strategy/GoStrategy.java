@@ -8,6 +8,7 @@ import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.RoomNameKeyGenerator;
 
 @Component
 @Slf4j
@@ -56,8 +57,8 @@ public class GoStrategy implements ActionStrategy {
 
 
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map, DirectionEnum directionEnum) {
-        Room toGo = map.getRooms().get(map.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
-        Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
+        Room toGo = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
+        Room actualRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         Room possibileDirectionRoom =actualRoom.getAdiacentRooms().get(directionEnum);
         return possibileDirectionRoom != null && possibileDirectionRoom == toGo;
     }
