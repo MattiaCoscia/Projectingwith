@@ -1,7 +1,7 @@
 package pawtropolis.utility.model.generationmethod;
 
 import lombok.extern.slf4j.Slf4j;
-import pawtropolis.model.dto.map.RoomNameKeyGenerator;
+import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;

@@ -1,4 +1,4 @@
-package pawtropolis.model.dto.map;
+package pawtropolis.utility;
 
 public class RoomNameKeyGenerator {
     public static String giveKeyForRoom(int y, int x){

@@ -8,6 +8,7 @@ import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.RoomNameKeyGenerator;
 
 @Component
 @Slf4j
@@ -19,7 +20,7 @@ public class GetStrategy implements ActionStrategy{
     @Override
     public ActionEnum execute(String object) {
         if (!ObjectUtils.isEmpty(object)) {
-            Room actualRoom = map.getRooms().get(map.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
+            Room actualRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY(), player.getPositionX()));
             ItemStored itemStoredToGet = actualRoom.getItem(object);
             if(itemStoredToGet != null){
                 player.addItem(new ItemStored(itemStoredToGet.getItemBlueprint(),1));

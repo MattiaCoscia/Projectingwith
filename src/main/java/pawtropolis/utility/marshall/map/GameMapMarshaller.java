@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.map.GameMapDTO;
 import pawtropolis.model.dto.map.RoomDTO;
-import pawtropolis.model.dto.map.RoomNameKeyGenerator;
+import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
