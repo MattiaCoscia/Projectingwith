@@ -32,7 +32,7 @@ public class Starter implements ApplicationRunner {
         ActionEnum actionEnum = null;
         while (!ActionEnum.EXIT.equals(actionEnum)) {
             actionEnum = actionController.playerAction();
-            if (ActionEnum.UNKNOWN_COMMAND.equals(actionEnum)) {
+            if (ActionEnum.UNKNOWN.equals(actionEnum)) {
                 log.info("command not existent");
             } else if(!ActionEnum.EXIT.equals(actionEnum)){
                 renderMapService.printMap();

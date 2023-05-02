@@ -32,6 +32,6 @@ public class DropStrategy implements ActionStrategy{
                 return ActionEnum.DROP;
             }
         }
-        return ActionEnum.UNKNOWN_COMMAND;
+        return ActionEnum.UNKNOWN;
     }
 }

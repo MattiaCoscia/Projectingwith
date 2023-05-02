@@ -32,6 +32,6 @@ public class GetStrategy implements ActionStrategy{
                 return ActionEnum.GET;
             }
         }
-       return ActionEnum.UNKNOWN_COMMAND;
+       return ActionEnum.UNKNOWN;
     }
 }

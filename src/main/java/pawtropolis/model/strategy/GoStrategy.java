@@ -52,7 +52,7 @@ public class GoStrategy implements ActionStrategy {
             }
             return ActionEnum.GO;
         }
-        return ActionEnum.UNKNOWN_COMMAND;
+        return ActionEnum.UNKNOWN;
     }
 
 
