@@ -19,7 +19,7 @@ public class BagMarshaller {
             bag.setId(bagDTO.getId());
             bag.setVolume(bagDTO.getVolume());
             bag.setOccupiedSlots(bag.getOccupiedSlots());
-            bag.setInventory(inventoryMarshaller.marhsallFromDTO(bagDTO.getInventoryDTO()));
+            bag.setInventory(inventoryMarshaller.marhsall(bagDTO.getInventoryDTO()));
             return bag;
         }
         return null;
@@ -31,7 +31,7 @@ public class BagMarshaller {
             bagDTO.setId(bag.getId());
             bagDTO.setVolume(bag.getVolume());
             bagDTO.setOccupiedSlots(bag.getOccupiedSlots());
-            bagDTO.setInventoryDTO(inventoryMarshaller.marshallToDTO(bag.getInventory()));
+            bagDTO.setInventoryDTO(inventoryMarshaller.marshall(bag.getInventory()));
             return bagDTO;
         }
         return null;

@@ -4,9 +4,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.items.ItemBlueprintDTO;
 import pawtropolis.model.items.ItemBlueprint;
+import pawtropolis.utility.marshall.ConcrateMarshaller;
+
 @Component
-public class ItemBlueprintMarhsaller {
-    public ItemBlueprint marhsallFromDTO(ItemBlueprintDTO itemBlueprintDTO){
+public class ItemBlueprintMarhsaller implements ConcrateMarshaller<ItemBlueprintDTO,ItemBlueprint> {
+    @Override
+    public ItemBlueprint marshall(ItemBlueprintDTO itemBlueprintDTO) {
         if(!ObjectUtils.isEmpty(itemBlueprintDTO)){
             ItemBlueprint itemBlueprint = new ItemBlueprint();
             itemBlueprint.setDescription(itemBlueprint.getDescription());
@@ -17,8 +20,8 @@ public class ItemBlueprintMarhsaller {
         }
         return null;
     }
-
-    public ItemBlueprintDTO marshallToDTO(ItemBlueprint itemBlueprint){
+    @Override
+    public ItemBlueprintDTO marshall(ItemBlueprint itemBlueprint){
         if(!ObjectUtils.isEmpty(itemBlueprint)){
             ItemBlueprintDTO itemBlueprintDTO = new ItemBlueprintDTO();
             itemBlueprintDTO.setDescription(itemBlueprint.getDescription());

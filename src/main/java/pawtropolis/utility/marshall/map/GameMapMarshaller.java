@@ -9,18 +9,20 @@ import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.marshall.ConcrateMarshaller;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class GameMapMarshaller {
+public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap> {
     private RoomMarshaller roomMarshaller;
     @Autowired
     public GameMapMarshaller(RoomMarshaller roomMarshaller){
         this.roomMarshaller = roomMarshaller;
     }
-    public GameMap marshallFromDTO(GameMapDTO mapDTO){
+    @Override
+    public GameMap marshall(GameMapDTO mapDTO){
         if(!ObjectUtils.isEmpty(mapDTO)){
             GameMap map = new GameMap();
             map.setHeightMap(mapDTO.getHeightMap());
@@ -30,7 +32,7 @@ public class GameMapMarshaller {
                 Map<String, Room> rooms = new HashMap<>();
                 map.setRooms(rooms);
                 mapDTO.getRooms().forEach((key,roomDTO) -> {
-                    Room roomBusiness = roomMarshaller.marshallFromDTO(roomDTO);
+                    Room roomBusiness = roomMarshaller.marshall(roomDTO);
                     rooms.put(key,roomBusiness);
                 });
                 mapDTO.getRooms().forEach((key,roomDTO)->{
@@ -47,7 +49,8 @@ public class GameMapMarshaller {
         }
         return null;
     }
-    public GameMapDTO marshallToDTO(GameMap map){
+    @Override
+    public GameMapDTO marshall(GameMap map){
         if(!ObjectUtils.isEmpty(map)){
             GameMapDTO mapDTO = new GameMapDTO();
             mapDTO.setHeightMap(map.getHeightMap());
@@ -57,7 +60,7 @@ public class GameMapMarshaller {
                 Map<String, RoomDTO> rooms = new HashMap<>();
                 mapDTO.setRooms(rooms);
                 map.getRooms().forEach((key,room) -> {
-                    RoomDTO roomBusiness = roomMarshaller.marshallToDTO(room);
+                    RoomDTO roomBusiness = roomMarshaller.marshall(room);
                     rooms.put(key,roomBusiness);
                 });
                 map.getRooms().forEach((key,room)->{

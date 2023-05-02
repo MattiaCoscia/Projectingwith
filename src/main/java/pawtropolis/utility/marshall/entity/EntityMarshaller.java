@@ -11,18 +11,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class CentralEntityMarshaller {
-    Map<BusinessAndDTOBranchClassKey<DTOClass, BusinessClass>,EntityBranchMarshaller<DTOClass, BusinessClass>> marshallersMap;
+public class EntityMarshaller {
+    Map<BusinessAndDTOBranchClassKey<DTOClass, BusinessClass>, BranchEntityMarshaller<DTOClass, BusinessClass>> marshallersMap;
     @Autowired
-    public CentralEntityMarshaller(ApplicationContext applicationContext){
+    public EntityMarshaller(ApplicationContext applicationContext){
         marshallersMap = new HashMap<>();
-        applicationContext.getBeansOfType(EntityBranchMarshaller.class).forEach((key, value)->{
+        applicationContext.getBeansOfType(BranchEntityMarshaller.class).forEach((key, value)->{
             marshallersMap.put(value.getDoubleKey(),value);
         });
     }
     public <A extends DTOClass, B extends BusinessClass> B marshall(A entityDTO){
         if(!ObjectUtils.isEmpty(entityDTO)){
-            EntityBranchMarshaller<DTOClass, BusinessClass> marshaller = marshallersMap.get(entityDTO.getClass());
+            BranchEntityMarshaller<DTOClass, BusinessClass> marshaller = marshallersMap.get(entityDTO.getClass());
             if(!ObjectUtils.isEmpty(marshaller) && entityDTO.getClass().isAssignableFrom(marshaller.getDTOClass())){
                 return (B) marshaller.marshall(entityDTO);
             }
@@ -31,7 +31,7 @@ public class CentralEntityMarshaller {
     }
     public <A extends DTOClass, B extends BusinessClass> A marshall(B entity){
         if(!ObjectUtils.isEmpty(entity)){
-            EntityBranchMarshaller<DTOClass, BusinessClass> marshaller = marshallersMap.get(entity.getClass());
+            BranchEntityMarshaller<DTOClass, BusinessClass> marshaller = marshallersMap.get(entity.getClass());
             if(!ObjectUtils.isEmpty(marshaller) && entity.getClass().isAssignableFrom(marshaller.getBusinessClass())){
                 return (A) marshaller.marshall(entity);
             }

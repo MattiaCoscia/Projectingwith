@@ -7,31 +7,33 @@ import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.map.RoomDTO;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.map.Room;
-import pawtropolis.utility.marshall.entity.CentralEntityMarshaller;
+import pawtropolis.utility.marshall.ConcrateMarshaller;
+import pawtropolis.utility.marshall.entity.EntityMarshaller;
 import pawtropolis.utility.marshall.item_related.InventoryMarshaller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class RoomMarshaller {
+public class RoomMarshaller implements ConcrateMarshaller<RoomDTO,Room> {
     private InventoryMarshaller inventoryMarshaller;
-    private CentralEntityMarshaller centralEntityMarshaller;
+    private EntityMarshaller entityMarshaller;
     @Autowired
-    public RoomMarshaller(InventoryMarshaller inventoryMarshaller, CentralEntityMarshaller centralEntityMarshaller){
+    public RoomMarshaller(InventoryMarshaller inventoryMarshaller, EntityMarshaller entityMarshaller){
         this.inventoryMarshaller = inventoryMarshaller;
-        this.centralEntityMarshaller = centralEntityMarshaller;
+        this.entityMarshaller = entityMarshaller;
     }
-    public Room marshallFromDTO(RoomDTO roomDTO){
+    @Override
+    public Room marshall(RoomDTO roomDTO){
         if(!ObjectUtils.isEmpty(roomDTO)){
             Room room = new Room();
             room.setName(roomDTO.getName());
             room.setId(roomDTO.getId());
-            room.setInventory(inventoryMarshaller.marhsallFromDTO(roomDTO.getInventoryDTO()));
+            room.setInventory(inventoryMarshaller.marshall(roomDTO.getInventoryDTO()));
             List<Entity> entityList = new ArrayList<>();
             if(!ObjectUtils.isEmpty(roomDTO.getNpcs())){
                 roomDTO.getNpcs().forEach(npc ->{
-                    Entity entity = centralEntityMarshaller.marshall(npc);
+                    Entity entity = entityMarshaller.marshall(npc);
                     entityList.add(entity);
                 });
             }
@@ -44,17 +46,17 @@ public class RoomMarshaller {
         }
         return null;
     }
-
-    public RoomDTO marshallToDTO(Room room){
+    @Override
+    public RoomDTO marshall(Room room){
         if(!ObjectUtils.isEmpty(room)){
             RoomDTO roomDTO = new RoomDTO();
             roomDTO.setName(room.getName());
             roomDTO.setId(room.getId());
-            roomDTO.setInventoryDTO(inventoryMarshaller.marshallToDTO(room.getInventory()));
+            roomDTO.setInventoryDTO(inventoryMarshaller.marshall(room.getInventory()));
             List<EntityDTO> entityList = new ArrayList<>();
             if(!ObjectUtils.isEmpty(room.getNpcs())){
                 room.getNpcs().forEach(npc ->{
-                    EntityDTO entity = centralEntityMarshaller.marshall(npc);
+                    EntityDTO entity = entityMarshaller.marshall(npc);
                     entityList.add(entity);
                 });
             }

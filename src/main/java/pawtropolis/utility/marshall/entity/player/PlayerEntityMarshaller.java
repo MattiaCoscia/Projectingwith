@@ -1,18 +1,22 @@
-package pawtropolis.utility.marshall;
+package pawtropolis.utility.marshall.entity.player;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.PlayerDTO;
 import pawtropolis.model.entity.Player;
+import pawtropolis.utility.marshall.entity.BranchEntityMarshaller;
 import pawtropolis.utility.marshall.item_related.BagMarshaller;
 
 @Component
-public class PlayerMarshaller {
-    private BagMarshaller bagMarshaller;
-    public PlayerMarshaller(BagMarshaller bagMarshaller){
+public class PlayerEntityMarshaller extends BranchEntityMarshaller<PlayerDTO,Player> {
+    private final BagMarshaller bagMarshaller;
+    @Autowired
+    public PlayerEntityMarshaller(BagMarshaller bagMarshaller){
+        super(Player.class, PlayerDTO.class);
         this.bagMarshaller = bagMarshaller;
     }
-    public Player marshallFromDTO(PlayerDTO playerDTO){
+    public Player marshall(PlayerDTO playerDTO){
         if(ObjectUtils.isEmpty(playerDTO)){
             Player player = new Player();
             player.setLifePoints(playerDTO.getLifePoints());
@@ -28,7 +32,7 @@ public class PlayerMarshaller {
         return null;
     }
 
-    public PlayerDTO marshallToDTO(Player player){
+    public PlayerDTO marshall(Player player){
         if(ObjectUtils.isEmpty(player)){
             PlayerDTO playerDTO = new PlayerDTO();
             playerDTO.setId(player.getId());
