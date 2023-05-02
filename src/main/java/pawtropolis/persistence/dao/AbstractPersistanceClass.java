@@ -1,10 +1,11 @@
 package pawtropolis.persistence.dao;
 
+import lombok.Getter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import pawtropolis.model.BusinessClass;
 import pawtropolis.model.dto.DTOClass;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
-
+@Getter
 public abstract class AbstractPersistanceClass<A extends DTOClass,B extends BusinessClass, I extends Number> {
     private JpaRepository<A,I> repository;
     private ConcrateMarshaller<A,B> marshaller;
