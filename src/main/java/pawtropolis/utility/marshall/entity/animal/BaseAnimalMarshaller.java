@@ -24,7 +24,7 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
                 animal = animalClass.getConstructor().newInstance();
             } catch (Exception e) {
                 String msg = "Si e' verificato un errore nel {} {}";
-                log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
+                log.error(msg,"ISTANZIARE ANIMALE", animalClass.getSimpleName());
                 return null;
             }
             animal.setAge(animalDTO.getAge());
@@ -37,14 +37,14 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
         return null;
     }
     @Override
-    public A marshallToDTO(B animal, Class<A> animalClass){
-        if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalClass)){
+    public A marshallToDTO(B animal, Class<A> animalDTOClass){
+        if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalDTOClass)){
             A animalDTO;
             try {
-                animalDTO = animalClass.getConstructor().newInstance();
+                animalDTO = animalDTOClass.getConstructor().newInstance();
             } catch (Exception e) {
                 String msg = "Si e' verificato un errore nel {} {}";
-                log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
+                log.error(msg,"ISTANZIARE ANIMALE", animalDTOClass.getSimpleName());
                 return null;
             }
             animalDTO.setAge(animal.getAge());

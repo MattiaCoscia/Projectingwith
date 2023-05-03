@@ -12,9 +12,9 @@ public abstract class BaseAnimalWithWingsMarshaller<A extends AnimalDTOWithWings
     }
 
     @Override
-    public B marshallFromDTO(A animalDTO, Class<B> animallClass){
-        if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animallClass)){
-            B animal = super.marshallFromDTO(animalDTO,animallClass);
+    public B marshallFromDTO(A animalDTO, Class<B> animalClass){
+        if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
+            B animal = super.marshallFromDTO(animalDTO, animalClass);
             animal.setWingsSpan(animal.getWingsSpan());
             return animal;
         }
@@ -22,9 +22,9 @@ public abstract class BaseAnimalWithWingsMarshaller<A extends AnimalDTOWithWings
     }
 
     @Override
-    public A marshallToDTO(B animal, Class<A> animallClass){
-        if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animallClass)){
-            A animalDTO = super.marshallToDTO(animal,animallClass);
+    public A marshallToDTO(B animal, Class<A> animalDTOClass){
+        if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalDTOClass)){
+            A animalDTO = super.marshallToDTO(animal, animalDTOClass);
             animalDTO.setWingsSpan(animal.getWingsSpan());
             return animalDTO;
         }
