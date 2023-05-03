@@ -25,7 +25,7 @@ public class PlayerEntityMarshaller extends BranchEntityMarshaller<PlayerDTO,Pla
             player.setPositionY(playerDTO.getPositionY());
             player.setPositionX(player.getPositionX());
             if(playerDTO.getBagDTO() != null){
-                player.setBag(bagMarshaller.marshallFromDTO(playerDTO.getBagDTO()));
+                player.setBag(bagMarshaller.marshall(playerDTO.getBagDTO()));
             }
             return player;
         }
@@ -41,7 +41,7 @@ public class PlayerEntityMarshaller extends BranchEntityMarshaller<PlayerDTO,Pla
             playerDTO.setPositionY(player.getPositionY());
             playerDTO.setPositionX(player.getPositionX());
             if(playerDTO.getBagDTO() != null){
-                playerDTO.setBagDTO(bagMarshaller.marshallToDTO(player.getBag()));
+                playerDTO.setBagDTO(bagMarshaller.marshall(player.getBag()));
             }
             return playerDTO;
         }

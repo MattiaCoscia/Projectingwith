@@ -16,42 +16,42 @@ public abstract class BaseEntityMarshaller<A extends EntityDTO, B extends Entity
         doubleKey = new BusinessAndDTOEntityClassKey<>(businessClass,dtoClass);
     }
     @Override
-    public B marshallFromDTO(A animalDTO, Class<B> animalClass) {
-        if(!ObjectUtils.isEmpty(animalDTO) && !ObjectUtils.isEmpty(animalClass)){
-            B animal = null;
+    public B marshallFromDTO(A entityDTO, Class<B> entityClass) {
+        if(!ObjectUtils.isEmpty(entityDTO) && !ObjectUtils.isEmpty(entityClass)){
+            B entity = null;
             try {
-                animal = animalClass.getConstructor().newInstance();
+                entity = entityClass.getConstructor().newInstance();
             } catch (Exception e) {
                 String msg = "Si e' verificato un errore nel {} {}";
-                log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
+                log.error(msg,"ISTANZIARE ANIMALE",entityClass.getSimpleName());
                 return null;
             }
-            animal.setId(animalDTO.getId());
-            animal.setLifePoints(animalDTO.getLifePoints());
-            animal.setName(animal.getName());
-            animal.setPositionX(animal.getPositionX());
-            animal.setPositionY(animal.getPositionY());
-            return animal;
+            entity.setId(entityDTO.getId());
+            entity.setLifePoints(entityDTO.getLifePoints());
+            entity.setName(entity.getName());
+            entity.setPositionX(entity.getPositionX());
+            entity.setPositionY(entity.getPositionY());
+            return entity;
         }
         return null;
     }
     @Override
-    public A marshallToDTO(B animal, Class<A> animalClass){
-        if(!ObjectUtils.isEmpty(animal) && !ObjectUtils.isEmpty(animalClass)){
-            A animalDTO;
+    public A marshallToDTO(B entity, Class<A> entityDTOClass){
+        if(!ObjectUtils.isEmpty(entity) && !ObjectUtils.isEmpty(entityDTOClass)){
+            A entityDTO;
             try {
-                animalDTO = animalClass.getConstructor().newInstance();
+                entityDTO = entityDTOClass.getConstructor().newInstance();
             } catch (Exception e) {
                 String msg = "Si e' verificato un errore nel {} {}";
-                log.error(msg,"ISTANZIARE ANIMALE",animalClass.getSimpleName());
+                log.error(msg,"ISTANZIARE ANIMALE",entityDTOClass.getSimpleName());
                 return null;
             }
-            animalDTO.setId(animal.getId());
-            animalDTO.setLifePoints(animal.getLifePoints());
-            animalDTO.setName(animal.getName());
-            animalDTO.setPositionX(animal.getPositionX());
-            animalDTO.setPositionY(animal.getPositionY());
-            return animalDTO;
+            entityDTO.setId(entity.getId());
+            entityDTO.setLifePoints(entity.getLifePoints());
+            entityDTO.setName(entity.getName());
+            entityDTO.setPositionX(entity.getPositionX());
+            entityDTO.setPositionY(entity.getPositionY());
+            return entityDTO;
         }
         return null;
     }

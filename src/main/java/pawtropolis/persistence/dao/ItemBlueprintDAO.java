@@ -30,7 +30,7 @@ public class ItemBlueprintDAO extends AbstractPersistanceClass<ItemBlueprintDTO,
 
     @Override
     public ItemBlueprint edit(ItemBlueprintDTO dto) {
-        if (!ObjectUtils.isEmpty(dto) && !ObjectUtils.isEmpty(dto.getId())) {
+        if (!ObjectUtils.isEmpty(dto)) {
             Optional<ItemBlueprintDTO> optDTO = getRepository().findById(dto.getId());
             optDTO.ifPresent(itemBlueprintDTO -> getRepository().save(itemBlueprintDTO));
             return getMarshaller().marshall(dto);
