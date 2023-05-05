@@ -18,11 +18,9 @@ public class ItemStoredDTO implements DTOClass {
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "id")
-    @Column(name = "blueprint_id")
     private ItemBlueprintDTO itemBlueprintDTO;
     @ManyToOne
     @JoinColumn(name = "id")
-    @Column(name = "inventory_id")
     private InventoryDTO inventoryDTO;
     public ItemStoredDTO(ItemBlueprintDTO itemBlueprintDTO, int quantity){
         this.itemBlueprintDTO = itemBlueprintDTO;

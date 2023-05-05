@@ -16,8 +16,10 @@ public class InventoryDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @OneToMany(mappedBy = "inventory")
+    @OneToMany
     private Map<String, ItemStoredDTO> items;
+    @OneToOne
+    private BagDTO bag;
     public InventoryDTO(){
         items=new HashMap<>();
     }
@@ -30,14 +32,5 @@ public class InventoryDTO implements DTOClass {
                 this.getItems().put(itemStored.getItemBlueprintDTO().getName(), itemStored);
             }
         }
-    }
-    public ItemStoredDTO getItemFromInventory(String item){
-        if(item != null){
-            ItemStoredDTO itemStoredToGet = items.get(item);
-            if(itemStoredToGet != null){
-                return itemStoredToGet;
-            }
-        }
-        return null;
     }
 }

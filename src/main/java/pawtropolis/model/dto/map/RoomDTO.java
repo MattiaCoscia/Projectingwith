@@ -34,7 +34,7 @@ public class RoomDTO implements DTOClass {
     @OneToMany
     private List<pawtropolis.model.dto.entity.EntityDTO> npcs;
 
-    @ManyToMany(mappedBy = "adiacentRooms")
+    @ManyToMany
     @JoinTable(name="room_connection",
             joinColumns=
             @JoinColumn(name="from_room_id", referencedColumnName="ID"),
