@@ -21,7 +21,7 @@ public class InventoryDTO implements DTOClass {
     @OneToMany
     private Map<String, ItemStoredDTO> items;
 
-    @Transient
+    @OneToOne
     private BagDTO bag;
     public InventoryDTO(){
         items=new HashMap<>();
