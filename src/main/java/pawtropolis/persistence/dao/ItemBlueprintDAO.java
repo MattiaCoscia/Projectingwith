@@ -43,7 +43,7 @@ public class ItemBlueprintDAO extends AbstractPersistanceClass<ItemBlueprintDTO,
         if (!ObjectUtils.isEmpty(id)) {
             Optional<ItemBlueprintDTO> optDTO = getRepository().findById(id);
             optDTO.ifPresent(itemBlueprintDTO -> getRepository().delete(itemBlueprintDTO));
-            return true;
+            return optDTO.isPresent();
         }
         return false;
     }

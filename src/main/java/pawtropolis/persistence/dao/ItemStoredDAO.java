@@ -42,7 +42,7 @@ public class ItemStoredDAO extends AbstractPersistanceClass<ItemStoredDTO, ItemS
         if(!ObjectUtils.isEmpty(id)){
             Optional<ItemStoredDTO> optDTO = getRepository().findById(id);
             optDTO.ifPresent(itemDTO -> getRepository().delete(itemDTO));
-            return true;
+            return optDTO.isPresent();
         }
         return false;
     }

@@ -39,8 +39,8 @@ public class BagDAO extends AbstractPersistanceClass<BagDTO, Bag,Integer>{
     public boolean remove(Integer id) {
         if(!ObjectUtils.isEmpty(id)){
             Optional<BagDTO> optDTO = getRepository().findById(id);
-            optDTO.ifPresent(bagDTO -> getRepository().delete(optDTO.get()));
-            return true;
+            optDTO.ifPresent(bagDTO -> getRepository().delete(bagDTO));
+            return optDTO.isPresent();
         }
         return false;
     }
