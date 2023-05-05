@@ -4,6 +4,7 @@ package pawtropolis.model.map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pawtropolis.model.BusinessClass;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.utility.RoomType;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Room {
+public class Room extends BusinessClass {
     private int id;
     private String name;
     private RoomType type;

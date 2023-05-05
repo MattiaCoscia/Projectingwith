@@ -3,6 +3,7 @@ package pawtropolis.model.dto.map;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import pawtropolis.model.dto.DTOClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
 @Setter
 @Entity
 @Table(name = "game_map")
-public class GameMapDTO {
+public class GameMapDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

@@ -3,11 +3,12 @@ package pawtropolis.model.items;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import pawtropolis.model.BusinessClass;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class ItemStored {
+public class ItemStored extends BusinessClass {
     private int id;
     private int quantity;
     private ItemBlueprint itemBlueprint;

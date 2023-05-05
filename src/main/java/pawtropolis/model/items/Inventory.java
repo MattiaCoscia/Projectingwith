@@ -3,6 +3,7 @@ package pawtropolis.model.items;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import pawtropolis.model.BusinessClass;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Inventory {
+public class Inventory extends BusinessClass {
     private long id;
     private Map<String, ItemStored> items;
     public Inventory(){
