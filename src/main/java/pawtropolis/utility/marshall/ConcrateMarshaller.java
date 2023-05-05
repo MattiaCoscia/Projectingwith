@@ -1,9 +1,6 @@
 package pawtropolis.utility.marshall;
 
-import pawtropolis.model.BusinessClass;
-import pawtropolis.model.dto.DTOClass;
-
-public interface ConcrateMarshaller<A extends DTOClass,B extends BusinessClass> {
+public interface ConcrateMarshaller<A,B> {
     B marshall(A dtoInstance);
     A marshall(B businessInstance);
 }

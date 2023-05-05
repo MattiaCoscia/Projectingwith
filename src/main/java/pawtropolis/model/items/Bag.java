@@ -1,13 +1,12 @@
 package pawtropolis.model.items;
 
 import lombok.*;
-import pawtropolis.model.BusinessClass;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bag implements BusinessClass {
+public class Bag {
     private int id;
     private Inventory inventory;
     private int volume = 20;

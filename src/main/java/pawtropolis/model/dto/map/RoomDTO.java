@@ -4,8 +4,6 @@ package pawtropolis.model.dto.map;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import pawtropolis.model.dto.DTOClass;
-import pawtropolis.model.dto.entity.EntityDTO;
 import pawtropolis.model.dto.items.InventoryDTO;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.utility.RoomType;
@@ -18,7 +16,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "room")
-public class RoomDTO implements DTOClass {
+public class RoomDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -33,7 +31,7 @@ public class RoomDTO implements DTOClass {
     private InventoryDTO inventoryDTO;
 
     @OneToMany
-    private List<EntityDTO> npcs;
+    private List<pawtropolis.model.dto.entity.EntityDTO> npcs;
 
     @ManyToMany(mappedBy = "adiacentRooms")
     @JoinTable(name="room_connection",

@@ -4,8 +4,6 @@ package pawtropolis.model.map;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pawtropolis.model.BusinessClass;
-import pawtropolis.model.entity.Entity;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.utility.RoomType;
@@ -16,17 +14,17 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Room implements BusinessClass {
+public class Room {
     private int id;
     private String name;
     private RoomType type;
     private Inventory inventory;
-    private List<Entity> npcs;
+    private List<pawtropolis.model.entity.Entity> npcs;
     private EnumMap<DirectionEnum,Room> adiacentRooms;
     private int chainPosition;
     private int positionX;
     private int positionY;
-    public Room(String name, Inventory inventory, List<Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
+    public Room(String name, Inventory inventory, List<pawtropolis.model.entity.Entity> npcs, int positionX, int positionY, RoomType roomType, int chainPosition) {
         this.name = name;
         this.inventory = inventory;
         this.npcs = npcs;
@@ -41,7 +39,7 @@ public class Room implements BusinessClass {
         room.adiacentRooms.put(DirectionEnum.oppositeValue(directionEnum),this);
         return room;
     }
-    public List<Entity> getEntities() {
+    public List<pawtropolis.model.entity.Entity> getEntities() {
         return npcs;
     }
     public void addItem(ItemStored itemStored){

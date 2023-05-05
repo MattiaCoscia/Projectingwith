@@ -1,12 +1,11 @@
 package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
-import pawtropolis.model.BusinessClass;
-import pawtropolis.model.dto.DTOClass;
+import pawtropolis.model.dto.entity.EntityDTO;
 
 import java.util.Objects;
 @Getter
-public class BusinessAndDTOBranchClassKey<A extends DTOClass, B extends BusinessClass> {
+public class BusinessAndDTOBranchClassKey<A extends EntityDTO, B> {
     private final Class<A> dtoClass;
     private final Class<B> businessClass;
     private final int hashCode;

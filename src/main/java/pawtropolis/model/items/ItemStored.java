@@ -1,15 +1,13 @@
 package pawtropolis.model.items;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import pawtropolis.model.BusinessClass;
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class ItemStored implements BusinessClass {
+public class ItemStored {
     private int id;
     private int quantity;
     private ItemBlueprint itemBlueprint;
