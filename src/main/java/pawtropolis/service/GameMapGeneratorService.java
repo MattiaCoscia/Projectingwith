@@ -26,6 +26,8 @@ public class GameMapGeneratorService {
 	@Autowired
 	public GameMapGeneratorService(Player player, GameMap gameMap){
 		itemStoreds = ItemContainer.getItems();
+		this.player = player;
+		this.gameMap = gameMap;
 	}
 	public GameMap run(long seed, String type) {
 		switch (type) {
@@ -42,7 +44,8 @@ public class GameMapGeneratorService {
 				return numberGenerator.generateMap(player, itemStoreds);
 			}
 			default -> {
-				return null;
+				RandomChainDisposition generationMethod = new RandomChainDisposition(gameMap, seed);
+				return generationMethod.generateMap(player, itemStoreds);
 			}
 		}
 	}
