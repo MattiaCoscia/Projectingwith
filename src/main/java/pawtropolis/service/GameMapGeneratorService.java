@@ -26,6 +26,8 @@ public class GameMapGeneratorService {
 	@Autowired
 	public GameMapGeneratorService(Player player, GameMap gameMap){
 		itemStoreds = ItemContainer.getItems();
+		this.player = player;
+		this.gameMap = gameMap;
 	}
 	public GameMap run(long seed, String type) {
 		switch (type) {

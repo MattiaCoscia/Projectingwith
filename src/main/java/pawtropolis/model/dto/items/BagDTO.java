@@ -1,12 +1,13 @@
 package pawtropolis.model.dto.items;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pawtropolis.model.dto.DTOClass;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "bag")
@@ -16,8 +17,13 @@ public class BagDTO implements DTOClass {
     private int id;
 
     @OneToOne(mappedBy = "bag")
+    @JoinColumn(referencedColumnName = "id",name = "inventory_id")
     private InventoryDTO inventoryDTO;
+
+    @Column(name = "volume")
     private int volume = 20;
+
+    @Column(name = "occupied_volume")
     private int occupiedSlots=0;
 
     public BagDTO(InventoryDTO inventoryDTO){
