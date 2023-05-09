@@ -39,6 +39,9 @@ public class FrameAdiacentNumberGeneration extends GenerationMethod {
         map.getRooms().forEach((key, value) -> {
             chooseAndAssignAdiacentRooms(value);
         });
+        map.getRooms().forEach((key,value) -> {
+            setKeysToDoors(value,this.randomBasedOnSeed);
+        });
         return map;
     }
 

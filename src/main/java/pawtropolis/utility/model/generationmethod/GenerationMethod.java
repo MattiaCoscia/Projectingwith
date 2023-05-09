@@ -3,11 +3,15 @@ package pawtropolis.utility.model.generationmethod;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.ItemStored;
+import pawtropolis.model.map.DirectionEnum;
+import pawtropolis.model.map.Door;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.NpcsFactory;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class GenerationMethod {
@@ -39,5 +43,27 @@ public abstract class GenerationMethod {
                 room.getEntities().add(ent);
             }
         }
+    }
+
+    protected void setKeysToDoors(Room room, Random random){
+        Map<String,ItemStored> itemsInRoom = room.getInventory().getItems();
+        List<Door> adiancentDoors = new ArrayList<>(room.getAdiacentDoors().values());
+        if(itemsInRoom.size() > 0){
+            itemsInRoom.forEach((name,item) -> {
+                if(!adiancentDoors.isEmpty()){
+                    int posToUse = random.nextInt(adiancentDoors.size());
+                    Door doorToLock = adiancentDoors.remove(posToUse);
+                    if(doorToLock != null && doorToLock.getKeyItem() == null && !doorToLock.isOpen()){
+                        doorToLock.setKeyItem(item);
+                        doorToLock.setOpen(false);
+                    };
+                }
+            });
+        }
+        adiancentDoors.forEach(door -> {
+            if(!door.isOpen() && door.getKeyItem() == null){
+                door.setOpen(true);
+            }
+        });
     }
 }

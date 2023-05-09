@@ -26,9 +26,6 @@ public class DropStrategy implements ActionStrategy{
                 actualRoom.addItem(new ItemStored(itemStoredToDrop.getItemBlueprint(), 1));
                 player.getBag().decreaseOccupiedSlots(itemStoredToDrop.getItemBlueprint().getVolume());
                 itemStoredToDrop.decreaseQuantity();
-                if(itemStoredToDrop.getQuantity() == 0){
-                    player.getBag().getInventory().getItems().remove(itemStoredToDrop.getItemBlueprint().getName(),itemStoredToDrop);
-                }
                 return ActionEnum.DROP;
             }
         }

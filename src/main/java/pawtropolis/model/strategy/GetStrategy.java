@@ -26,9 +26,6 @@ public class GetStrategy implements ActionStrategy{
                 player.addItem(new ItemStored(itemStoredToGet.getItemBlueprint(),1));
                 player.getBag().increaseOccupiedSlots(itemStoredToGet.getItemBlueprint().getVolume());
                 itemStoredToGet.decreaseQuantity();
-                if(itemStoredToGet.getQuantity()==0){
-                    actualRoom.getInventory().getItems().remove(itemStoredToGet.getItemBlueprint().getName(),itemStoredToGet);
-                }
                 return ActionEnum.GET;
             }
         }
