@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.controller.InputManager;
+import pawtropolis.utility.InputManager;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
@@ -15,7 +15,6 @@ import pawtropolis.utility.RoomNameKeyGenerator;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 @Component
 @Slf4j

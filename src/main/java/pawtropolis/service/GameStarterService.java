@@ -3,13 +3,12 @@ package pawtropolis.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pawtropolis.controller.InputManager;
+import pawtropolis.utility.InputManager;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.view.RenderMapService;
 
 import java.util.List;
-import java.util.Scanner;
 
 @Service
 @Slf4j

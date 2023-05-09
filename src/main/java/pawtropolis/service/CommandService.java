@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import pawtropolis.controller.InputManager;
+import pawtropolis.utility.InputManager;
 import pawtropolis.model.strategy.ActionEnum;
 import pawtropolis.model.strategy.Command;
 import pawtropolis.model.strategy.Strategy;
