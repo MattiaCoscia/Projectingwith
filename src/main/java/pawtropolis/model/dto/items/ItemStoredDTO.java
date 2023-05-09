@@ -17,9 +17,8 @@ public class ItemStoredDTO implements DTOClass {
     private int id;
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "key_name", referencedColumnName = "name")
-    private ItemBlueprintDTO nameAsKey;
+    @Column(name = "key_name")
+    private String nameAsKey;
 
     @ManyToOne
     @JoinColumn(name = "blueprint_id", referencedColumnName = "id")

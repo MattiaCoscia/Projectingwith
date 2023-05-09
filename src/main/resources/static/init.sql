@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS inventory
 CREATE TABLE IF NOT EXISTS item_stored
 (
     id           INT PRIMARY KEY NOT NULL,
-    key_name     VARCHAR(24)     NOT NULL references item_blueprint (name),
+    key_name     VARCHAR(24)     NOT NULL,
     inventory_id INT             NOT NULL references inventory (id),
     blueprint_id INT             NOT NULL references item_blueprint (id),
     quantity     INT             NOT NULL
