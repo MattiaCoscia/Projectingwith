@@ -13,7 +13,7 @@ public class ActionController {
     public ActionController(CommandService commandService){
         this.commandService = commandService;
     }
-    public ActionEnum playerAction() {
+    public List<ActionEnum> playerAction() {
         return commandService.workCommands();
     }
 }

@@ -28,7 +28,6 @@ public class InputManager {
     }
 
     public String inputString() {
-        log.info("message");
         String input = "";
         try {
             input = bufferedReader.readLine();

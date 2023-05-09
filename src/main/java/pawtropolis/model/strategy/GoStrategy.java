@@ -23,6 +23,7 @@ public class GoStrategy extends Strategy{
     private Player player;
     private GameMap map;
     private ActionEnum action = ActionEnum.GO;
+
     @Autowired
     private InputManager inputManager;
     @Autowired
@@ -100,17 +101,13 @@ public class GoStrategy extends Strategy{
     }
 
     private boolean chooseItemToOpenEvent(Player player, Door door){
-        Scanner scan = new Scanner(System.in);
         Map<String, ItemStored> items = player.getBag().getInventory().getItems();
         if(items.size() > 0){
             log.info("choose an item to open the door");
             items.forEach((name,item) -> {
                 log.info(name);
             });
-            String nameOfChoosenItem = "";
-            while (!items.containsKey(nameOfChoosenItem)){
-                nameOfChoosenItem = scan.nextLine();
-            }
+            String nameOfChoosenItem = inputManager.inputString();
             ItemStored choosenItem = items.get(nameOfChoosenItem);
             if(door.changeState(choosenItem)){
                 choosenItem.decreaseQuantity();

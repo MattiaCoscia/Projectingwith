@@ -26,15 +26,14 @@ public class CommandService {
         });
     }
 
-    public ActionEnum workCommands(){
+    public List<ActionEnum> workCommands(){
         List<Command> extrapoletedCommands = inputManager.inputPhraseAsCommands();
-        int fg =3;
         for(Command command:extrapoletedCommands){
             ActionEnum actionEnum = strategies.get(command.getActionEnum()).execute(command.getParameters());
             if(ActionEnum.UNKNOWN.equals(actionEnum)){
-                return ActionEnum.UNKNOWN;
+                return List.of(ActionEnum.UNKNOWN);
             }
         }
-        return ActionEnum.GO;
+        return extrapoletedCommands.stream().map(Command::getActionEnum).toList();
     }
 }
