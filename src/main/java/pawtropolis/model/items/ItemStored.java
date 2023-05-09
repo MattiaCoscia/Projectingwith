@@ -30,7 +30,7 @@ public class ItemStored extends BusinessClass {
     public void decreaseQuantity(){
         this.quantity--;
         if(this.quantity == 0){
-            this.inventory.getItems().remove(this);
+            this.inventory.getItems().remove(itemBlueprint.getName(),this);
             this.inventory=null;
         }
     }
