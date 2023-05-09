@@ -10,15 +10,21 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomNameKeyGenerator;
 
+import java.util.List;
+
 @Component
 @Slf4j
-public class LookStrategy implements ActionStrategy{
-    @Autowired
+public class LookStrategy extends Strategy{
     private Player player;
-    @Autowired
     private GameMap map;
+    @Autowired
+    public LookStrategy(Player player, GameMap gameMap){
+        super(ActionEnum.LOOK);
+        this.player = player;
+        this.map = gameMap;
+    }
     @Override
-    public ActionEnum execute(String action) {
+    public ActionEnum execute(List<String> action) {
         Room actualRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         log.info("Actual Room " + actualRoom.getName());
         log.info("Doors in this room:");

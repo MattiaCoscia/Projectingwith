@@ -1,18 +1,13 @@
 package pawtropolis.model.strategy;
 
 public enum ActionEnum {
-    GO("go"),
-    BAG("bag"),
-    GET("get"),
-    DROP("drop"),
-    LOOK("look"),
-    EXIT("exit"),
-    UNKNOWN("unknwon");
-    private String action;
-
-    ActionEnum(String action){
-        this.action = action;
-    }
+    GO,
+    BAG,
+    GET,
+    DROP,
+    LOOK,
+    EXIT,
+    UNKNOWN;
 
     public static ActionEnum fromValue(String action) {
         try {

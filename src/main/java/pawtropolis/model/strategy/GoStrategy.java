@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import pawtropolis.controller.InputManager;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
@@ -12,50 +13,63 @@ import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
 import pawtropolis.utility.RoomNameKeyGenerator;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 @Component
 @Slf4j
-public class GoStrategy implements ActionStrategy {
-    @Autowired
+public class GoStrategy extends Strategy{
     private Player player;
-    @Autowired
     private GameMap map;
-
+    private ActionEnum action = ActionEnum.GO;
+    @Autowired
+    private InputManager inputManager;
+    @Autowired
+    public GoStrategy(Player player, GameMap gameMap, InputManager inputManager){
+        super(ActionEnum.GO);
+        this.player = player;
+        this.map = gameMap;
+        this.inputManager = inputManager;
+    }
     @Override
-    public ActionEnum execute(String direction) {
-        if (!ObjectUtils.isEmpty(direction)) {
-            switch (DirectionEnum.fromValue(direction)) {
-                case EAST: {
-                    if (isRoomConnected(player, 1, 0, map,DirectionEnum.EAST)) {
-                        player.setPositionX(player.getPositionX() + 1);
+    public ActionEnum execute(List<String> parameters) {
+        if(!ObjectUtils.isEmpty(parameters)) {
+            for (int i = 0; i < StrategyMapping.NUMBER_OF_PARAMETER_PER_STRATEGY.get(ActionEnum.GO); i++) {
+                String direction = parameters.get(i);
+                if (!ObjectUtils.isEmpty(direction)) {
+                    switch (DirectionEnum.fromValue(direction)) {
+                        case EAST: {
+                            if (isRoomConnected(player, 1, 0, map,DirectionEnum.EAST)) {
+                                player.setPositionX(player.getPositionX() + 1);
+                            }
+                            break;
+                        }
+                        case WEST: {
+                            if (isRoomConnected(player, -1, 0, map,DirectionEnum.WEST)) {
+                                player.setPositionX(player.getPositionX() - 1);
+                            }
+                            break;
+                        }
+                        case NORTH: {
+                            if (isRoomConnected(player, 0, -1, map,DirectionEnum.NORTH)) {
+                                player.setPositionY(player.getPositionY() - 1);
+                            }
+                            break;
+                        }
+                        case SOUTH: {
+                            if (isRoomConnected(player, 0, 1, map,DirectionEnum.SOUTH)) {
+                                player.setPositionY(player.getPositionY() + 1);
+                            }
+                            break;
+                        }
+                        default: {
+                            log.warn("Unknown direction!");
+                        }
                     }
-                    break;
-                }
-                case WEST: {
-                    if (isRoomConnected(player, -1, 0, map,DirectionEnum.WEST)) {
-                        player.setPositionX(player.getPositionX() - 1);
-                    }
-                    break;
-                }
-                case NORTH: {
-                    if (isRoomConnected(player, 0, -1, map,DirectionEnum.NORTH)) {
-                        player.setPositionY(player.getPositionY() - 1);
-                    }
-                    break;
-                }
-                case SOUTH: {
-                    if (isRoomConnected(player, 0, 1, map,DirectionEnum.SOUTH)) {
-                        player.setPositionY(player.getPositionY() + 1);
-                    }
-                    break;
-                }
-                default: {
-                    log.warn("Unknown direction!");
+                    return ActionEnum.GO;
                 }
             }
-            return ActionEnum.GO;
         }
         return ActionEnum.UNKNOWN;
     }
@@ -72,9 +86,7 @@ public class GoStrategy implements ActionStrategy {
         if(actualRoom.getAdiacentDoors().get(directionEnum).isOpen()){
             return true;
         }else{
-            log.info("the door is locked, do you want to open it? y/n");
-            Scanner scan = new Scanner(System.in);
-            String yesOrNo = scan.nextLine().toLowerCase();
+            String yesOrNo = inputManager.chooseFromOptions("the door is locked, do you want to open it?",List.of("Y","N"));
             switch (yesOrNo.toLowerCase()){
                 case "y" -> {
                     return chooseItemToOpenEvent(player, actualRoom.getAdiacentDoors().get(directionEnum));

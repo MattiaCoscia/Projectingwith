@@ -1,8 +1,16 @@
 package pawtropolis.model.strategy;
 
-public class UnknownStrategy implements ActionStrategy{
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+@Component
+public class UnknownStrategy extends Strategy{
+    public UnknownStrategy() {
+        super(ActionEnum.UNKNOWN);
+    }
     @Override
-    public ActionEnum execute(String action) {
+    public ActionEnum execute(List<String> action) {
         return ActionEnum.UNKNOWN;
     }
+
 }
