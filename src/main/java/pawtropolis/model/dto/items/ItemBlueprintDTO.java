@@ -15,13 +15,13 @@ public class ItemBlueprintDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String name;
-    private String description;
-    private int volume;
 
-    public ItemBlueprintDTO(String name, String description, int volume){
-        this.name = name;
-        this.description = description;
-        this.volume = volume;
-    }
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "volume")
+    private int volume;
 }

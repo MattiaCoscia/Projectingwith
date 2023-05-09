@@ -2,7 +2,6 @@ package pawtropolis.model.dto.items;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pawtropolis.model.dto.DTOClass;
 
@@ -19,9 +18,10 @@ public class InventoryDTO implements DTOClass {
     private long id;
 
     @OneToMany
+    @MapKey(name = "nameAsKey")
     private Map<String, ItemStoredDTO> items;
 
-    @OneToOne
+    @OneToOne(mappedBy = "inventory")
     private BagDTO bag;
     public InventoryDTO(){
         items=new HashMap<>();

@@ -16,14 +16,16 @@ public class ItemStoredDTO implements DTOClass {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int quantity;
+
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "key_name", referencedColumnName = "name")
+    private ItemBlueprintDTO nameAsKey;
+
+    @ManyToOne
+    @JoinColumn(name = "blueprint_id", referencedColumnName = "id")
     private ItemBlueprintDTO itemBlueprintDTO;
+
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private InventoryDTO inventoryDTO;
-    public ItemStoredDTO(ItemBlueprintDTO itemBlueprintDTO, int quantity){
-        this.itemBlueprintDTO = itemBlueprintDTO;
-        this.quantity = quantity;
-    }
 }

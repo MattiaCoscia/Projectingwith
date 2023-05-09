@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS inventory
 CREATE TABLE IF NOT EXISTS item_stored
 (
     id           INT PRIMARY KEY NOT NULL,
+    key_name     VARCHAR(24)     NOT NULL references item_blueprint (name),
     inventory_id INT             NOT NULL references inventory (id),
     blueprint_id INT             NOT NULL references item_blueprint (id),
     quantity     INT             NOT NULL
@@ -55,7 +56,7 @@ CREATE TABLE IF NOT EXISTS bag
     Id              INT PRIMARY KEY NOT NULL,
     volume          INT             NOT NULL,
     occupied_volume INT             NOT NULL,
-    inventory_id INT NOT NULL references inventory (id)
+    inventory_id    INT NOT NULL references inventory (id)
 );
 
 CREATE TABLE IF NOT EXISTS player

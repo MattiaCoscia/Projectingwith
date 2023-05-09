@@ -16,9 +16,9 @@ public class BagDTO implements DTOClass {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne(mappedBy = "bag")
-    @JoinColumn(referencedColumnName = "id",name = "inventory_id")
-    private InventoryDTO inventoryDTO;
+    @OneToOne
+    @JoinColumn(name = "inventory_id" ,referencedColumnName = "id")
+    private InventoryDTO inventory;
 
     @Column(name = "volume")
     private int volume = 20;
@@ -26,8 +26,8 @@ public class BagDTO implements DTOClass {
     @Column(name = "occupied_volume")
     private int occupiedSlots=0;
 
-    public BagDTO(InventoryDTO inventoryDTO){
-        this.inventoryDTO = inventoryDTO;
-        this.inventoryDTO.setBag(this);
+    public BagDTO(InventoryDTO inventory){
+        this.inventory = inventory;
+        this.inventory.setBag(this);
     }
 }

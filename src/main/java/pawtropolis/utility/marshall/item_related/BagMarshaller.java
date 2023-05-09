@@ -20,7 +20,7 @@ public class BagMarshaller implements ConcrateMarshaller<BagDTO,Bag> {
             bag.setId(bagDTO.getId());
             bag.setVolume(bagDTO.getVolume());
             bag.setOccupiedSlots(bag.getOccupiedSlots());
-            bag.setInventory(inventoryMarshaller.marshall(bagDTO.getInventoryDTO()));
+            bag.setInventory(inventoryMarshaller.marshall(bagDTO.getInventory()));
             return bag;
         }
         return null;
@@ -32,7 +32,7 @@ public class BagMarshaller implements ConcrateMarshaller<BagDTO,Bag> {
             bagDTO.setId(bag.getId());
             bagDTO.setVolume(bag.getVolume());
             bagDTO.setOccupiedSlots(bag.getOccupiedSlots());
-            bagDTO.setInventoryDTO(inventoryMarshaller.marshall(bag.getInventory()));
+            bagDTO.setInventory(inventoryMarshaller.marshall(bag.getInventory()));
             return bagDTO;
         }
         return null;
