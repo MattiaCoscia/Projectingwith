@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
-import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;
 import pawtropolis.utility.marshall.entity.BranchEntityMarshaller;
+import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;
 
 import java.util.HashMap;
 import java.util.Map;

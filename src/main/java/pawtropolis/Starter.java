@@ -11,6 +11,9 @@ import pawtropolis.service.GameStarterService;
 import pawtropolis.model.strategy.ActionEnum;
 import pawtropolis.view.RenderMapService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @SpringBootApplication
 public class Starter implements ApplicationRunner {
@@ -29,12 +32,12 @@ public class Starter implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args){
         gameStarterService.execute();
-        ActionEnum actionEnum = null;
-        while (!ActionEnum.EXIT.equals(actionEnum)) {
+        List<ActionEnum> actionEnum = new ArrayList<>();
+        while (!actionEnum.contains(ActionEnum.EXIT)) {
             actionEnum = actionController.playerAction();
-            if (ActionEnum.UNKNOWN.equals(actionEnum)) {
-                log.info("command not existent");
-            } else if(!ActionEnum.EXIT.equals(actionEnum)){
+            if (actionEnum.contains(ActionEnum.UNKNOWN)) {
+                log.info("typed a command not recognized ");
+            } else if(!actionEnum.contains(ActionEnum.EXIT)){
                 renderMapService.printMap();
             }
         }

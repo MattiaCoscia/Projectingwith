@@ -2,9 +2,7 @@ package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
 import pawtropolis.model.dto.entity.EntityDTO;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.Entity;
-import pawtropolis.model.entity.npc.animal.category.Animal;
 
 import java.util.Objects;
 @Getter

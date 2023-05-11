@@ -10,7 +10,9 @@ import pawtropolis.model.items.ItemStored;
 import pawtropolis.utility.RoomType;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -22,6 +24,7 @@ public class Room extends BusinessClass {
     private Inventory inventory;
     private List<pawtropolis.model.entity.Entity> npcs;
     private EnumMap<DirectionEnum,Room> adiacentRooms;
+    private Map<DirectionEnum,Door> adiacentDoors;
     private int chainPosition;
     private int positionX;
     private int positionY;
@@ -34,10 +37,16 @@ public class Room extends BusinessClass {
         this.type=roomType;
         this.chainPosition=chainPosition;
         this.adiacentRooms = new EnumMap(DirectionEnum.class);
+        this.adiacentDoors = new HashMap<>();
     }
     public Room setSingleRoom(DirectionEnum directionEnum,Room room){
+        Door door = new Door();
+        this.adiacentDoors.put(directionEnum,door);
         this.adiacentRooms.put(directionEnum,room);
-        room.adiacentRooms.put(DirectionEnum.oppositeValue(directionEnum),this);
+
+        DirectionEnum opposite = DirectionEnum.oppositeValue(directionEnum);
+        room.adiacentRooms.put(opposite,this);
+        room.adiacentDoors.put(opposite,door);
         return room;
     }
     public List<pawtropolis.model.entity.Entity> getEntities() {

@@ -44,7 +44,8 @@ public class GameMapGeneratorService {
 				return numberGenerator.generateMap(player, itemStoreds);
 			}
 			default -> {
-				return null;
+				RandomChainDisposition generationMethod = new RandomChainDisposition(gameMap, seed);
+				return generationMethod.generateMap(player, itemStoreds);
 			}
 		}
 	}

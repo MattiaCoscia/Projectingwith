@@ -26,4 +26,8 @@ public class ItemContainer {
 		return itemStoreds;
 	}
 
+	public static List<String> availableItemsNames(){
+		return getItems().stream().map(itemStored -> itemStored.getItemBlueprint().getName()).toList();
+	}
+
 }

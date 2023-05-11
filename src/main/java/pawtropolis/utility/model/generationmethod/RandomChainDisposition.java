@@ -45,6 +45,7 @@ public class RandomChainDisposition extends GenerationMethod {
 				addItemsToRoom(itemStoreds,room,this.randomBasedOnSeed);
 				addNpcsToRoom(room,this.randomBasedOnSeed);
 			}
+			setKeysToDoors(room,this.randomBasedOnSeed);
 		});
 		return this.map;
 	}

@@ -7,7 +7,6 @@ import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.utility.marshall.AbstractMarshaller;
 import pawtropolis.utility.marshall.entity.BaseEntityMarshaller;
-import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;
 
 @Slf4j
 @Getter

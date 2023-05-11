@@ -2,6 +2,7 @@ package pawtropolis.model.map;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pawtropolis.model.BusinessClass;
 
@@ -16,6 +17,7 @@ public class GameMap extends BusinessClass {
     private int widthMap;
     private int heightMap;
     private Map<String,Room> rooms;
+    @Autowired
     public GameMap() {
         this.rooms = new HashMap<>();
         widthMap = 10;
