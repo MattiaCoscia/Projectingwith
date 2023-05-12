@@ -18,21 +18,19 @@ public class InventoryDTO implements DTOClass {
     private long id;
 
     @OneToMany
-    @MapKey(name = "nameAsKey")
+    @MapKey(name = "personalName")
     private Map<String, ItemStoredDTO> items;
 
-    @OneToOne(mappedBy = "inventory")
-    private BagDTO bag;
     public InventoryDTO(){
         items=new HashMap<>();
     }
     public void addItemToInventory(ItemStoredDTO itemStored){
         if(itemStored != null){
-            ItemStoredDTO itemStoredToAdd = items.get(itemStored.getItemBlueprintDTO().getName());
+            ItemStoredDTO itemStoredToAdd = items.get(itemStored.getPersonalName());
             if (itemStoredToAdd != null) {
                 itemStoredToAdd.setQuantity(itemStoredToAdd.getQuantity() + 1);
             } else {
-                this.getItems().put(itemStored.getItemBlueprintDTO().getName(), itemStored);
+                this.getItems().put(itemStored.getPersonalName(), itemStored);
             }
         }
     }

@@ -14,10 +14,12 @@ import java.util.Objects;
 public class ItemStored extends BusinessClass {
     private int id;
     private int quantity;
+    private String personalName;
     private ItemBlueprint itemBlueprint;
     private Inventory inventory;
     private int hashKey;
     public ItemStored(ItemBlueprint itemBlueprint,int quantity){
+        this.personalName = itemBlueprint.getName();
         this.itemBlueprint = itemBlueprint;
         this.quantity = quantity;
         hashKey = Objects.hash(itemBlueprint.getName(),itemBlueprint.getDescription(),itemBlueprint.getVolume());

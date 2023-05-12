@@ -28,6 +28,5 @@ public class BagDTO implements DTOClass {
 
     public BagDTO(InventoryDTO inventory){
         this.inventory = inventory;
-        this.inventory.setBag(this);
     }
 }

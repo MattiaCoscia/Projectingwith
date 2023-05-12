@@ -20,6 +20,7 @@ public class ItemStoredMarshaller implements ConcrateMarshaller<ItemStoredDTO,It
                 && !ObjectUtils.isEmpty(itemStoredDTO.getItemBlueprintDTO())){
             ItemStored itemStored = new ItemStored();
             itemStored.setId(itemStoredDTO.getId());
+            itemStored.setPersonalName(itemStoredDTO.getPersonalName());
             itemStored.setItemBlueprint(blueprintMarhsaller.marshall(itemStoredDTO.getItemBlueprintDTO()));
             itemStored.setQuantity(itemStoredDTO.getQuantity());
             return itemStored;
@@ -32,6 +33,7 @@ public class ItemStoredMarshaller implements ConcrateMarshaller<ItemStoredDTO,It
                 && !ObjectUtils.isEmpty(itemStored.getItemBlueprint())){
             ItemStoredDTO itemStoredDTO = new ItemStoredDTO();
             itemStoredDTO.setId(itemStored.getId());
+            itemStoredDTO.setPersonalName(itemStored.getPersonalName());
             itemStoredDTO.setQuantity(itemStored.getQuantity());
             itemStoredDTO.setItemBlueprintDTO(blueprintMarhsaller.marshall(itemStored.getItemBlueprint()));
             return itemStoredDTO;

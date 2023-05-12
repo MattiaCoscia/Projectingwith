@@ -19,12 +19,12 @@ public class Inventory extends BusinessClass {
     }
     public void addItemTOInventory(ItemStored itemStored){
         if(itemStored != null){
-            ItemStored itemStoredToAdd = items.get(itemStored.getItemBlueprint().getName());
+            ItemStored itemStoredToAdd = items.get(itemStored.getPersonalName());
             if (itemStoredToAdd != null) {
                 itemStoredToAdd.increaseQuantity();
                 itemStoredToAdd.setInventory(this);
             } else {
-                this.getItems().put(itemStored.getItemBlueprint().getName(), itemStored);
+                this.getItems().put(itemStored.getPersonalName(), itemStored);
                 itemStored.setInventory(this);
             }
         }
