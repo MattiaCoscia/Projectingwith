@@ -1,16 +1,17 @@
-package pawtropolis.persistence.dao;
+package pawtropolis.persistence.dao.item_related;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import pawtropolis.persistence.dao.AbstractPersistanceClass;
 import pawtropolis.persistence.dto.items.BagDTO;
 import pawtropolis.model.items.Bag;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 
 import java.util.Optional;
 @Component
-public class BagDAO extends AbstractPersistanceClass<BagDTO, Bag,Integer>{
+public class BagDAO extends AbstractPersistanceClass<BagDTO, Bag,Integer> {
     @Autowired
     protected BagDAO(JpaRepository<BagDTO, Integer> repository, ConcrateMarshaller<BagDTO, Bag> marshaller) {
         super(repository, marshaller);

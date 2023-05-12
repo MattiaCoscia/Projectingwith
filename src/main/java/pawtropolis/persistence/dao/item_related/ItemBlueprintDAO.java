@@ -1,9 +1,10 @@
-package pawtropolis.persistence.dao;
+package pawtropolis.persistence.dao.item_related;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import pawtropolis.persistence.dao.AbstractPersistanceClass;
 import pawtropolis.persistence.dto.items.ItemBlueprintDTO;
 import pawtropolis.model.items.ItemBlueprint;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
