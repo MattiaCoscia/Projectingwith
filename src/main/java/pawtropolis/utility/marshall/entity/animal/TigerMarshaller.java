@@ -3,7 +3,7 @@ package pawtropolis.utility.marshall.entity.animal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.npc.animal.species.TigerDTO;
+import pawtropolis.persistence.dto.entity.npc.animal.species.TigerDTO;
 import pawtropolis.model.entity.npc.animal.species.Tiger;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 

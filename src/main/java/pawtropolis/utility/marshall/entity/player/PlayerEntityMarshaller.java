@@ -3,7 +3,7 @@ package pawtropolis.utility.marshall.entity.player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.PlayerDTO;
+import pawtropolis.persistence.dto.entity.PlayerDTO;
 import pawtropolis.model.entity.Player;
 import pawtropolis.utility.marshall.entity.BranchEntityMarshaller;
 import pawtropolis.utility.marshall.item_related.BagMarshaller;

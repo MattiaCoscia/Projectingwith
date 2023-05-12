@@ -1,11 +1,11 @@
-package pawtropolis.model.dto.entity;
+package pawtropolis.persistence.dto.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pawtropolis.model.dto.DTOClass;
+import pawtropolis.persistence.dto.DTOClass;
 
 @Getter
 @Setter

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.EntityDTO;
+import pawtropolis.persistence.dto.entity.EntityDTO;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 
@@ -22,7 +22,7 @@ public class EntityMarshaller implements ConcrateMarshaller<EntityDTO, Entity> {
         });
     }
     @Override
-    public Entity marshall(pawtropolis.model.dto.entity.EntityDTO dtoInstance) {
+    public Entity marshall(pawtropolis.persistence.dto.entity.EntityDTO dtoInstance) {
         if(!ObjectUtils.isEmpty(dtoInstance)){
             BranchEntityMarshaller<EntityDTO, Entity> marshaller = marshallersMap.get(dtoInstance.getClass());
             if(!ObjectUtils.isEmpty(marshaller) && dtoInstance.getClass().isAssignableFrom(marshaller.getDTOClass())){

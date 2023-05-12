@@ -1,4 +1,4 @@
-package pawtropolis.model.dto.entity.npc.animal.category;
+package pawtropolis.persistence.dto.entity.npc.animal.category;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

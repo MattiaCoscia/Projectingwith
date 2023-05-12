@@ -3,7 +3,7 @@ package pawtropolis.utility.marshall.entity;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.EntityDTO;
+import pawtropolis.persistence.dto.entity.EntityDTO;
 import pawtropolis.model.entity.Entity;
 import pawtropolis.utility.marshall.AbstractMarshaller;
 

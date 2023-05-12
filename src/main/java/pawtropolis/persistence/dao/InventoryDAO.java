@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.items.InventoryDTO;
+import pawtropolis.persistence.dto.items.InventoryDTO;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 

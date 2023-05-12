@@ -1,9 +1,9 @@
-package pawtropolis.model.dto.map;
+package pawtropolis.persistence.dto.map;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import pawtropolis.model.dto.DTOClass;
+import pawtropolis.persistence.dto.DTOClass;
 
 import java.util.HashMap;
 import java.util.Map;

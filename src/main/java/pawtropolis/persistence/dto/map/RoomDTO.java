@@ -1,11 +1,11 @@
-package pawtropolis.model.dto.map;
+package pawtropolis.persistence.dto.map;
 
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import pawtropolis.model.dto.DTOClass;
-import pawtropolis.model.dto.items.InventoryDTO;
+import pawtropolis.persistence.dto.DTOClass;
+import pawtropolis.persistence.dto.items.InventoryDTO;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.utility.RoomType;
 
@@ -32,7 +32,7 @@ public class RoomDTO implements DTOClass {
     private InventoryDTO inventoryDTO;
 
     @OneToMany
-    private List<pawtropolis.model.dto.entity.EntityDTO> npcs;
+    private List<pawtropolis.persistence.dto.entity.EntityDTO> npcs;
 
     @ManyToMany
     @JoinTable(name="room_connection",

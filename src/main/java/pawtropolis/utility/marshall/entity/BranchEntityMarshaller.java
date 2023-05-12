@@ -1,7 +1,7 @@
 package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
-import pawtropolis.model.dto.entity.EntityDTO;
+import pawtropolis.persistence.dto.entity.EntityDTO;
 
 @Getter
 public abstract class BranchEntityMarshaller<A extends EntityDTO, B> {

@@ -1,7 +1,7 @@
 package pawtropolis.utility.marshall.entity.animal;
 
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTOWithWings;
+import pawtropolis.persistence.dto.entity.npc.animal.category.AnimalDTOWithWings;
 import pawtropolis.model.entity.npc.animal.category.AnimalWithWings;
 import pawtropolis.utility.marshall.AbstractMarshaller;
 

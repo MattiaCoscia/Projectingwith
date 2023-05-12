@@ -3,7 +3,7 @@ package pawtropolis.utility.marshall.entity.animal;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
+import pawtropolis.persistence.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.utility.marshall.AbstractMarshaller;
 import pawtropolis.utility.marshall.entity.BaseEntityMarshaller;

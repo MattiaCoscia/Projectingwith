@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.entity.npc.animal.category.AnimalDTO;
+import pawtropolis.persistence.dto.entity.npc.animal.category.AnimalDTO;
 import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.utility.marshall.entity.BranchEntityMarshaller;
 import pawtropolis.utility.marshall.entity.BusinessAndDTOEntityClassKey;

@@ -1,7 +1,7 @@
 package pawtropolis.utility.marshall.entity;
 
 import lombok.Getter;
-import pawtropolis.model.dto.entity.EntityDTO;
+import pawtropolis.persistence.dto.entity.EntityDTO;
 
 import java.util.Objects;
 @Getter

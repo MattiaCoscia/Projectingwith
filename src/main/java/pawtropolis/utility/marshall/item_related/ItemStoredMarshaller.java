@@ -3,7 +3,7 @@ package pawtropolis.utility.marshall.item_related;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.items.ItemStoredDTO;
+import pawtropolis.persistence.dto.items.ItemStoredDTO;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 

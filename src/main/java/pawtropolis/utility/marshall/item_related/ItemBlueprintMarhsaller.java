@@ -2,7 +2,7 @@ package pawtropolis.utility.marshall.item_related;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import pawtropolis.model.dto.items.ItemBlueprintDTO;
+import pawtropolis.persistence.dto.items.ItemBlueprintDTO;
 import pawtropolis.model.items.ItemBlueprint;
 import pawtropolis.utility.marshall.ConcrateMarshaller;
 
