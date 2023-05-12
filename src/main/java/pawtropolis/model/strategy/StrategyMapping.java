@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class StrategyMapping {
-    public final static Map<ActionEnum,Integer> NUMBER_OF_PARAMETER_PER_STRATEGY = Map.of(
+    private StrategyMapping(){}
+    public static final Map<ActionEnum,Integer> NUMBER_OF_PARAMETER_PER_STRATEGY = Map.of(
             ActionEnum.LOOK,0,
             ActionEnum.BAG,0,
             ActionEnum.GO,1,
@@ -18,7 +19,7 @@ public class StrategyMapping {
             ActionEnum.EXIT,0,
             ActionEnum.UNKNOWN,0
     );
-    public final static Map<ActionEnum, List<String>> POSSIBLE_PARAMETERS_PER_STRATEGY = Map.of(
+    public static final Map<ActionEnum, List<String>> POSSIBLE_PARAMETERS_PER_STRATEGY = Map.of(
             ActionEnum.GET,ItemContainer.availableItemsNames(),
             ActionEnum.DROP,ItemContainer.availableItemsNames(),
             ActionEnum.GO, Stream.of(DirectionEnum.values()).map(directionEnum -> directionEnum.name().toLowerCase()).toList()
