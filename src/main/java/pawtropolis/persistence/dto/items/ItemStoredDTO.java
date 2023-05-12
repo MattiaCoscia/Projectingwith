@@ -27,4 +27,7 @@ public class ItemStoredDTO implements DTOClass {
     @ManyToOne
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private InventoryDTO inventoryDTO;
+
+    @Column(name = "hash_key")
+    private int hashKey;
 }

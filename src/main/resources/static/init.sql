@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS item_stored
     personal_name VARCHAR(24)     NOT NULL,
     inventory_id  INT             NOT NULL references inventory (id),
     blueprint_id  INT             NOT NULL references item_blueprint (id),
-    quantity      INT             NOT NULL
+    quantity      INT             NOT NULL,
+    hash_key      INT             NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS room
@@ -70,6 +71,16 @@ CREATE TABLE IF NOT EXISTS player
 );
 
 CREATE TABLE IF NOT EXISTS room_connection
+(
+    from_room_id INT NOT NULL,
+    direction_id INT NOT NULL references direction_enum (id),
+    to_room_id   INT NOT NULL,
+    PRIMARY KEY (from_room_id, to_room_id),
+    FOREIGN KEY (from_room_id) REFERENCES room (id),
+    FOREIGN KEY (to_room_id) REFERENCES room (id)
+);
+
+CREATE TABLE IF NOT EXISTS door_connection
 (
     from_room_id INT NOT NULL,
     direction_id INT NOT NULL references direction_enum (id),
