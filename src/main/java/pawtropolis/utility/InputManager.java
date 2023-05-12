@@ -49,10 +49,10 @@ public class InputManager {
 
     public List<Command> inputPhraseAsCommands() {
         String wholeCommand = inputString();
-        return cropPhraseIntoCommands(wholeCommand.toLowerCase(), Arrays.asList(ActionEnum.values()));
+        return cropPhraseIntoCommands(wholeCommand.toLowerCase());
     }
 
-    private List<Command> cropPhraseIntoCommands(String phrase, List<ActionEnum> actionEnums) {
+    private List<Command> cropPhraseIntoCommands(String phrase) {
         List<String> wordsInPhrase = new ArrayList<>(Arrays.asList(phrase.split(WORDS_SEPARATOR)));
         List<String> modifiableList = new ArrayList<>(Arrays.asList(phrase.split(WORDS_SEPARATOR)));
         List<Command> presentCommands = new ArrayList<>();
