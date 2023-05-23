@@ -10,6 +10,7 @@ import pawtropolis.persistence.dto.items.ItemStoredDTO;
 @Getter
 @Setter
 @Entity
+@Table(name = "door")
 public class DoorDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

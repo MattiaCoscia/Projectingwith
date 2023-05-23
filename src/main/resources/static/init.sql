@@ -80,6 +80,13 @@ CREATE TABLE IF NOT EXISTS room_connection
     FOREIGN KEY (to_room_id) REFERENCES room (id)
 );
 
+CREATE TABLE IF NOT EXISTS door
+(
+    id         INT PRIMARY KEY NOT NULL,
+    is_open    BOOLEAN         NOT NULL,
+    itemkey_id INT             NOT NULL references item_stored (id)
+);
+
 CREATE TABLE IF NOT EXISTS door_connection
 (
     from_room_id INT NOT NULL,
