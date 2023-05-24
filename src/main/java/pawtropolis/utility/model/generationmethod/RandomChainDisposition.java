@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.BiPredicate;
 
 import lombok.extern.slf4j.Slf4j;
+import pawtropolis.model.map.Door;
 import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
@@ -149,11 +150,12 @@ public class RandomChainDisposition extends GenerationMethod {
 		});
 	}
 
-	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room r, int halfLenght) {
-		r.setType(RoomType.CORRIDOR_TYPE);
-		for (Room room : r.getAdiacentRooms().values()) {
+	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room mainRoom, int halfLenght) {
+		mainRoom.setType(RoomType.CORRIDOR_TYPE);
+		for (Door door : mainRoom.getAdiacentDoors().values()) {
+			Room room = door.getRoomA() != mainRoom ? door.getRoomA() : door.getRoomB();
 			if (room != null && (!room.getType().equals(RoomType.CORRIDOR_TYPE))
-					&& room.getChainPosition() == r.getChainPosition() - 1) {
+					&& room.getChainPosition() == mainRoom.getChainPosition() - 1) {
 				recursionToFormCorridorFromEndRoomToStartingRoom(room, halfLenght);
 			}
 		}

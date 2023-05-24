@@ -78,11 +78,12 @@ public class GoStrategy extends Strategy{
     private boolean isRoomConnected(Player player, int changeInX, int changeInY, GameMap map, DirectionEnum directionEnum) {
         Room toGo = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
         Room actualRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
-        Room possibileDirectionRoom = actualRoom.getAdiacentRooms().get(directionEnum);
-        return possibileDirectionRoom != null && isDoorOpen(player,actualRoom,toGo,directionEnum) && possibileDirectionRoom == toGo;
+        Door doorInDirection = actualRoom.getAdiacentDoors().get(directionEnum);
+        Room possibileDirectionRoom = doorInDirection.getRoomA() != actualRoom ? doorInDirection.getRoomA() : doorInDirection.getRoomB();
+        return possibileDirectionRoom != null && isDoorOpen(player,actualRoom,directionEnum) && possibileDirectionRoom == toGo;
     }
 
-    private boolean isDoorOpen(Player player,Room actualRoom,Room roomToGo, DirectionEnum directionEnum){
+    private boolean isDoorOpen(Player player,Room actualRoom, DirectionEnum directionEnum){
         if(actualRoom.getAdiacentDoors().get(directionEnum).isOpen()){
             return true;
         }else{

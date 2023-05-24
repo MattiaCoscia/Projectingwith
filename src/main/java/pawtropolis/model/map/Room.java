@@ -23,8 +23,7 @@ public class Room extends BusinessClass {
     private RoomType type;
     private Inventory inventory;
     private List<pawtropolis.model.entity.Entity> npcs;
-    private EnumMap<DirectionEnum,Room> adiacentRooms;
-    private Map<DirectionEnum,Door> adiacentDoors;
+    private EnumMap<DirectionEnum,Door> adiacentDoors;
     private int chainPosition;
     private int positionX;
     private int positionY;
@@ -36,16 +35,14 @@ public class Room extends BusinessClass {
         this.positionY=positionY;
         this.type=roomType;
         this.chainPosition=chainPosition;
-        this.adiacentRooms = new EnumMap(DirectionEnum.class);
-        this.adiacentDoors = new HashMap<>();
+        this.adiacentDoors = new EnumMap(DirectionEnum.class);
     }
     public Room setSingleRoom(DirectionEnum directionEnum,Room room){
         Door door = new Door();
+        door.setRoomA(this);
+        door.setRoomB(room);
         this.adiacentDoors.put(directionEnum,door);
-        this.adiacentRooms.put(directionEnum,room);
-
         DirectionEnum opposite = DirectionEnum.oppositeValue(directionEnum);
-        room.adiacentRooms.put(opposite,this);
         room.adiacentDoors.put(opposite,door);
         return room;
     }

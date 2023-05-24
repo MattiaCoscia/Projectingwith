@@ -7,6 +7,8 @@ import pawtropolis.model.items.ItemStored;
 @Getter
 @Setter
 public class Door extends BusinessClass {
+    private Room roomA;
+    private Room roomB;
     private boolean isOpen;
     private ItemStored keyItem;
 

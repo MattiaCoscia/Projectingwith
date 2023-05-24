@@ -1,6 +1,7 @@
 package pawtropolis.utility.model.generationmethod;
 
 import lombok.extern.slf4j.Slf4j;
+import pawtropolis.model.map.Door;
 import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
@@ -36,11 +37,11 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
             chooseAndAssignRooms(x, y, availableAdiacentPositions(x, y));
         }
         convertIntegerMapToGameMap(itemStoreds);
-        map.getRooms().forEach((key,value) ->{
+        map.getRooms().forEach((key, value) -> {
             chooseAndAssignAdiacentRooms(value);
         });
-        map.getRooms().forEach((key,value) -> {
-            setKeysToDoors(value,this.randomBasedOnSeed);
+        map.getRooms().forEach((key, value) -> {
+            setKeysToDoors(value, this.randomBasedOnSeed);
         });
         return map;
     }
@@ -110,11 +111,11 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
             countX = 0;
             for (int x : y) {
                 if (x == 1) {
-                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY,countX), new Inventory(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.CORRIDOR_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                 } else if (x == 2) {
-                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY,countX), new Inventory(), new ArrayList<>(), countX,
+                    Room roomTOAdd = new Room(RoomNameKeyGenerator.giveKeyForRoom(countY, countX), new Inventory(), new ArrayList<>(), countX,
                             countY, RoomType.ROOM_TYPE, x);
                     map.setSingleRoom(roomTOAdd);
                     addItemsToRoom(itemStoreds, roomTOAdd, randomBasedOnSeed);
@@ -161,7 +162,7 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
             Room adiacentRoom = null;
             for (DirectionEnum possibledirectionRoom : DirectionEnum.values()) {
                 adiacentRoom = null;
-                if (room.getAdiacentRooms().get(possibledirectionRoom) == null) {
+                if (room.getAdiacentDoors().get(possibledirectionRoom) == null) {
                     int listPosition = randomBasedOnSeed.nextInt(0, positions.size());
                     int countRoom = positions.remove(listPosition);
                     switch (countRoom) {
@@ -212,16 +213,20 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
         List<Room> checkedRooms = new ArrayList<>();
         checkedRooms.addAll(alreadyChecked);
         for (DirectionEnum direction : DirectionEnum.values()) {
-            Room r = room.getAdiacentRooms().get(direction);
-            if (r != null) {
-                if (r.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(r)))) {
-                    checkedRooms.add(r);
-                    neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(r, checkedRooms);
-                    return neighbourWithForeignNeighbour;
-                } else if (!(r.getType().equals(room.getType()))) {
-                    neighbourWithForeignNeighbour++;
+            Door door = room.getAdiacentDoors().get(direction);
+            if (door != null) {
+                Room roomAdiacent = door.getRoomA() != room ? door.getRoomA() : door.getRoomB();
+                if (roomAdiacent != null) {
+                    if (roomAdiacent.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(roomAdiacent)))) {
+                        checkedRooms.add(roomAdiacent);
+                        neighbourWithForeignNeighbour += noConnectionToDifferentTypeRecursion(roomAdiacent, checkedRooms);
+                        return neighbourWithForeignNeighbour;
+                    } else if (!(roomAdiacent.getType().equals(room.getType()))) {
+                        neighbourWithForeignNeighbour++;
+                    }
                 }
             }
+
         }
 
         return neighbourWithForeignNeighbour;

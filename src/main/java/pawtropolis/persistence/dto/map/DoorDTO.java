@@ -16,6 +16,12 @@ public class DoorDTO implements DTOClass {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @ManyToOne
+    private RoomDTO roomA;
+
+    @ManyToOne
+    private RoomDTO roomB;
+
     @Column(name = "is_open")
     private boolean isOpen;
 

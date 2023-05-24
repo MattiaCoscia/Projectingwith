@@ -3,6 +3,8 @@ package pawtropolis.utility.marshall.map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
+import pawtropolis.model.map.Door;
+import pawtropolis.persistence.dto.map.DoorDTO;
 import pawtropolis.persistence.dto.map.GameMapDTO;
 import pawtropolis.persistence.dto.map.RoomDTO;
 import pawtropolis.model.map.DirectionEnum;
@@ -17,9 +19,11 @@ import java.util.Map;
 @Component
 public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap> {
     private RoomMarshaller roomMarshaller;
+    private DoorMarhsaller doorMarhsaller;
     @Autowired
-    public GameMapMarshaller(RoomMarshaller roomMarshaller){
+    public GameMapMarshaller(RoomMarshaller roomMarshaller, DoorMarhsaller doorMarhsaller){
         this.roomMarshaller = roomMarshaller;
+        this.doorMarhsaller = doorMarhsaller;
     }
     @Override
     public GameMap marshall(GameMapDTO mapDTO){
@@ -37,11 +41,18 @@ public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap>
                 });
                 mapDTO.getRooms().forEach((key,roomDTO)->{
                     Room roomBusiness = map.getRooms().get(key);
-                    roomDTO.getAdiacentRooms().forEach((dirKey,roomDTOAdiancent)->{
-                        Room roomBusinessAdiacent = map.getRooms()
-                                .get(RoomNameKeyGenerator.giveKeyForRoom(roomDTOAdiancent.getPositionY(),roomDTOAdiancent.getPositionX()));
-                        roomBusiness.setSingleRoom(dirKey, roomBusinessAdiacent);
-                        roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomBusiness);
+                    roomDTO.getAdiacentDoors().forEach((dirKey,doorDTO)->{
+                        if(roomBusiness.getAdiacentDoors().get(dirKey) == null){
+                            RoomDTO oppositeRoomDTO = doorDTO.getRoomA() != roomDTO ? doorDTO.getRoomA() : doorDTO.getRoomB();
+                            Room roomBusinessAdiacent = map.getRooms()
+                                    .get(RoomNameKeyGenerator.giveKeyForRoom(oppositeRoomDTO.getPositionY(),oppositeRoomDTO.getPositionX()));
+
+                            Door businessDoor = doorMarhsaller.marshall(doorDTO);
+                            businessDoor.setRoomA(roomBusiness);
+                            businessDoor.setRoomB(roomBusinessAdiacent);
+                            roomBusiness.getAdiacentDoors().put(dirKey,businessDoor);
+                            roomBusinessAdiacent.getAdiacentDoors().put(DirectionEnum.oppositeValue(dirKey),businessDoor);
+                        }
                     });
                 });
             }
@@ -63,13 +74,20 @@ public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap>
                     RoomDTO roomBusiness = roomMarshaller.marshall(room);
                     rooms.put(key,roomBusiness);
                 });
-                map.getRooms().forEach((key,room)->{
-                    RoomDTO roomDTO = mapDTO.getRooms().get(key);
-                    room.getAdiacentRooms().forEach((dirKey,roomBusinessAdiancent)->{
-                        RoomDTO roomBusinessAdiacent = mapDTO.getRooms()
-                                .get(RoomNameKeyGenerator.giveKeyForRoom(roomBusinessAdiancent.getPositionY(),roomBusinessAdiancent.getPositionX()));
-                        roomDTO.setSingleRoom(dirKey, roomBusinessAdiacent);
-                        roomBusinessAdiacent.setSingleRoom(DirectionEnum.oppositeValue(dirKey),roomDTO);
+                map.getRooms().forEach((key,businessRoom)->{
+                    RoomDTO dtoRoom = mapDTO.getRooms().get(key);
+                    businessRoom.getAdiacentDoors().forEach((dirKey,doorBusiness)->{
+                        if(dtoRoom.getAdiacentDoors().get(dirKey) == null){
+                            Room oppositeRoomBusiness = doorBusiness.getRoomA() != businessRoom ? doorBusiness.getRoomA() : doorBusiness.getRoomB();
+                            RoomDTO roomDTOAdiacent = mapDTO.getRooms()
+                                    .get(RoomNameKeyGenerator.giveKeyForRoom(oppositeRoomBusiness.getPositionY(),oppositeRoomBusiness.getPositionX()));
+
+                            DoorDTO dtoDoor = doorMarhsaller.marshall(doorBusiness);
+                            dtoDoor.setRoomA(dtoRoom);
+                            dtoDoor.setRoomB(roomDTOAdiacent);
+                            dtoRoom.getAdiacentDoors().put(dirKey,dtoDoor);
+                            roomDTOAdiacent.getAdiacentDoors().put(DirectionEnum.oppositeValue(dirKey),dtoDoor);
+                        }
                     });
                 });
             }
