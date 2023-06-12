@@ -37,7 +37,7 @@ public class RenderMapService {
             if (doorInDirection != null) {
                 List<Integer> list = new ArrayList<>();
                 list.add(i);
-                Room roomToPrint = doorInDirection.getRoomA() != room ? doorInDirection.getRoomA() : doorInDirection.getRoomB();
+                Room roomToPrint = doorInDirection.getRooms().get(DirectionEnum.values()[i]);
                 visibleRooms.add(roomToPrint.getPositionY() + ";" + roomToPrint.getPositionX());
                 putVisibleRoom(roomToPrint, list);
             }

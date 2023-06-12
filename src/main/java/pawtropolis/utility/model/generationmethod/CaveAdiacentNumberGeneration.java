@@ -215,7 +215,7 @@ public class CaveAdiacentNumberGeneration extends GenerationMethod {
         for (DirectionEnum direction : DirectionEnum.values()) {
             Door door = room.getAdiacentDoors().get(direction);
             if (door != null) {
-                Room roomAdiacent = door.getRoomA() != room ? door.getRoomA() : door.getRoomB();
+                Room roomAdiacent = door.getRooms().get(direction);
                 if (roomAdiacent != null) {
                     if (roomAdiacent.getType().equals(room.getType()) && !(checkedRooms.stream().anyMatch(r2 -> r2.equals(roomAdiacent)))) {
                         checkedRooms.add(roomAdiacent);

@@ -79,7 +79,7 @@ public class GoStrategy extends Strategy{
         Room toGo = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY() + changeInY,player.getPositionX() + changeInX));
         Room actualRoom = map.getRooms().get(RoomNameKeyGenerator.giveKeyForRoom(player.getPositionY(),player.getPositionX()));
         Door doorInDirection = actualRoom.getAdiacentDoors().get(directionEnum);
-        Room possibileDirectionRoom = doorInDirection.getRoomA() != actualRoom ? doorInDirection.getRoomA() : doorInDirection.getRoomB();
+        Room possibileDirectionRoom = doorInDirection.getRooms().get(directionEnum);
         return possibileDirectionRoom != null && isDoorOpen(player,actualRoom,directionEnum) && possibileDirectionRoom == toGo;
     }
 

@@ -39,11 +39,11 @@ public class Room extends BusinessClass {
     }
     public Room setSingleRoom(DirectionEnum directionEnum,Room room){
         Door door = new Door();
-        door.setRoomA(this);
-        door.setRoomB(room);
+        door.getRooms().put(DirectionEnum.oppositeValue(directionEnum),this);
+        door.getRooms().put(directionEnum,room);
+
         this.adiacentDoors.put(directionEnum,door);
-        DirectionEnum opposite = DirectionEnum.oppositeValue(directionEnum);
-        room.adiacentDoors.put(opposite,door);
+        room.adiacentDoors.put(DirectionEnum.oppositeValue(directionEnum),door);
         return room;
     }
     public List<pawtropolis.model.entity.Entity> getEntities() {

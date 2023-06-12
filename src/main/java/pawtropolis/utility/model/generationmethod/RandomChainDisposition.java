@@ -1,18 +1,17 @@
 package pawtropolis.utility.model.generationmethod;
 
-import java.util.*;
-import java.util.function.BiPredicate;
-
 import lombok.extern.slf4j.Slf4j;
-import pawtropolis.model.map.Door;
-import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.model.entity.Player;
 import pawtropolis.model.items.Inventory;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.model.map.GameMap;
 import pawtropolis.model.map.Room;
+import pawtropolis.utility.RoomNameKeyGenerator;
 import pawtropolis.utility.RoomType;
+
+import java.util.*;
+import java.util.function.BiPredicate;
 @Slf4j
 public class RandomChainDisposition extends GenerationMethod {
 
@@ -152,13 +151,13 @@ public class RandomChainDisposition extends GenerationMethod {
 
 	private void recursionToFormCorridorFromEndRoomToStartingRoom(Room mainRoom, int halfLenght) {
 		mainRoom.setType(RoomType.CORRIDOR_TYPE);
-		for (Door door : mainRoom.getAdiacentDoors().values()) {
-			Room room = door.getRoomA() != mainRoom ? door.getRoomA() : door.getRoomB();
+		mainRoom.getAdiacentDoors().forEach((direction, door) -> {
+			Room room = door.getRooms().get(direction);
 			if (room != null && (!room.getType().equals(RoomType.CORRIDOR_TYPE))
 					&& room.getChainPosition() == mainRoom.getChainPosition() - 1) {
 				recursionToFormCorridorFromEndRoomToStartingRoom(room, halfLenght);
 			}
-		}
+		});
 	}
 
 	public boolean isNearEntry(Room room) {

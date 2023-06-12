@@ -36,7 +36,15 @@ public class RoomDTO implements DTOClass {
     @OneToMany
     private List<EntityDTO> npcs;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(name="door_connection",
+            joinColumns=
+            @JoinColumn(name="from_room_id", referencedColumnName="id"),
+            inverseJoinColumns=
+            @JoinColumn(name="to_door_id", referencedColumnName="id")
+    )
+    @MapKeyColumn(name = "direction_id")
+    @MapKeyEnumerated
     private EnumMap<DirectionEnum, DoorDTO> adiacentDoors;
 
     private int chainPosition;
