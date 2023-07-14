@@ -11,9 +11,9 @@ import pawtropolis.utility.marshall.ConcrateMarshaller;
 import java.util.Optional;
 
 @Component
-public class EntityDAO extends AbstractPersistanceClass<EntityDTO, Entity,Long> {
+public class EntityDAO extends AbstractPersistanceClass<EntityDTO, Entity,Integer> {
     @Autowired
-    protected EntityDAO(JpaRepository<EntityDTO, Long> repository, ConcrateMarshaller<EntityDTO, Entity> marshaller) {
+    protected EntityDAO(JpaRepository<EntityDTO, Integer> repository, ConcrateMarshaller<EntityDTO, Entity> marshaller) {
         super(repository, marshaller);
     }
 
@@ -38,7 +38,7 @@ public class EntityDAO extends AbstractPersistanceClass<EntityDTO, Entity,Long> 
     }
 
     @Override
-    public boolean remove(Long id) {
+    public boolean remove(Integer id) {
         if(!ObjectUtils.isEmpty(id)){
             Optional<EntityDTO> optDTO = getRepository().findById(id);
             optDTO.ifPresent(inventoryDTO -> getRepository().delete(inventoryDTO));
@@ -47,7 +47,7 @@ public class EntityDAO extends AbstractPersistanceClass<EntityDTO, Entity,Long> 
     }
 
     @Override
-    public Entity get(Long id) {
+    public Entity get(Integer id) {
         if(!ObjectUtils.isEmpty(id)){
             Optional<EntityDTO> optDTO = getRepository().findById(id);
             if(optDTO.isPresent()){

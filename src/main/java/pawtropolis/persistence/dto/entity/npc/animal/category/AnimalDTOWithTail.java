@@ -13,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "animal_with_tail")
 public abstract class AnimalDTOWithTail extends AnimalDTO {
     @Column(name = "tail_lenght")
     private double tailLenght;

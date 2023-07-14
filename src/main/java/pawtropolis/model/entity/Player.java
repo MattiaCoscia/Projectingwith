@@ -23,4 +23,6 @@ public class Player extends Entity {
 	public ItemStored getItem(String item) {
 		return bag.getItem(item);
 	}
+
+	public void removeItem(ItemStored item){bag.removeItem(item);};
 }

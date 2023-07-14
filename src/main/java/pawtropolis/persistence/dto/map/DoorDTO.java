@@ -7,9 +7,11 @@ import lombok.Setter;
 import pawtropolis.model.items.ItemStored;
 import pawtropolis.model.map.DirectionEnum;
 import pawtropolis.persistence.dto.DTOClass;
+import pawtropolis.persistence.dto.items.InventoryDTO;
 import pawtropolis.persistence.dto.items.ItemStoredDTO;
 
 import java.util.EnumMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -30,16 +32,17 @@ public class DoorDTO implements DTOClass {
     )
     @MapKeyEnumerated(value = EnumType.STRING)
     @MapKeyColumn(name = "direction_id",table = "door_connection")
-    private EnumMap<DirectionEnum,RoomDTO> rooms;
+    private Map<DirectionEnum,RoomDTO> rooms;
 
     @Column(name = "is_open")
     private boolean isOpen;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "id",name = "itemkey_id")
-    private ItemStoredDTO keyItem;
+    @JoinColumn(referencedColumnName = "id",name = "inventory_id")
+    private InventoryDTO inventoryDTO;
 
     public DoorDTO() {
         this.rooms = new EnumMap<>(DirectionEnum.class);
+        this.inventoryDTO = new InventoryDTO();
     }
 }

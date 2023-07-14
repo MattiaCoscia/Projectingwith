@@ -19,7 +19,9 @@ public class DoorMarhsaller implements ConcrateMarshaller<DoorDTO, Door> {
     public Door marshall(DoorDTO dtoInstance) {
         Door businessDoor = new Door();
         businessDoor.setOpen(dtoInstance.isOpen());
-        businessDoor.setKeyItem(itemStoredMarshaller.marshall(dtoInstance.getKeyItem()));
+        dtoInstance.getInventoryDTO().getItems().forEach((dtoKeyName,dtoKey)->{
+            businessDoor.getInventory().addItemTOInventory(itemStoredMarshaller.marshall(dtoKey));
+        });
         return businessDoor;
     }
 
@@ -27,7 +29,9 @@ public class DoorMarhsaller implements ConcrateMarshaller<DoorDTO, Door> {
     public DoorDTO marshall(Door businessInstance) {
         DoorDTO dtoDoor = new DoorDTO();
         dtoDoor.setOpen(businessInstance.isOpen());
-        dtoDoor.setKeyItem(itemStoredMarshaller.marshall(businessInstance.getKeyItem()));
+        businessInstance.getInventory().getItems().forEach((businessKeyName,businessKey)->{
+            dtoDoor.getInventoryDTO().addItemToInventory(itemStoredMarshaller.marshall(businessKey));
+        });
         return dtoDoor;
     }
 }

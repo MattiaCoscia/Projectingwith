@@ -12,7 +12,6 @@ import pawtropolis.persistence.dto.entity.npc.animal.category.AnimalDTOWithTail;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "lion")
 public class LionDTO extends AnimalDTOWithTail{
 
 }

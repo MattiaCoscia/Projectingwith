@@ -13,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "animal_with_wing")
 public abstract class AnimalDTOWithWings extends AnimalDTO {
     @Column(name = "wings_spawn")
     private double wingsSpan;

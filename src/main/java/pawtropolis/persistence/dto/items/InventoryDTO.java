@@ -15,10 +15,16 @@ import java.util.Map;
 public class InventoryDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @MapKey(name = "personalName")
+    @JoinTable(name="item_stored_inventory_correlation",
+            joinColumns=
+            @JoinColumn(name="inventory_id", referencedColumnName="id"),
+            inverseJoinColumns=
+            @JoinColumn(name="item_stored_id", referencedColumnName="id")
+    )
+    @MapKeyColumn(name = "personalName",table = "item_stored_inventory_correlation")
     private Map<String, ItemStoredDTO> items;
 
     public InventoryDTO(){

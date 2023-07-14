@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "animal")
 public abstract class AnimalDTO extends EntityDTO{
 	@Column(name = "animal_name")
 	private String animalName;

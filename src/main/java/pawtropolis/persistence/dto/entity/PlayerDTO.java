@@ -12,7 +12,6 @@ import pawtropolis.persistence.dto.items.InventoryDTO;
 @Getter
 @Setter
 @Entity
-@Table(name = "player")
 public class PlayerDTO extends EntityDTO{
 
 	@OneToOne

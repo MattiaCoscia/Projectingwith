@@ -11,7 +11,7 @@ import pawtropolis.model.BusinessClass;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Entity extends BusinessClass {
-    protected long id;
+    protected int id;
     protected String name;
     protected double lifePoints;
     protected int positionX;

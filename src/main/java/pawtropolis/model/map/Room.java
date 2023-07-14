@@ -55,4 +55,5 @@ public class Room extends BusinessClass {
     public ItemStored getItem(String item){
         return inventory.getItemFromInventory(item);
     }
+    public void removeItem(ItemStored item){this.inventory.removeItem(item);}
 }

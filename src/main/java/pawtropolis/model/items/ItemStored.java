@@ -16,7 +16,6 @@ public class ItemStored extends BusinessClass {
     private int quantity;
     private String personalName;
     private ItemBlueprint itemBlueprint;
-    private Inventory inventory;
     private int hashKey;
     public ItemStored(ItemBlueprint itemBlueprint,int quantity){
         this.personalName = itemBlueprint.getName();
@@ -31,9 +30,5 @@ public class ItemStored extends BusinessClass {
 
     public void decreaseQuantity(){
         this.quantity--;
-        if(this.quantity == 0){
-            this.inventory.getItems().remove(itemBlueprint.getName(),this);
-            this.inventory=null;
-        }
     }
 }

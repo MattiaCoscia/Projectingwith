@@ -35,6 +35,9 @@ public class DropStrategy extends Strategy{
                         actualRoom.addItem(new ItemStored(itemStoredToDrop.getItemBlueprint(), 1));
                         player.getBag().decreaseOccupiedSlots(itemStoredToDrop.getItemBlueprint().getVolume());
                         itemStoredToDrop.decreaseQuantity();
+                        if(itemStoredToDrop.getQuantity() <= 0){
+                            player.removeItem(itemStoredToDrop);
+                        }
                         return ActionEnum.DROP;
                     }
                 }

@@ -23,7 +23,6 @@ public class InventoryMarshaller implements ConcrateMarshaller<InventoryDTO,Inve
             inventory.setId(inventoryDTO.getId());
             for(ItemStoredDTO itemDTO:inventoryDTO.getItems().values()){
                 ItemStored item = itemStoredMarshaller.marshall(itemDTO);
-                item.setInventory(inventory);
                 inventory.addItemTOInventory(item);
             }
             return inventory;
@@ -38,7 +37,6 @@ public class InventoryMarshaller implements ConcrateMarshaller<InventoryDTO,Inve
             inventoryDTO.setId(inventory.getId());
             for(ItemStored item:inventory.getItems().values()){
                 ItemStoredDTO itemDTO = itemStoredMarshaller.marshall(item);
-                itemDTO.setInventoryDTO(inventoryDTO);
                 inventoryDTO.addItemToInventory(itemDTO);
             }
             return inventoryDTO;

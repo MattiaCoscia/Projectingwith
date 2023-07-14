@@ -12,12 +12,14 @@ import pawtropolis.persistence.dto.DTOClass;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="entity_type",
+        discriminatorType = DiscriminatorType.STRING)
 @Table(name = "entity")
 public abstract class EntityDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    protected long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
     @Column(name = "name")
     protected String name;
     @Column(name = "lifepoints")

@@ -31,8 +31,10 @@ public class LookStrategy extends Strategy{
         StringBuilder doors = new StringBuilder();
         actualRoom.getAdiacentDoors().forEach((direction,door) -> {
             doors.append("\n"+direction.toString()).append(" is open: ").append(door.isOpen());
-            if(!door.isOpen() && door.getKeyItem() != null){
-                doors.append(" | key: ").append(door.getKeyItem().getItemBlueprint().getName()+" |");
+            if(!door.isOpen()){
+                door.getInventory().getItems().forEach((keyName,key)->{
+                    doors.append(" | key: ").append(keyName+" |");
+                });
             }
         });
         log.info(doors.toString());

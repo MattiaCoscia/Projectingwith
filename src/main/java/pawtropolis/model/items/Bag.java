@@ -28,4 +28,8 @@ public class Bag extends BusinessClass {
     public void decreaseOccupiedSlots(int slots){
         occupiedSlots -= slots;
     }
+
+    public void removeItem(ItemStored item) {
+        this.inventory.removeItem(item);
+    }
 }

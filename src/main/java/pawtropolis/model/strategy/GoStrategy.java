@@ -111,6 +111,9 @@ public class GoStrategy extends Strategy{
             ItemStored choosenItem = items.get(nameOfChoosenItem);
             if(door.changeState(choosenItem)){
                 choosenItem.decreaseQuantity();
+                if(choosenItem.getQuantity() <= 0){
+                    player.removeItem(choosenItem);
+                }
                 log.info("the door has opened");
             }else{
                 log.info("the item choosen was not the right one to open this door");

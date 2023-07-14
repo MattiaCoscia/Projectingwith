@@ -53,15 +53,15 @@ public abstract class GenerationMethod {
                 if(!adiancentDoors.isEmpty()){
                     int posToUse = random.nextInt(adiancentDoors.size());
                     Door doorToLock = adiancentDoors.remove(posToUse);
-                    if(doorToLock != null && doorToLock.getKeyItem() == null && !doorToLock.isOpen()){
-                        doorToLock.setKeyItem(item);
+                    if(doorToLock != null && doorToLock.getInventory().getItems().size() == 0 && !doorToLock.isOpen()){
+                        doorToLock.getInventory().addItemTOInventory(item);
                         doorToLock.setOpen(false);
                     };
                 }
             });
         }
         adiancentDoors.forEach(door -> {
-            if(!door.isOpen() && door.getKeyItem() == null){
+            if(!door.isOpen() && door.getInventory().getItems().size() == 0){
                 door.setOpen(true);
             }
         });

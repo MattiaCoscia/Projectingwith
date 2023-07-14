@@ -25,10 +25,6 @@ public class ItemStoredDTO implements DTOClass {
     @JoinColumn(name = "blueprint_id", referencedColumnName = "id")
     private ItemBlueprintDTO itemBlueprintDTO;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
-    private InventoryDTO inventoryDTO;
-
     @Column(name = "hash_key")
     private int hashKey;
 }

@@ -4,9 +4,7 @@ package pawtropolis.persistence.dto.map;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import pawtropolis.model.map.DirectionEnum;
-import pawtropolis.model.map.Door;
 import pawtropolis.persistence.dto.DTOClass;
 import pawtropolis.persistence.dto.entity.EntityDTO;
 import pawtropolis.persistence.dto.items.InventoryDTO;
@@ -15,9 +13,9 @@ import pawtropolis.utility.RoomType;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
-@Setter
 @Entity
 @EqualsAndHashCode
 @Table(name = "room")
@@ -37,19 +35,13 @@ public class RoomDTO implements DTOClass {
     @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private InventoryDTO inventoryDTO;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<EntityDTO> npcs;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="door_connection",
-            joinColumns=
-            @JoinColumn(name="from_room_id", referencedColumnName="id"),
-            inverseJoinColumns=
-            @JoinColumn(name="to_door_id", referencedColumnName="id")
-    )
+    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.ALL)
     @MapKeyEnumerated(value = EnumType.STRING)
-    @MapKeyColumn(name = "direction_id",table = "door_connection")
-    private EnumMap<DirectionEnum, DoorDTO> adiacentDoors;
+    @MapKeyColumn(name = "direction_id", table = "door_connection")
+    private Map<DirectionEnum, DoorDTO> adiacentDoors;
 
     @Column(name = "chain_position")
     private int chainPosition;
@@ -67,5 +59,37 @@ public class RoomDTO implements DTOClass {
 
     public void setAdiacentDoors(EnumMap<DirectionEnum, DoorDTO> adiacentDoors) {
         this.adiacentDoors = adiacentDoors;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setType(RoomType type) {
+        this.type = type;
+    }
+
+    public void setInventoryDTO(InventoryDTO inventoryDTO) {
+        this.inventoryDTO = inventoryDTO;
+    }
+
+    public void setNpcs(List<EntityDTO> npcs) {
+        this.npcs = npcs;
+    }
+
+    public void setChainPosition(int chainPosition) {
+        this.chainPosition = chainPosition;
+    }
+
+    public void setPositionX(int positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(int positionY) {
+        this.positionY = positionY;
     }
 }
