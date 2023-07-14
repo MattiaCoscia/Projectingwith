@@ -2,6 +2,7 @@ package pawtropolis.persistence.dto.map;
 
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import pawtropolis.model.map.DirectionEnum;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "room")
 public class RoomDTO implements DTOClass {
     @Id
@@ -45,8 +47,8 @@ public class RoomDTO implements DTOClass {
             inverseJoinColumns=
             @JoinColumn(name="to_door_id", referencedColumnName="id")
     )
-    @MapKeyColumn(name = "direction_id")
     @MapKeyEnumerated(value = EnumType.STRING)
+    @MapKeyColumn(name = "direction_id",table = "door_connection")
     private EnumMap<DirectionEnum, DoorDTO> adiacentDoors;
 
     @Column(name = "chain_position")
@@ -59,7 +61,7 @@ public class RoomDTO implements DTOClass {
     private int positionY;
 
     public RoomDTO() {
-        this.adiacentDoors = new EnumMap(DirectionEnum.class);
+        this.adiacentDoors = new EnumMap<>(DirectionEnum.class);
         this.npcs = new ArrayList<>();
     }
 

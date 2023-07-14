@@ -18,8 +18,12 @@ public abstract class EntityDTO implements DTOClass {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected long id;
+    @Column(name = "name")
     protected String name;
+    @Column(name = "lifepoints")
     protected double lifePoints;
+    @Column(name = "position_x")
     protected int positionX;
+    @Column(name = "position_y")
     protected int positionY;
 }

@@ -63,9 +63,113 @@ CREATE TABLE IF NOT EXISTS bag
     inventory_id    INT                NOT NULL references inventory (id)
 );
 
-CREATE TABLE IF NOT EXISTS player
+CREATE TABLE IF NOT EXISTS entity
 (
     Id         SERIAL PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS animal
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS animal_with_tail
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
+    tail_lenght FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS animal_with_wing
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
+    wings_spawn FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS eagle
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT              NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
+    wings_spawn FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS lion
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
+    tail_lenght FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tiger
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
+    name       VARCHAR(255)       NOT NULL,
+    position_x INT                NOT NULL,
+    position_y INT                NOT NULL,
+    lifepoints FLOAT                NOT NULL,
+    animal_name VARCHAR(255)      NOT NULL,
+    prefered_food VARCHAR(255)    NOT NULL,
+    age INT NOT NULL,
+    date_entry VARCHAR(255) NOT NULL,
+    weight FLOAT NOT NULL,
+    height FLOAT NOT NULL,
+    tail_lenght FLOAT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS player
+(
+    Id         BIGINT PRIMARY KEY NOT NULL,
     name       VARCHAR(24)        NOT NULL,
     position_x INT                NOT NULL,
     position_y INT                NOT NULL,

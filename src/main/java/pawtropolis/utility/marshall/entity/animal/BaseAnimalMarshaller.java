@@ -8,6 +8,8 @@ import pawtropolis.model.entity.npc.animal.category.Animal;
 import pawtropolis.utility.marshall.AbstractMarshaller;
 import pawtropolis.utility.marshall.entity.BaseEntityMarshaller;
 
+import java.time.LocalDate;
+
 @Slf4j
 @Getter
 public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal>
@@ -27,10 +29,10 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
                 return null;
             }
             animal.setAge(animalDTO.getAge());
-            animal.setHeight(animal.getHeight());
-            animal.setDateEntry(animal.getDateEntry());
-            animal.setPreferedFood(animal.getPreferedFood());
-            animal.setWeight(animal.getWeight());
+            animal.setHeight(animalDTO.getHeight());
+            animal.setDateEntry(LocalDate.parse(animalDTO.getDateEntry()));
+            animal.setPreferedFood(animalDTO.getPreferedFood());
+            animal.setWeight(animalDTO.getWeight());
             return animal;
         }
         return null;
@@ -48,7 +50,7 @@ public abstract class BaseAnimalMarshaller<A extends AnimalDTO, B extends Animal
             }
             animalDTO.setAge(animal.getAge());
             animalDTO.setHeight(animal.getHeight());
-            animalDTO.setDateEntry(animal.getDateEntry());
+            animalDTO.setDateEntry(animal.getDateEntry()+"");
             animalDTO.setPreferedFood(animal.getPreferedFood());
             animalDTO.setWeight(animal.getWeight());
             return animalDTO;
