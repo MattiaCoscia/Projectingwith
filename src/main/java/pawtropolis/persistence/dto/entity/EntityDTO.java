@@ -16,7 +16,7 @@ import pawtropolis.persistence.dto.DTOClass;
 @Table(name = "entity")
 public abstract class EntityDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     protected long id;
     protected String name;
     protected double lifePoints;

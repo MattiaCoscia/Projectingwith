@@ -16,7 +16,7 @@ import java.util.EnumMap;
 @Table(name = "door")
 public class DoorDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToMany
@@ -27,13 +27,13 @@ public class DoorDTO implements DTOClass {
             @JoinColumn(name="from_room_id", referencedColumnName="id")
     )
     @MapKeyColumn(name = "direction_id")
-    @MapKeyEnumerated
+    @MapKeyEnumerated(value = EnumType.STRING)
     private EnumMap<DirectionEnum,RoomDTO> rooms;
 
     @Column(name = "is_open")
     private boolean isOpen;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "id",name = "itemkey_id")
     private ItemStoredDTO keyItem;
 

@@ -16,6 +16,7 @@ public class StrategyMapping {
             ActionEnum.GO,1,
             ActionEnum.GET,1,
             ActionEnum.DROP,1,
+            ActionEnum.SAVE,0,
             ActionEnum.EXIT,0,
             ActionEnum.UNKNOWN,0
     );

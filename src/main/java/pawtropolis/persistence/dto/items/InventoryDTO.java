@@ -14,10 +14,10 @@ import java.util.Map;
 @Table(name = "inventory")
 public class InventoryDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @MapKey(name = "personalName")
     private Map<String, ItemStoredDTO> items;
 

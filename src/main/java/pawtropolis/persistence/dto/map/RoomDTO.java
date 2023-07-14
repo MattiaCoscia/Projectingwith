@@ -21,22 +21,24 @@ import java.util.List;
 @Table(name = "room")
 public class RoomDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "name")
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "type_id")
     private RoomType type;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "inventory_id", referencedColumnName = "id")
     private InventoryDTO inventoryDTO;
 
     @OneToMany
     private List<EntityDTO> npcs;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="door_connection",
             joinColumns=
             @JoinColumn(name="from_room_id", referencedColumnName="id"),
@@ -44,17 +46,24 @@ public class RoomDTO implements DTOClass {
             @JoinColumn(name="to_door_id", referencedColumnName="id")
     )
     @MapKeyColumn(name = "direction_id")
-    @MapKeyEnumerated
+    @MapKeyEnumerated(value = EnumType.STRING)
     private EnumMap<DirectionEnum, DoorDTO> adiacentDoors;
 
+    @Column(name = "chain_position")
     private int chainPosition;
 
+    @Column(name = "position_x")
     private int positionX;
 
+    @Column(name = "position_y")
     private int positionY;
 
     public RoomDTO() {
         this.adiacentDoors = new EnumMap(DirectionEnum.class);
         this.npcs = new ArrayList<>();
+    }
+
+    public void setAdiacentDoors(EnumMap<DirectionEnum, DoorDTO> adiacentDoors) {
+        this.adiacentDoors = adiacentDoors;
     }
 }

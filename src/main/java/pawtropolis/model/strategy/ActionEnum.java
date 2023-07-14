@@ -6,6 +6,7 @@ public enum ActionEnum {
     GET,
     DROP,
     LOOK,
+    SAVE,
     EXIT,
     UNKNOWN;
 

@@ -29,6 +29,7 @@ public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap>
     public GameMap marshall(GameMapDTO mapDTO){
         if(!ObjectUtils.isEmpty(mapDTO)){
             GameMap map = new GameMap();
+            map.setName(mapDTO.getName());
             map.setHeightMap(mapDTO.getHeightMap());
             map.setWidthMap(mapDTO.getWidthMap());
             map.setId(map.getId());
@@ -65,6 +66,7 @@ public class GameMapMarshaller implements ConcrateMarshaller<GameMapDTO,GameMap>
     public GameMapDTO marshall(GameMap map){
         if(!ObjectUtils.isEmpty(map)){
             GameMapDTO mapDTO = new GameMapDTO();
+            mapDTO.setName(map.getName());
             mapDTO.setHeightMap(map.getHeightMap());
             mapDTO.setWidthMap(map.getWidthMap());
             mapDTO.setId(mapDTO.getId());

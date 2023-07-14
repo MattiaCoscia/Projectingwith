@@ -6,11 +6,17 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import pawtropolis.controller.ActionController;
 import pawtropolis.service.GameStarterService;
 import pawtropolis.model.strategy.ActionEnum;
 import pawtropolis.view.RenderMapService;
 
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +38,14 @@ public class Starter implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args){
         gameStarterService.execute();
-        List<ActionEnum> actionEnum = new ArrayList<>();
-        while (!actionEnum.contains(ActionEnum.EXIT)) {
+        List<ActionEnum> actionEnum;
+        while (true) {
             actionEnum = actionController.playerAction();
             if (actionEnum.contains(ActionEnum.UNKNOWN)) {
                 log.info("typed a command not recognized ");
-            } else if(!actionEnum.contains(ActionEnum.EXIT)){
+            } else if(actionEnum.contains(ActionEnum.EXIT)){
+                break;
+            }else{
                 renderMapService.printMap();
             }
         }

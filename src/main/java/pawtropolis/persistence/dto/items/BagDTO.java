@@ -13,7 +13,7 @@ import pawtropolis.persistence.dto.DTOClass;
 @Table(name = "bag")
 public class BagDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne

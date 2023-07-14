@@ -13,14 +13,15 @@ import pawtropolis.persistence.dto.DTOClass;
 @Table(name = "item_stored")
 public class ItemStoredDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "quantity")
     private int quantity;
 
     @Column(name = "personal_name")
     private String personalName;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "blueprint_id", referencedColumnName = "id")
     private ItemBlueprintDTO itemBlueprintDTO;
 

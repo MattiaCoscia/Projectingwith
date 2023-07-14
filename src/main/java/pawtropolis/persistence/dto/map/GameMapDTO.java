@@ -14,11 +14,16 @@ import java.util.Map;
 @Table(name = "game_map")
 public class GameMapDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "width_map")
     private int widthMap;
+    @Column(name = "height_map")
     private int heightMap;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
     @MapKeyEnumerated(EnumType.STRING)
     private Map<String, RoomDTO> rooms;
     public GameMapDTO() {

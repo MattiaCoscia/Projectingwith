@@ -13,7 +13,7 @@ import pawtropolis.persistence.dto.DTOClass;
 @Table(name = "item_blueprint")
 public class ItemBlueprintDTO implements DTOClass {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
